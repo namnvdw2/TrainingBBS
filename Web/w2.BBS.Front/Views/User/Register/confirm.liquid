@@ -1,0 +1,79 @@
+{% _layout 'layout.liquid' %}
+
+{% _area title %}ログイン画面{% end_area %}
+
+{% _area head_resource %}
+{% end_area %}
+
+{% _area page_body %}
+<vue-login></vue-login>
+{% end_area %}
+
+{% _area component %}
+<script type="text/x-template" id="vue-login">
+  <div class="container">
+    <div class="d-flex justify-content-center align-items-center vh-100">
+      <div class="justify-content-center">
+        <h4 class="text-center fw-bold mb-4">掲示板</h4>
+        <form class="align-items-center">
+          <div class="mb-3">
+            <input class="form-control" type="text" v-model="loginId" placeholder="ログインID" />
+          </div>
+          <div class="mb-3">
+            <input class="form-control" type="password" v-model="password" placeholder="パスワード" />
+          </div>
+          <div class="mb-3 d-flex justify-content-center">
+            <button class="btn btn-primary w-20" @click="login()">ログイン</button>
+          </div>
+          <p v-if="stateMessage">${ stateMessage }</p>
+        </form>
+        <p class="text-center">
+          アカウントを持っていない方は
+          <a class="" href="{{ RootUrl | append: "user/register/input" }}">アカウントを作成する</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</script>
+{% end_area %}
+
+<script>
+  {% _javascript key: "onload" %}
+  g_vueManager.setComponent('vue-login', {
+    template: '#vue-login',
+    data() {
+      return {
+        message: null,
+        stateMessage: null,
+      }
+    },
+    mounted() {
+    },
+    methods: {
+      login: function () {
+        const options = {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+              loginId: this.loginId,
+              password: this.password
+            }),
+        }
+
+        const promise = fetch(window.apiRoot + '/login', options)
+          .then(response => {
+            if (!response.ok) {
+              throw new Error(`HTTP ${res.status}`);
+            }
+
+            this.stateMessage = 'Logined!';
+
+            return response.json();
+          });
+      }
+    }
+  });
+  {% end_javascript %}
+</script>

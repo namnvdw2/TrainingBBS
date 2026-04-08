@@ -1,0 +1,83 @@
+{% _layout 'layout.liquid' %}
+
+{% _area title %}ログイン画面{% end_area %}
+
+{% _area head_resource %}
+{% end_area %}
+
+{% _area page_body %}
+<vue-register></vue-register>
+{% end_area %}
+
+{% _area component %}
+<script type="text/x-template" id="vue-register">
+  <div class="container">
+    <div class="d-flex justify-content-center align-items-center vh-100">
+      <div class="justify-content-center">
+        <div class="align-items-center">
+          <h3 class="text-center fw-bold mb-5">アカウント作成</h3>
+          <div class="mb-4">
+            <input class="form-control" type="text" v-model="name" placeholder="ユーザー名(50文以内)" />
+          </div>
+          <div class="mb-4">
+            <input class="form-control" type="text" v-model="loginId" placeholder="ログインID(15文以内)" />
+          </div>
+          <div class="mb-4">
+            <input class="form-control" type="password" v-model="password" placeholder="パスワード(15文以内)" />
+          </div>
+          <div class="mb-3 d-flex row">
+            <div class="col">
+              <button class="btn btn-primary w-100" @click="register()">確認する</button>
+            </div>
+            <div class="col">
+              <a class="btn btn-primary w-100" href="{{ RootUrl | append: 'login' }}">戻る</a>
+            </div>
+          </div>
+        </div>
+        <p v-if="stateMessage">${ stateMessage }</p>
+      </div>
+    </div>
+  </div>
+</script>
+{% end_area %}
+
+<script>
+  {% _javascript key: "onload" %}
+  g_vueManager.setComponent('vue-register', {
+    template: '#vue-register',
+    data() {
+      return {
+        stateMessage: "aaa",
+      }
+    },
+    mounted() {
+    },
+    methods: {
+      register: function () {
+        const options = {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name: this.name,
+            loginId: this.loginId,
+            password: this.password
+          }),
+        }
+
+        const promise = fetch(window.apiRoot + 'user/register', options)
+          .then(response => {
+            console.log(this.name);
+            if (!response.ok) {
+              throw new Error(`HTTP ${res.status}`);
+            }
+
+            this.stateMessage = 'Logined!';
+
+          });
+      }
+    }
+  });
+  {% end_javascript %}
+</script>

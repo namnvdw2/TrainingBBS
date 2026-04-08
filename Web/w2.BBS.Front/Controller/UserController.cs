@@ -1,14 +1,35 @@
-﻿using System.Web.Mvc;
+﻿// (c) 2025 W2 Co.,Ltd.
+
+using System.Web.Mvc;
 using w2.BBS.Front.Controller.Shared;
+using w2.BBS.Front.ViewModels.Request.User;
 
 namespace w2.BBS.Front.Controller
 {
-    public class UserController : BaseController
+	[RoutePrefix("user")]
+	public sealed class UserController : BaseController
 	{
-        // GET: User
-        public ActionResult Index()
-        {
-            return View();
-        }
-    }
+		/// <summary>
+		/// トップページ
+		/// </summary>
+		/// <returns>アクションリザルト</returns>
+		[HttpGet]
+		[Route("register/input")]
+		public ActionResult RegisterInput()
+		{
+			return View(
+				"User/Register/input.liquid");
+		}
+		/// <summary>
+		/// トップページ
+		/// </summary>
+		/// <returns>アクションリザルト</returns>
+		[HttpPost]
+		[Route("register")]
+		public ActionResult Register(UserRegisterViewModel request)
+		{
+			return Json(new { message = "OK" });
+		}
+	}
 }
+

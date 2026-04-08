@@ -2,7 +2,6 @@
 
 using System.Web.Mvc;
 using w2.BBS.Front.Controller.Shared;
-using w2.BBS.Front.ViewModels;
 
 namespace w2.BBS.Front.Controller
 {
@@ -14,7 +13,7 @@ namespace w2.BBS.Front.Controller
 		/// <returns>アクションリザルト</returns>
 		[HttpGet]
 		[Route("~/login")]
-		public ActionResult lll()
+		public ActionResult Index()
 		{
 			return View(
 				"login.liquid");
