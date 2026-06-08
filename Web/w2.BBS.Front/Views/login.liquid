@@ -43,6 +43,8 @@
     template: '#vue-login',
     data() {
       return {
+        loginId: '',
+        password: '',
         message: null,
         stateMessage: null,
       }
@@ -65,13 +67,25 @@
         const promise = fetch(window.apiRoot + '/login', options)
           .then(response => {
             if (!response.ok) {
-              throw new Error(`HTTP ${res.status}`);
+              throw new Error(`HTTP ${response.status}`);
             }
-
-            this.stateMessage = 'Logined!';
+            debugger
+            this.stateMessage = 'Logined!' + response;
 
             return response.json();
-          });
+          })
+          .then(data => {
+            this.stateMessage = 'Login success';
+            debugger
+
+            console.log(data);
+          })
+          .catch(error => {
+            console.error(error);
+            debugger
+
+            this.stateMessage = 'Login failed: ' + error.message;
+          });;
       }
     }
   });

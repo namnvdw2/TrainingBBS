@@ -20,6 +20,7 @@ namespace w2.BBS.Front.Controller
 			return View(
 				"User/Register/input.liquid");
 		}
+
 		/// <summary>
 		/// トップページ
 		/// </summary>

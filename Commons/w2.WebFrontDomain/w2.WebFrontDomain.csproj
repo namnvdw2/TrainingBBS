@@ -22,17 +22,23 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SessionDomain\w2.SessionDomain.csproj" />
     <ProjectReference Include="..\w2.AccountDomain\w2.AccountDomain.csproj" />
     <ProjectReference Include="..\w2.ForumDomain\w2.ForumDomain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="System.Web" />
     <Reference Include="w2.Common">
       <HintPath>..\..\lib\w2.Common.dll</HintPath>
     </Reference>
     <Reference Include="w2.FoundationDomain">
       <HintPath>..\..\lib\w2.FoundationDomain.dll</HintPath>
     </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Interface\" />
   </ItemGroup>
 
 </Project>

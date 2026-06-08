@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<!--  (c) 2025 W2 Co.,Ltd.  -->
+<ErrorMessages>
+  <FormatErrorRequired>
+    <![CDATA[ FormatErrorRequired ]]>
+  </FormatErrorRequired>
+
+  <FormatErrorMaxLength>
+    <![CDATA[ FormatErrorMaxLength ]]>
+  </FormatErrorMaxLength>
+
+  <FormatErrorMinLength>
+    <![CDATA[ FormatErrorMinLength ]]>
+  </FormatErrorMinLength>
+
+  <FormatErrorAlphanumeric>
+    <![CDATA[ FormatErrorAlphanumeric ]]>
+  </FormatErrorAlphanumeric>
+
+  <SystemError>
+    <![CDATA[ SystemError ]]>
+  </SystemError>
+
+  <ErrorLoggedInRequired>
+    <![CDATA[ ErrorLoggedInRequired ]]>
+  </ErrorLoggedInRequired>
+</ErrorMessages>
