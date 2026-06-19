@@ -15,17 +15,20 @@
     <div class="d-flex justify-content-center align-items-center vh-100">
       <div class="justify-content-center">
         <h4 class="text-center fw-bold mb-4">掲示板</h4>
-        <form class="align-items-center">
+        <form class="align-items-center" @submit.prevent="login" novalidate>
           <div class="mb-3">
-            <input class="form-control" type="text" v-model="loginId" placeholder="ログインID" />
+            <input :class="['form-control', { 'is-invalid': errors.LoginId  }]" type="text" v-model="loginId" placeholder="ログインID" />
+            <div class="invalid-feedback">${ errors.LoginId }</div>
           </div>
           <div class="mb-3">
             <input class="form-control" type="password" v-model="password" placeholder="パスワード" />
           </div>
-          <div class="mb-3 d-flex justify-content-center">
-            <button class="btn btn-primary w-20" @click="login()">ログイン</button>
+          <div class="text-center mb-3 text-danger" v-if="errorMessage">
+            ${ errorMessage }
           </div>
-          <p v-if="stateMessage">${ stateMessage }</p>
+          <div class="mb-3 d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary w-20">ログイン</button>
+          </div>
         </form>
         <p class="text-center">
           アカウントを持っていない方は
@@ -45,23 +48,22 @@
       return {
         loginId: '',
         password: '',
-        message: null,
-        stateMessage: null,
+        errors: {},
+        errorMessage: '',
       }
     },
     mounted() {
     },
     methods: {
       login: function () {
+        this.errors = {};
+        this.errorMessage = '';
         const options = {
           method: 'POST',
           headers: {
-              'Content-Type': 'application/json',
+            'Content-Type': 'application/json',
           },
-          body: JSON.stringify({
-              loginId: this.loginId,
-              password: this.password
-            }),
+          body: JSON.stringify({ loginId: this.loginId, password: this.password }),
         }
 
         const promise = fetch(window.apiRoot + '/login', options)
@@ -69,23 +71,24 @@
             if (!response.ok) {
               throw new Error(`HTTP ${response.status}`);
             }
-            debugger
-            this.stateMessage = 'Logined!' + response;
 
             return response.json();
           })
-          .then(data => {
-            this.stateMessage = 'Login success';
-            debugger
+          .then(result => {
+            if (result.success) {
+              window.location.href = result.redirectUrl;
+              return;
+            }
 
-            console.log(data);
+            this.errors = result.Errors || {};
+            console.log(this.errors.LoginId)
+            console.log(result.Message)
+            this.errorMessage = result.Message || '';
           })
           .catch(error => {
-            console.error(error);
-            debugger
-
-            this.stateMessage = 'Login failed: ' + error.message;
-          });;
+            console.error('Error during login:', error);
+            this.errorMessage = 'エラーが発生しました。時間をおいて再度お試しください。';
+          });
       }
     }
   });

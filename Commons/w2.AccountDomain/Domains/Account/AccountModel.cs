@@ -42,6 +42,24 @@ namespace w2.AccountDomain.Domains.Account
 			};
 		}
 
+		/// <summary>
+		/// Can login user
+		/// </summary>
+		/// <param name="password">The password</param>
+		/// <returns>True: user can login.</returns>
+		public bool CanLogin(Password password)
+		{
+			if (string.IsNullOrEmpty(password.AsString)) return false;
+
+			if (this.LoginId is null) return false;
+
+			if (this.Password == password) return false;
+
+			if (this.CancelFlag.IsCanceled()) return false;
+
+			return true;
+		}
+
 		/// <summary>Id</summary>
 		public Id Id { get; init; } = null!;
 		/// <summary>Login id</summary>

@@ -1,10 +1,9 @@
 ﻿// (c) 2025 W2 Co.,Ltd.
 
-using w2.AccountDomain.Domains.Account;
 using w2.AccountDomain.Dto.Account;
 using static w2.WebFrontDomain.Validator.CommonMessages;
 
-namespace w2.WebFrontDomain.Validator
+namespace w2.WebFrontDomain.Validator.User
 {
 	/// <summary>
 	/// User validator
@@ -43,12 +42,12 @@ namespace w2.WebFrontDomain.Validator
 		{
 			if (ValidatorUtility.CheckRequired(loginId))
 			{
-				return CommonMessages.GetMessage(CommonMessageKey.ErrorLoggedInRequired, LOGIN_ID_FIELD_NAME);
+				return GetMessage(CommonMessageKey.ErrorLoggedInRequired, LOGIN_ID_FIELD_NAME);
 			}
 
 			if (ValidatorUtility.CheckMinLength(loginId, MIN_LENGTH_LOGIN_ID))
 			{
-				return CommonMessages.GetMessage(
+				return GetMessage(
 					CommonMessageKey.FormatErrorMinLength,
 					LOGIN_ID_FIELD_NAME,
 					MIN_LENGTH_LOGIN_ID.ToString());
@@ -56,7 +55,7 @@ namespace w2.WebFrontDomain.Validator
 
 			if (ValidatorUtility.CheckMaxLength(loginId, MAX_LENGTH_LOGIN_ID))
 			{
-				return CommonMessages.GetMessage(
+				return GetMessage(
 					CommonMessageKey.FormatErrorMaxLength,
 					LOGIN_ID_FIELD_NAME,
 					MAX_LENGTH_LOGIN_ID.ToString());
@@ -64,7 +63,7 @@ namespace w2.WebFrontDomain.Validator
 
 			if (ValidatorUtility.CheckAlphanumeric(loginId) == false)
 			{
-				return CommonMessages.GetMessage(CommonMessageKey.ErrorLoggedInRequired, LOGIN_ID_FIELD_NAME);
+				return GetMessage(CommonMessageKey.ErrorLoggedInRequired, LOGIN_ID_FIELD_NAME);
 			}
 
 			return string.Empty;

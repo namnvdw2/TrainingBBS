@@ -11,6 +11,7 @@ using w2.Common;
 using w2.WebFrontDomain.Configurations;
 using w2.WebFrontDomain.Dto.Account;
 using w2.WebFrontDomain.Validator;
+using w2.WebFrontDomain.Validator.User;
 
 namespace w2.WebFrontDomain.Services.Account
 {
@@ -40,26 +41,21 @@ namespace w2.WebFrontDomain.Services.Account
 		/// <returns>Login response</returns>
 		public LoginResponse Login(LoginRequest request)
 		{
-			if (_session.ExistsUser()) return LoginResponse.CreateSuccessResponse();
+			if (_session.ExistsUser()) return LoginResponse.CreateSuccessResponse(request?.NextUrl);
 			LoginResponse loginResponse = new LoginResponse();
 			var error = UserValidator.CheckLoginId(request.LoginId);
 			if (error != string.Empty)
 			{
 				loginResponse.AddError(nameof(request.LoginId),error);
+				return loginResponse;
 			}
 
 			using (var connection = new SqlConnection(Constants.STRING_SQL_CONNECTION))
 			{
-				var account = _accountService.GetByLoginId(new LoginId(request.LoginId));
-				error = UserValidator.CheckLogin(account?.CreateDto(), request.Password);
-				if (error != string.Empty)
-				{
+				var result = LoginValidator.Validate(request, _accountService, out var user);
+				if (result.HasError || (user is null)) return (LoginResponse)result;
 
-				}
-				else
-				{
-					_session.LoginUser = LoginUser.CreateByUser(account);
-				}
+				_session.LoginUser = user;
 			}
 			return LoginResponse.CreateSuccessResponse(request?.NextUrl);
 		}

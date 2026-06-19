@@ -1,46 +1,43 @@
 ﻿// (c) 2025 W2 Co.,Ltd.
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using w2.WebFrontDomain.Dto;
+using SessionDomain.Dto.User;
+using System.Diagnostics.CodeAnalysis;
+using w2.AccountDomain.Services.Account;
 using w2.WebFrontDomain.Dto.Account;
+using static w2.WebFrontDomain.Validator.CommonMessages;
 
 namespace w2.WebFrontDomain.Validator
 {
-	internal class LoginValidator
+	/// <summary>
+	/// Login validator
+	/// </summary>
+	public class LoginValidator
 	{
-
-		/// <summary>Title field name</summary>
-		private const string TITLE_FIELD_NAME = "編集タイトル";
-		/// <summary>Body field name</summary>
-		private const string BODY_FIELD_NAME = "編集本文";
-
 		/// <summary>
-		/// Validate forum modify request
+		/// Validate
 		/// </summary>
-		/// <param name="request">The request</param>
-		/// <returns>Response</returns>
-		public BaseResponse Validate(LoginRequest request)
+		/// <param name="request"></param>
+		/// <param name="accountService"></param>
+		/// <param name="resultUser"></param>
+		/// <returns>Login response</returns>
+		public static LoginResponse Validate(
+			LoginRequest request,
+			AccountService accountService,
+			[NotNullWhen(returnValue: true)] out LoginUser? resultUser)
 		{
-			var response = new BaseResponse();
-			//var titleError = CheckTitle(request.Title, TITLE_FIELD_NAME);
-			//if (string.IsNullOrEmpty(titleError) == false)
-			//{
-			//	response.AddError(TITLE_ERROR_KEY, titleError);
-			//}
+			var response = new LoginResponse();
+			var user = accountService.GetByLoginId(new AccountDomain.Domains.Account.LoginId (request.LoginId));
+			if (user == null
+				|| user.CanLogin(new AccountDomain.Domains.Account.Password(request.Password)))
+			{
+				response.Success = false;
+				response.Message = GetMessage(CommonMessageKey.ErrorLoginIdOrPasswordInvalid);
+				resultUser = null;
+				return response;
+			}
 
-			//var bodyError = CheckBody(request.Body, BODY_FIELD_NAME);
-			//if (string.IsNullOrEmpty(bodyError) == false)
-			//{
-			//	response.AddError(BODY_ERROR_KEY, bodyError);
-			//}
-
-			//if (response.HasError) return response;
-
-			return new BaseResponse
+			resultUser = null;
+			return new LoginResponse
 			{
 				Success = true
 			};

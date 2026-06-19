@@ -26,6 +26,16 @@ namespace w2.WebFrontDomain.Validator
 			SystemError,
 			/// <summary>Error logged-in required message</summary>
 			ErrorLoggedInRequired,
+			/// <summary>Login ID or password invalid</summary>
+			ErrorLoginIdOrPasswordInvalid,
+			/// <summary>Login ID already in use</summary>
+			ErrorLoginIdUsed,
+			/// <summary>User registration failed</summary>
+			ErrorRegisterFailed,
+			/// <summary>User modification failed</summary>
+			ErrorModifyFailed,
+			/// <summary>User cancellation failed</summary>
+			ErrorCancelFailed,
 		}
 
 		/// <summary>Path to the message XML file</summary>
@@ -104,7 +114,7 @@ namespace w2.WebFrontDomain.Validator
 		/// </summary>
 		/// <param name="key">The message key</param>
 		/// <returns>Message</returns>
-		private string GetMessage(string key)
+		public string GetMessage(string key)
 		{
 			LoadMessageXml();
 			lock (s_lockObject)

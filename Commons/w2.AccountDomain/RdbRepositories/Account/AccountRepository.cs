@@ -12,7 +12,6 @@ namespace w2.AccountDomain.RdbRepositories.Account
 	public sealed class AccountRepository : IAccountRepository
 	{
 		private readonly ISqlRepository _repository;
-		private string connectionString = "Data Source=.\\SQLEXPRESS;Persist Security Info=True;User ID=sa;Password=w2Sa;TrustServerCertificate=True;";
 
 		/// <summary>
 		/// コンストラクタ

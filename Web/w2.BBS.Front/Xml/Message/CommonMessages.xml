@@ -25,4 +25,24 @@
   <ErrorLoggedInRequired>
     <![CDATA[ ErrorLoggedInRequired ]]>
   </ErrorLoggedInRequired>
+
+  <ErrorLoginIdOrPasswordInvalid>
+    <![CDATA[ ErrorLoginIdOrPasswordInvalid ]]>
+  </ErrorLoginIdOrPasswordInvalid>
+
+  <ErrorLoginIdUsed>
+    <![CDATA[ ErrorLoginIdUsed ]]>
+  </ErrorLoginIdUsed>
+
+  <ErrorRegisterFailed>
+    <![CDATA[ ErrorRegisterFailed ]]>
+  </ErrorRegisterFailed>
+
+  <ErrorModifyFailed>
+    <![CDATA[ ErrorModifyFailed ]]>
+  </ErrorModifyFailed>
+
+  <ErrorCancelFailed>
+    <![CDATA[ ErrorCancelFailed ]]>
+  </ErrorCancelFailed>
 </ErrorMessages>
