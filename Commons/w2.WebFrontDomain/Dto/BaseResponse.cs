@@ -10,6 +10,16 @@ namespace w2.WebFrontDomain.Dto
 	/// Base response
 	/// </summary>
 	[Serializable]
+	public class BaseResponse<T> : BaseResponse
+	{
+		/// <summary>Response object</summary>
+		public T? ResponseObject { get; set; }
+	}
+
+	/// <summary>
+	/// Base response
+	/// </summary>
+	[Serializable]
 	public class BaseResponse
 	{
 		/// <summary>

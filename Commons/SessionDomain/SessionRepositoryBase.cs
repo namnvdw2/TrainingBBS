@@ -1,7 +1,6 @@
 ﻿// (c) 2025 W2 Co.,Ltd.
 
 using System.Web;
-using System.Web.SessionState;
 
 namespace SessionDomain
 {

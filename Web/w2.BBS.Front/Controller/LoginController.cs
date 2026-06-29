@@ -1,7 +1,6 @@
 ﻿// (c) 2025 W2 Co.,Ltd.
 
 using System.Web.Mvc;
-using w2.AccountDomain.Services.Account;
 using w2.BBS.Front.Controller.Shared;
 using w2.WebFrontDomain.Dto.Account;
 using w2.WebFrontDomain.Services.Account;

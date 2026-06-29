@@ -81,8 +81,6 @@
             }
 
             this.errors = result.Errors || {};
-            console.log(this.errors.LoginId)
-            console.log(result.Message)
             this.errorMessage = result.Message || '';
           })
           .catch(error => {

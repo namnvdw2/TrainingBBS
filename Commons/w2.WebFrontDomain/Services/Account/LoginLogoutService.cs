@@ -1,11 +1,7 @@
 ﻿// (c) 2025 W2 Co.,Ltd.
 
-using SessionDomain.Dto.User;
-using SessionDomain.Interface;
 using SessionDomain.Repositories;
 using System.Data.SqlClient;
-using System.Web.SessionState;
-using w2.AccountDomain.Domains.Account;
 using w2.AccountDomain.Services.Account;
 using w2.Common;
 using w2.WebFrontDomain.Configurations;
@@ -21,14 +17,14 @@ namespace w2.WebFrontDomain.Services.Account
 	public class LoginLogoutService
 	{
 		private readonly AccountService _accountService;
-		private readonly SessionRepository _session;
+		private readonly LoginUserSessionRepository _session;
 
 		/// <summary>
 		/// Constructor
 		/// </summary>
 		public LoginLogoutService(
 			AccountService accountService,
-			SessionRepository session)
+			LoginUserSessionRepository session)
 		{
 			_accountService = accountService;
 			_session = session;

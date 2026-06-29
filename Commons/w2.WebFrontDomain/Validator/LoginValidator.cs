@@ -4,6 +4,7 @@ using SessionDomain.Dto.User;
 using System.Diagnostics.CodeAnalysis;
 using w2.AccountDomain.Services.Account;
 using w2.WebFrontDomain.Dto.Account;
+using w2.WebFrontDomain.Validator.User;
 using static w2.WebFrontDomain.Validator.CommonMessages;
 
 namespace w2.WebFrontDomain.Validator
@@ -11,7 +12,7 @@ namespace w2.WebFrontDomain.Validator
 	/// <summary>
 	/// Login validator
 	/// </summary>
-	public class LoginValidator
+	public class LoginValidator : UserValidator
 	{
 		/// <summary>
 		/// Validate

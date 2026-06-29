@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
 
 namespace w2.BBS.Front
 {
@@ -22,14 +23,11 @@ namespace w2.BBS.Front
 
 			routes.MapMvcAttributeRoutes();
 
+
 			routes.MapRoute(
-				name: "CatchAll",
+				name: "NotFound",
 				url: "{*url}",
-				defaults: new
-				{
-					controller = "Error",
-					action = "RedirectShortUrlOrDisplay404",
-				}
+				defaults: new { controller = "Error", action = "NotFound" }
 			);
 		}
 	}

@@ -152,6 +152,7 @@
     <Compile Include="Codes\Binding\AliasModelBinder.cs" />
     <Compile Include="Codes\Binding\BindAliasAttribute.cs" />
     <Compile Include="Codes\Helper\TempDataDictionaryExtension.cs" />
+    <Compile Include="Controller\ErrorController.cs" />
     <Compile Include="Controller\IndexController.cs" />
     <Compile Include="Controller\LoginController.cs" />
     <Compile Include="Controller\Shared\BaseController.cs" />
@@ -179,6 +180,7 @@
     <Content Include="Views\User\Withdrawal\complete.liquid" />
     <Content Include="Views\User\Withdrawal\confirm.liquid" />
     <Content Include="Views\login.liquid" />
+    <Content Include="Views\Error\404.liquid" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

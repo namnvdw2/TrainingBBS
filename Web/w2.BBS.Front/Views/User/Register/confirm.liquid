@@ -1,36 +1,35 @@
 {% _layout 'layout.liquid' %}
 
-{% _area title %}ログイン画面{% end_area %}
+{% _area title %}登録内容確認{% end_area %}
 
 {% _area head_resource %}
 {% end_area %}
 
 {% _area page_body %}
-<vue-login></vue-login>
+<vue-confirm></vue-confirm>
 {% end_area %}
 
 {% _area component %}
-<script type="text/x-template" id="vue-login">
+<script type="text/x-template" id="vue-confirm">
   <div class="container">
     <div class="d-flex justify-content-center align-items-center vh-100">
       <div class="justify-content-center">
-        <h4 class="text-center fw-bold mb-4">掲示板</h4>
+        <h4 class="text-center fw-bold mb-4">登録内容確認</h4>
         <form class="align-items-center">
-          <div class="mb-3">
-            <input class="form-control" type="text" v-model="loginId" placeholder="ログインID" />
+          <div class="mb-1">
+            <div class="text-center">ユーザー名 : ${ name }</div>
           </div>
-          <div class="mb-3">
-            <input class="form-control" type="password" v-model="password" placeholder="パスワード" />
+          <div class="mb-1">
+            <div class="text-center">ID : ${ loginId }</div>
           </div>
-          <div class="mb-3 d-flex justify-content-center">
-            <button class="btn btn-primary w-20" @click="login()">ログイン</button>
+          <div class="mb-4">
+            <div class="text-center">パスワード : ${ password }</div>
           </div>
-          <p v-if="stateMessage">${ stateMessage }</p>
+          <div class="mb-3 d-flex justify-content-around">
+            <button class="btn btn-primary w-20" @click="login()">登録</button>
+            <button class="btn btn-primary w-20" @click="window.history.back()">戻る</button>
+          </div>
         </form>
-        <p class="text-center">
-          アカウントを持っていない方は
-          <a class="" href="{{ RootUrl | append: "user/register/input" }}">アカウントを作成する</a>
-        </p>
       </div>
     </div>
   </div>
@@ -39,12 +38,13 @@
 
 <script>
   {% _javascript key: "onload" %}
-  g_vueManager.setComponent('vue-login', {
-    template: '#vue-login',
+  g_vueManager.setComponent('vue-confirm', {
+    template: '#vue-confirm',
     data() {
       return {
-        message: null,
-        stateMessage: null,
+        name: "{{ Name }}",
+        loginId: "{{ LoginId }}",
+        password: "{{ Password }}"
       }
     },
     mounted() {

@@ -2,22 +2,25 @@
 
 using SessionDomain.Dto.User;
 using SessionDomain.Interface;
-using System.Web;
 
 namespace SessionDomain.Repositories
 {
 	/// <summary>
 	/// Session repository
 	/// </summary>
-	public class SessionRepository : SessionRepositoryBase, ISessionRepository
+	public abstract class SessionRepository<TInput> : SessionRepositoryBase, ISessionRepository<TInput>
 	{
-		private const string SESSION_KEY_LOGIN_USER = "login_user";
+		public const string SESSION_KEY_LOGIN_USER = "login_user";
 
+		/// <summary>
+		/// Constructor
+		/// </summary>
 		public SessionRepository()
 			: base()
 		{
 		}
 
+		/// <inheritdoc />
 		public bool ExistsUser()
 			=> this.Session[SESSION_KEY_LOGIN_USER] is LoginUser;
 
@@ -26,6 +29,19 @@ namespace SessionDomain.Repositories
 			Session.Contents.RemoveAll();
 		}
 
+		/// <inheritdoc />
+		public abstract TInput? GetInput();
+
+		/// <inheritdoc />
+		public abstract bool IsExistsInput();
+
+		/// <inheritdoc />
+		public abstract void SetInput(TInput input);
+
+		/// <inheritdoc />
+		public abstract void Clear();
+
+		/// <summary>Login user</summary>
 		public LoginUser LoginUser
 		{
 			get

@@ -32,6 +32,8 @@ namespace w2.AccountDomain.RdbRepositories.Account
 		/// <inheritdoc />rd
 		public AccountModel? Get(LoginId loginId)
 		{
+			var dtoa = _repository.GetWithBuilder<AccountDto>(
+				f => f.Query("w2_Account")).ToList();
 			var dto = _repository.GetWithBuilder<AccountDto>(
 				f => f.Query("w2_Account").Where("login_id", loginId.AsString)).FirstOrDefault();
 			return dto is not null ? AccountModel.CreateByDto(dto) : null;

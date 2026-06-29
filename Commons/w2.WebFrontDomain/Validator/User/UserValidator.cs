@@ -42,7 +42,7 @@ namespace w2.WebFrontDomain.Validator.User
 		{
 			if (ValidatorUtility.CheckRequired(loginId))
 			{
-				return GetMessage(CommonMessageKey.ErrorLoggedInRequired, LOGIN_ID_FIELD_NAME);
+				return GetMessage(CommonMessageKey.FormatErrorRequired, LOGIN_ID_FIELD_NAME);
 			}
 
 			if (ValidatorUtility.CheckMinLength(loginId, MIN_LENGTH_LOGIN_ID))
@@ -61,9 +61,68 @@ namespace w2.WebFrontDomain.Validator.User
 					MAX_LENGTH_LOGIN_ID.ToString());
 			}
 
-			if (ValidatorUtility.CheckAlphanumeric(loginId) == false)
+			if (!ValidatorUtility.CheckAlphanumeric(loginId))
 			{
-				return GetMessage(CommonMessageKey.ErrorLoggedInRequired, LOGIN_ID_FIELD_NAME);
+				return GetMessage(CommonMessageKey.FormatErrorAlphanumeric, LOGIN_ID_FIELD_NAME);
+			}
+
+			return string.Empty;
+		}
+
+		/// <summary>
+		/// Check password
+		/// </summary>
+		/// <param name="password">The password</param>
+		/// <returns>Error message if validation fails, otherwise an empty string</returns>
+		public static string CheckPassword(string password)
+		{
+			if (ValidatorUtility.CheckRequired(password))
+			{
+				return GetMessage(CommonMessageKey.FormatErrorRequired, PASSWORD_FIELD_NAME);
+			}
+
+			if (ValidatorUtility.CheckMinLength(password, MIN_LENGTH_PASSWORD))
+			{
+				return GetMessage(
+					CommonMessageKey.FormatErrorMinLength,
+					PASSWORD_FIELD_NAME,
+					MIN_LENGTH_PASSWORD.ToString());
+			}
+
+			if (ValidatorUtility.CheckMaxLength(password, MAX_LENGTH_PASSWORD))
+			{
+				return GetMessage(
+					CommonMessageKey.FormatErrorMaxLength,
+					PASSWORD_FIELD_NAME,
+					MAX_LENGTH_PASSWORD.ToString());
+			}
+
+			if (!ValidatorUtility.CheckAlphanumeric(password))
+			{
+				return GetMessage(CommonMessageKey.FormatErrorAlphanumeric, PASSWORD_FIELD_NAME);
+			}
+
+			return string.Empty;
+		}
+
+		/// <summary>
+		/// Check name
+		/// </summary>
+		/// <param name="name">The name</param>
+		/// <returns>Error message if validation fails, otherwise an empty string</returns>
+		public static string CheckName(string name)
+		{
+			if (ValidatorUtility.CheckRequired(name))
+			{
+				return GetMessage(CommonMessageKey.FormatErrorRequired, USER_NAME_FIELD_NAME);
+			}
+
+			if (ValidatorUtility.CheckMaxLength(name, MAX_LENGTH_USER_NAME))
+			{
+				return GetMessage(
+					CommonMessageKey.FormatErrorMaxLength,
+					USER_NAME_FIELD_NAME,
+					MAX_LENGTH_USER_NAME.ToString());
 			}
 
 			return string.Empty;
