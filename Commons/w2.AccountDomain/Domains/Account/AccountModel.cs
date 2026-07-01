@@ -1,5 +1,6 @@
 ﻿// (c) 2025 W2 Co.,Ltd.
 
+using System;
 using w2.AccountDomain.Dto.Account;
 using w2.Common.Helper.Attribute;
 
@@ -23,7 +24,9 @@ namespace w2.AccountDomain.Domains.Account
 				LoginId = new LoginId(dto.LoginId),
 				Name = new Name(dto.Name),
 				Password = new Password(dto.Password),
-				CancelFlag = DbValueAttribute.ParseToEnum<UserCancelStatus>(dto.DeleteFlg)
+				CancelFlag = DbValueAttribute.ParseToEnum<UserCancelStatus>(dto.DeleteFlg),
+				DateCreated = dto.DateCreated,
+				DateChanged = dto.DateChanged,
 			};
 		}
 
@@ -38,7 +41,9 @@ namespace w2.AccountDomain.Domains.Account
 				Id = this.Id.AsString,
 				LoginId = this.LoginId.AsString,
 				Name = this.Name.AsString,
-				Password = this.Password.AsString
+				Password = this.Password.AsString,
+				DateCreated = this.DateCreated,
+				DateChanged = this.DateChanged,
 			};
 		}
 
@@ -70,5 +75,9 @@ namespace w2.AccountDomain.Domains.Account
 		public Password Password { get; init; } = null!;
 		/// <summary>Cancel flag</summary>
 		public UserCancelStatus CancelFlag { get; init; }
+		/// <summary>DateCreated</summary>
+		public DateTime DateCreated { get; set; }
+		/// <summary>Date changed</summary>
+		public DateTime DateChanged { get; set; }
 	}
 }

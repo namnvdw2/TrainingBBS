@@ -26,8 +26,8 @@
             <div class="text-center">パスワード : ${ password }</div>
           </div>
           <div class="mb-3 d-flex justify-content-around">
-            <button class="btn btn-primary w-20" @click="login()">登録</button>
-            <button class="btn btn-primary w-20" @click="window.history.back()">戻る</button>
+            <button class="btn btn-primary w-20" @click="save()">登録</button>
+            <a class="btn btn-primary w-20" href="{{ BackUrl }}">戻る</a>
           </div>
         </form>
       </div>
@@ -42,35 +42,78 @@
     template: '#vue-confirm',
     data() {
       return {
-        name: "{{ Name }}",
-        loginId: "{{ LoginId }}",
-        password: "{{ Password }}"
+        name: '',
+        loginId: '',
+        password: '',
       }
     },
     mounted() {
+      this.initData();
     },
     methods: {
-      login: function () {
+      initData: function () {
+        const options = {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        }
+
+        const endpointUrl = 'user/register/confirm/get';
+        fetch(window.apiRoot + endpointUrl, options)
+          .then(response => {
+            if (!response.ok) {
+              throw new Error(`HTTP ${response.status}`);
+            }
+
+            return response.json();
+          })
+          .then(result => {
+            if (result.RedirectUrl) {
+              window.location.href = result.redirectUrl;
+              return;
+            }
+
+            this.name = result.ResponseObject.Name || '';
+            this.loginId = result.ResponseObject.LoginId || '';
+            this.password = result.ResponseObject.Password || '';
+          })
+          .catch(error => {
+            if (window.showToast) {
+              window.showToast('エラーが発生しました。時間をおいて再度お試しください。', 'danger');
+            }
+          });
+      },
+      save: function () {
         const options = {
           method: 'POST',
           headers: {
-              'Content-Type': 'application/json',
+            'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-              loginId: this.loginId,
-              password: this.password
-            }),
+            name: this.name,
+            loginId: this.loginId,
+            password: this.password
+          })
         }
 
-        const promise = fetch(window.apiRoot + '/login', options)
+        const endpointUrl = 'user/register/confirm/save';
+        fetch(window.apiRoot + endpointUrl, options)
           .then(response => {
             if (!response.ok) {
-              throw new Error(`HTTP ${res.status}`);
+              throw new Error(`HTTP ${response.status}`);
             }
 
-            this.stateMessage = 'Logined!';
-
             return response.json();
+          })
+          .then(result => {
+            console.log(result)
+            window.location.href = result.RedirectUrl;
+          })
+          .catch(error => {
+            if (window.showToast) {
+              window.showToast('エラーが発生しました。時間をおいて再度お試しください。', 'danger');
+            }
           });
       }
     }

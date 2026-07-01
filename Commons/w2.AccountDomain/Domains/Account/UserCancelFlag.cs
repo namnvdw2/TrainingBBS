@@ -1,5 +1,6 @@
 ﻿// (c) 2025 W2 Co.,Ltd.
 
+using System;
 using w2.Common.Helper.Attribute;
 
 namespace w2.AccountDomain.Domains.Account
@@ -18,6 +19,7 @@ namespace w2.AccountDomain.Domains.Account
 	/// <summary>
 	/// User cancel flag
 	/// </summary>
+	[Serializable]
 	public static class UserCancelFlag
 	{
 		/// <summary>Check if it's been deleted</summary>

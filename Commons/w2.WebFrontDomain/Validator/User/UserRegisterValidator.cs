@@ -2,6 +2,7 @@
 
 using Humanizer;
 using w2.AccountDomain.Domains.Account;
+using w2.AccountDomain.Dto.Account;
 using w2.AccountDomain.Services.Account;
 using w2.Common.Helper.Attribute;
 using w2.WebFrontDomain.Dto.Account;
@@ -10,9 +11,9 @@ using static w2.WebFrontDomain.Validator.CommonMessages;
 namespace w2.WebFrontDomain.Validator.User
 {
 	/// <summary>
-	/// User register validater
+	/// User register validator
 	/// </summary>
-	public class UserRegisterValidater : UserValidator
+	public class UserRegisterValidator : UserValidator
 	{
 		/// <summary>
 		/// Validate
@@ -60,11 +61,11 @@ namespace w2.WebFrontDomain.Validator.User
 				return response;
 			}
 
-			response.ResponseObject = new AccountModel
+			response.ResponseObject = new AccountDto
 			{
-				LoginId = new LoginId(request.LoginId),
-				Name = new Name(request.Name),
-				Password = new Password(request.Password),
+				LoginId = request.LoginId,
+				Name = request.Name,
+				Password = request.Password,
 			};
 
 			return response;

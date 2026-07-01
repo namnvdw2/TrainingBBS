@@ -1,25 +1,39 @@
 ﻿// (c) 2025 W2 Co.,Ltd.
 
-using w2.AccountDomain.Domains.Account;
-using w2.WebFrontDomain.Configurations;
+using System;
+using w2.AccountDomain.Dto.Account;
 
 namespace w2.WebFrontDomain.Dto.Account
 {
 	/// <summary>
 	/// User register response
 	/// </summary>
-	public sealed class UserRegisterResponse : BaseResponse<AccountModel>
+	[Serializable]
+	public sealed class UserRegisterResponse : BaseResponse<AccountDto>
 	{
 		/// <summary>
 		/// Creates a success response
 		/// </summary>
 		/// <returns>Login response</returns>
-		public static UserRegisterResponse CreateSuccessResponse(string? nextUrl = null)
+		public static UserRegisterResponse CreateSuccessResponse(string nextUrl = "")
 		{
 			return new UserRegisterResponse
 			{
 				Success = true,
-				RedirectUrl = nextUrl ?? ConstantsPage.TopForumPageUrl,
+				RedirectUrl = nextUrl,
+			};
+		}
+
+		/// <summary>
+		/// Creates a error response
+		/// </summary>
+		/// <returns>Login response</returns>
+		public static UserRegisterResponse CreateErrorResponse(string nextUrl = "")
+		{
+			return new UserRegisterResponse
+			{
+				Success = false,
+				RedirectUrl = nextUrl,
 			};
 		}
 	}

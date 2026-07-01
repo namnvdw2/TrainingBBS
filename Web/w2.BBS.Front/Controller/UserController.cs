@@ -2,7 +2,8 @@
 
 using System.Web.Mvc;
 using w2.BBS.Front.Controller.Shared;
-using w2.BBS.Front.ViewModels.Request.User;
+using w2.BBS.Front.ViewModels;
+using w2.WebFrontDomain.Configurations;
 using w2.WebFrontDomain.Dto.Account;
 using w2.WebFrontDomain.Services.Account;
 
@@ -57,7 +58,57 @@ namespace w2.BBS.Front.Controller
 		[Route("register/confirm")]
 		public ActionResult ConfirmView()
 		{
-			return View("User/Register/confirm.liquid");
+			var viewModel = new BaseViewModel
+			{
+				BackUrl = ConstantsPage.UserRegisterInputPageUrl,
+			};
+
+			return View(
+				"User/Register/confirm.liquid",
+				viewModel);
 		}
+
+		/// <summary>
+		/// Confirm view
+		/// </summary>
+		/// <returns></returns>
+		[HttpGet]
+		[Route("register/confirm/get")]
+		public ActionResult GetConfirmInput()
+		{
+			var response = _registerService.InputInit();
+			return JsonForJs(response);
+		}
+
+		/// <summary>
+		/// Confirm view
+		/// </summary>
+		/// <returns></returns>
+		[HttpPost]
+		[Route("register/confirm/save")]
+		public ActionResult SaveUser()
+		{
+			var response = _registerService.ExecRegister();
+			return JsonForJs(response);
+		}
+
+		/// <summary>
+		/// Confirm view
+		/// </summary>
+		/// <returns></returns>
+		[HttpGet]
+		[Route("register/complete")]
+		public ActionResult Completed()
+		{
+			var viewModel = new BaseViewModel
+			{
+				NextUrl = ConstantsPage.TopForumPageUrl,
+			};
+
+			return View(
+				"User/Register/complete.liquid",
+				viewModel);
+		}
+
 	}
 }
