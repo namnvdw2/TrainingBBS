@@ -29,7 +29,7 @@ namespace w2.WebFrontDomain.Validator
 			var response = new LoginResponse();
 			var user = accountService.GetByLoginId(new AccountDomain.Domains.Account.LoginId (request.LoginId));
 			if (user == null
-				|| user.CanLogin(new AccountDomain.Domains.Account.Password(request.Password)))
+				|| !user.CanLogin(new AccountDomain.Domains.Account.Password(request.Password)))
 			{
 				response.Success = false;
 				response.Message = GetMessage(CommonMessageKey.ErrorLoginIdOrPasswordInvalid);
@@ -37,7 +37,7 @@ namespace w2.WebFrontDomain.Validator
 				return response;
 			}
 
-			resultUser = null;
+			resultUser = LoginUser.CreateByUser(user);
 			return new LoginResponse
 			{
 				Success = true

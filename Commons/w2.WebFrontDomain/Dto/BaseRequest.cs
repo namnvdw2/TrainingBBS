@@ -11,6 +11,6 @@ namespace w2.WebFrontDomain.Dto
 	public class BaseRequest
 	{
 		/// <summary>NextUrl</summary>
-		public string NextUrl { get; set; } = string.Empty;
+		public string? NextUrl { get; set; } = null;
 	}
 }

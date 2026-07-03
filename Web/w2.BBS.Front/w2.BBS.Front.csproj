@@ -153,6 +153,7 @@
     <Compile Include="Codes\Binding\BindAliasAttribute.cs" />
     <Compile Include="Codes\Helper\TempDataDictionaryExtension.cs" />
     <Compile Include="Controller\ErrorController.cs" />
+    <Compile Include="Controller\ForumController.cs" />
     <Compile Include="Controller\IndexController.cs" />
     <Compile Include="Controller\LoginController.cs" />
     <Compile Include="Controller\Shared\BaseController.cs" />
@@ -181,6 +182,8 @@
     <Content Include="Views\User\Withdrawal\confirm.liquid" />
     <Content Include="Views\login.liquid" />
     <Content Include="Views\Error\404.liquid" />
+    <Content Include="Views\Forum\forum.liquid" />
+    <Content Include="Views\_Shared\header.liquid" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -197,18 +200,12 @@
       <Project>{2580c37b-8902-b37c-2ebb-6b8ea0198baf}</Project>
       <Name>w2.ForumDomain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Commons\w2.SampleDomain\w2.SampleDomain.csproj">
-      <Project>{ed08e15d-72f9-e833-0ddc-5964eef444e2}</Project>
-      <Name>w2.SampleDomain</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Commons\w2.WebFrontDomain\w2.WebFrontDomain.csproj">
       <Project>{a778ecbb-a698-2aa5-3dbe-98ea67984f9f}</Project>
       <Name>w2.WebFrontDomain</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Forum\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

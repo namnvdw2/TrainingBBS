@@ -1,6 +1,5 @@
 ﻿// (c) 2025 W2 Co.,Ltd.
 
-using System;
 using w2.AccountDomain.Dto.Account;
 using w2.Common.Helper.Attribute;
 
@@ -25,8 +24,8 @@ namespace w2.AccountDomain.Domains.Account
 				Name = new Name(dto.Name),
 				Password = new Password(dto.Password),
 				CancelFlag = DbValueAttribute.ParseToEnum<UserCancelStatus>(dto.DeleteFlg),
-				DateCreated = dto.DateCreated,
-				DateChanged = dto.DateChanged,
+				DateCreated = new DateCreated(dto.DateCreated),
+				DateChanged = new DateChanged(dto.DateChanged),
 			};
 		}
 
@@ -42,8 +41,8 @@ namespace w2.AccountDomain.Domains.Account
 				LoginId = this.LoginId.AsString,
 				Name = this.Name.AsString,
 				Password = this.Password.AsString,
-				DateCreated = this.DateCreated,
-				DateChanged = this.DateChanged,
+				DateCreated = this.DateCreated.AsDateTime,
+				DateChanged = this.DateChanged.AsDateTime,
 			};
 		}
 
@@ -58,7 +57,7 @@ namespace w2.AccountDomain.Domains.Account
 
 			if (this.LoginId is null) return false;
 
-			if (this.Password == password) return false;
+			if (this.Password != password) return false;
 
 			if (this.CancelFlag.IsCanceled()) return false;
 
@@ -76,8 +75,8 @@ namespace w2.AccountDomain.Domains.Account
 		/// <summary>Cancel flag</summary>
 		public UserCancelStatus CancelFlag { get; init; }
 		/// <summary>DateCreated</summary>
-		public DateTime DateCreated { get; set; }
+		public DateCreated DateCreated { get; set; } = null!;
 		/// <summary>Date changed</summary>
-		public DateTime DateChanged { get; set; }
+		public DateChanged DateChanged { get; set; } = null!;
 	}
 }

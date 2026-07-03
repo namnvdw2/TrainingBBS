@@ -35,6 +35,9 @@
 </head>
 <body>
   {% _render_area component %}
+
+  {% include '_Shared/header.liquid' %}
+
   <div id="rootTemplate">
     {% _render_area page_body %}
   </div>

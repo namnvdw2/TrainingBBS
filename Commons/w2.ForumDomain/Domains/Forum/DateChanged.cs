@@ -1,0 +1,12 @@
+﻿// (c) 2025 W2 Co.,Ltd.
+
+using System;
+
+namespace w2.ForumDomain.Domains.Forum
+{
+	/// <summary>
+	/// Date changed value object
+	/// </summary>
+	/// <param name="AsDateTime">Date changed as DateTime</param>
+	public sealed record DateChanged(DateTime AsDateTime);
+}

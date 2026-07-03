@@ -75,8 +75,8 @@
             return response.json();
           })
           .then(result => {
-            if (result.success) {
-              window.location.href = result.redirectUrl;
+            if (result.Success) {
+              window.location.href = result.RedirectUrl;
               return;
             }
 

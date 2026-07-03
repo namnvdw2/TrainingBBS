@@ -48,7 +48,8 @@ namespace w2.AccountDomain.RdbRepositories.Account
 		/// <inheritdoc />
 		public void Insert(AccountModel account)
 		{
-			account.DateChanged = account.DateCreated = DateTime.Now;
+			account.DateChanged = new DateChanged(DateTime.Now);
+			account.DateCreated = new DateCreated(DateTime.Now);
 			var input = account
 				.CreateDto()
 				.ToHashtable()

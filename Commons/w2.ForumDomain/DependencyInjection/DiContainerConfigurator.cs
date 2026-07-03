@@ -1,0 +1,22 @@
+﻿// (c) 2025 W2 Co.,Ltd.
+
+using Unity;
+using w2.ForumDomain.RdbRepositories.Forum;
+using w2.ForumDomain.RepositoryInterfaces.Forum;
+using w2.FoundationDomain.DependencyInjections;
+
+namespace w2.ForumDomain.DependencyInjection
+{
+	/// <summary>
+	/// Di container configurator
+	/// </summary>
+	public class DiContainerConfigurator : IDiContainerConfigurator
+	{
+		/// <inheritdoc />
+		public UnityContainer Configure(UnityContainer container)
+		{
+			container.RegisterType<IForumRepository, ForumRepository>();
+			return container;
+		}
+	}
+}
