@@ -1,36 +1,37 @@
 ﻿// (c) 2025 W2 Co.,Ltd.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using w2.Common.Helper.Attribute;
-using w2.ForumDomain.Dto.Forum;
+using w2.ForumDomain.Domains.Forums;
+using w2.ForumDomain.Dto.Forums;
+using w2.ForumDomain.Dto.ForumRes;
 
-namespace w2.ForumDomain.Domains.Forum
+namespace w2.ForumDomain.Domains.ForumRes
 {
 	/// <summary>
-	/// Forum
+	/// Forum response
 	/// </summary>
-	public sealed class Forum
+	public sealed class ForumRes
 	{
 		/// <summary>
 		/// Contructor
 		/// </summary>
 		/// <param name="forumId">The forum id</param>
+		/// <param name="resForumId">Response forum id</param>
 		/// <param name="userId">The user id</param>
 		/// <param name="title">The title</param>
 		/// <param name="text">The text</param>
 		/// <param name="deleteFlag">The delete flag</param>
-		public Forum(
+		public ForumRes(
 			ForumId forumId,
+			ResForumId resForumId,
 			ForumUserId userId,
 			ForumTitle title,
 			ForumText text,
 			ForumDeleteFlagStatus deleteFlag)
 		{
 			this.ForumId = forumId;
+			this.ResForumId = resForumId;
 			this.UserId = userId;
 			this.Title = title;
 			this.Text = text;
@@ -39,18 +40,38 @@ namespace w2.ForumDomain.Domains.Forum
 		/// <summary>
 		/// Contructor
 		/// </summary>
+		/// <param name="forumId">Forum id</param>
 		/// <param name="userId">The user id</param>
 		/// <param name="title">The title</param>
 		/// <param name="text">The text</param>
-		public Forum(
+		public ForumRes(
+			ResForumId forumId,
 			ForumUserId userId,
 			ForumTitle title,
 			ForumText text)
 			: this(
 				new ForumId(AsInt: 0),
+				forumId,
 				userId,
 				title,
 				text,
+				ForumDeleteFlagStatus.Active)
+		{
+		}
+		/// <summary>
+		/// Contructor
+		/// </summary>
+		/// <param name="resForumId">Response forum id</param>
+		/// <param name="forum">The user id</param>
+		public ForumRes(
+			ResForumId forumId,
+			Forum forum)
+			: this(
+				new ForumId(AsInt: 0),
+				forumId,
+				forum.UserId,
+				forum.Title,
+				forum.Text,
 				ForumDeleteFlagStatus.Active)
 		{
 		}
@@ -60,10 +81,11 @@ namespace w2.ForumDomain.Domains.Forum
 		/// </summary>
 		/// <param name="dto">The forum DTO</param>
 		/// <returns>Forum model</returns>
-		public static Forum CreateByDto(ForumDto dto)
+		public static ForumRes CreateByDto(ForumResDto dto)
 		{
-			var model = new Forum(
+			var model = new ForumRes(
 				new ForumId(dto.ForumId),
+				new ResForumId(dto.ResponseId),
 				new ForumUserId(dto.UserId),
 				new ForumTitle(dto.ForumTitle),
 				new ForumText(dto.ForumText),
@@ -80,10 +102,11 @@ namespace w2.ForumDomain.Domains.Forum
 		/// Convert to DTO
 		/// </summary>
 		/// <returns>Forum DTO</returns>
-		internal ForumDto ToDto()
+		internal ForumResDto CreateDto()
 		{
-			var dto = new ForumDto
+			var dto = new ForumResDto
 			{
+				ResponseId = this.ResForumId.AsInt,
 				ForumId = this.ForumId.AsInt,
 				UserId = this.UserId.AsInt,
 				ForumTitle = this.Title.AsString,
@@ -94,9 +117,11 @@ namespace w2.ForumDomain.Domains.Forum
 			return dto;
 		}
 
-		/// <summary>Forum ID</summary>
+		/// <summary>Response forum id</summary>
+		public ResForumId ResForumId { get; }
+		/// <summary>Forum id</summary>
 		public ForumId ForumId { get; }
-		/// <summary>Forum user ID</summary>
+		/// <summary>Forum user id</summary>
 		public ForumUserId UserId { get; }
 		/// <summary>Forum title</summary>
 		public ForumTitle Title { get; }
@@ -106,6 +131,8 @@ namespace w2.ForumDomain.Domains.Forum
 		public ForumDeleteFlagStatus DeleteFlag { get; }
 		/// <summary>Date changed</summary>
 		public DateChanged DateChanged { get; set; } = new DateChanged(DateTime.MinValue);
+		/// <summary>Date created</summary>
+		public DateCreated DateCreated { get; set; } = new DateCreated(DateTime.MinValue);
 		/// <summary>User name</summary>
 		public ForumUserName UserName { get; set; } = new ForumUserName(string.Empty);
 	}

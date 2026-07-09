@@ -3,6 +3,88 @@
 {% _area title %}トップページ{% end_area %}
 
 {% _area head_resource %}
+<style>
+  .rgb-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    pointer-events: none;
+    mix-blend-mode: hard-light;
+    filter: saturate(300%);
+    animation: rgbSmooth 5s linear infinite;
+  }
+
+  .gif-overlay {
+    position: fixed;
+    width: 500px;
+    height: 500px;
+    background: url('http://localhost/Training.BBS/Web/w2.BBS.Front/Images/404.gif') no-repeat center;
+    background-size: contain;
+    z-index: 100000;
+    pointer-events: none;
+    opacity: .5;
+    animation: moveCorner 8s steps(1) infinite;
+  }
+
+  @keyframes moveCorner {
+    0%,24.99% {
+      left: 0;
+      bottom: 0;
+      top: auto;
+      right: auto;
+    }
+
+    25%,49.99% {
+      left: 0;
+      top: 0;
+      bottom: auto;
+      right: auto;
+    }
+
+    50%,74.99% {
+      right: 0;
+      top: 0;
+      left: auto;
+      bottom: auto;
+    }
+
+    75%,100% {
+      right: 0;
+      bottom: 0;
+      left: auto;
+      top: auto;
+    }
+  }
+  @keyframes rgbSmooth {
+    0% {
+      background: rgba(255,0,0,.35);
+    }
+
+    16% {
+      background: rgba(255,120,0,.35);
+    }
+
+    33% {
+      background: rgba(255,255,0,.35);
+    }
+
+    50% {
+      background: rgba(0,255,0,.35);
+    }
+
+    66% {
+      background: rgba(0,255,255,.35);
+    }
+
+    83% {
+      background: rgba(0,80,255,.35);
+    }
+
+    100% {
+      background: rgba(255,0,255,.35);
+    }
+  }
+</style>
 {% end_area %}
 
 {% _area page_body %}
@@ -12,10 +94,15 @@
 
 {% _area component %}
 <script type="text/x-template" id="vue-index">
-  <h1 class="text-center">${ message }</h1>
-  <div>
-    <img class="d-block mx-auto" src="http://localhost/Training.BBS/Web/w2.BBS.Front/Images/404.webp"/>
-    <p class="text-center" v-if="stateMessage">${ stateMessage }</p>
+  <div class="rgb-overlay"></div>
+
+  <div class="gif-overlay"></div>
+  <div class="rgb-content">
+    <h1 class="text-center">${ message }</h1>
+    <img class="d-block mx-auto" src="http://localhost/Training.BBS/Web/w2.BBS.Front/Images/404.webp" />
+    <p class="text-center" v-if="stateMessage">
+      ${ stateMessage }
+    </p>
   </div>
 </script>
 {% end_area %}

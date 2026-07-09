@@ -6,7 +6,6 @@ using System.Data.SqlClient;
 using w2.AccountDomain.Services.Account;
 using w2.Common;
 using w2.WebFrontDomain.Configurations;
-using w2.WebFrontDomain.Dto;
 using w2.WebFrontDomain.Dto.Account;
 using w2.WebFrontDomain.Validator.User;
 
@@ -17,9 +16,7 @@ namespace w2.WebFrontDomain.Services.Account
 	/// </summary>
 	public class AccountRegisterViewService
 	{
-		/// <summary>Account service</summary>
 		private readonly AccountService _accountService;
-		/// <summary>User register session repository</summary>
 		private readonly UserRegisterSessionRepository _session;
 
 		/// <summary>
@@ -80,7 +77,7 @@ namespace w2.WebFrontDomain.Services.Account
 				return UserRegisterResponse.CreateErrorResponse(ConstantsPage.UserRegisterInputPageUrl);
 
 			_accountService.Insert(input);
-			var account = _accountService.GetByLoginId(new AccountDomain.Domains.Account.LoginId(input.LoginId));
+			var account = _accountService.GetByLoginId(input.LoginId);
 			_session.Clear();
 
 			if (account is null)

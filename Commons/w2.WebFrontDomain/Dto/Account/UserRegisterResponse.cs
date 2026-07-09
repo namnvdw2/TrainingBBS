@@ -1,7 +1,7 @@
 ﻿// (c) 2025 W2 Co.,Ltd.
 
 using System;
-using w2.AccountDomain.Dto.Account;
+using w2.AccountDomain.Domains.Account;
 
 namespace w2.WebFrontDomain.Dto.Account
 {
@@ -9,7 +9,7 @@ namespace w2.WebFrontDomain.Dto.Account
 	/// User register response
 	/// </summary>
 	[Serializable]
-	public sealed class UserRegisterResponse : BaseResponse<AccountDto>
+	public sealed class UserRegisterResponse : BaseResponse<AccountModel>
 	{
 		/// <summary>
 		/// Creates a success response

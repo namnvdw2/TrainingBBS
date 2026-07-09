@@ -6,64 +6,306 @@
 {% end_area %}
 
 {% _area page_body %}
-<h1>{{ Message }}</h1>
-<vue-index></vue-index>
+<div class="container">
+  <forum-top-create></forum-top-create>
+  <forum-top-list></forum-top-list>
+</div>
 {% end_area %}
 
 {% _area component %}
-<script type="text/x-template" id="vue-index">
-  <p>${ message }</p>
-  <div>
-    <input type="text" v-model="message" />
-    <button @click="updateMessage()">DB更新</button>
-    <p v-if="stateMessage">${ stateMessage }</p>
+<script type="text/x-template" id="forum-top-create">
+  <form @submit.prevent="postForum">
+    <div class="d-flex justify-content-center align-items-center mt-5">
+      <h2>投稿フォーム</h2>
+      <a class="btn btn-primary w-5 mx-3 px-5" href="{{ RootUrl }}">投稿</a>
+    </div>
+    <div class="row mb-3 align-items-start">
+      <label class="col-sm-3 col-form-label text-end">
+        作成者 :
+      </label>
+      <label class="col-sm-9 col-form-label">
+        {{ Name }}
+      </label>
+    </div>
+    <div class="row mb-3 align-items-start">
+      <label class="col-sm-3 col-form-label text-end">
+        タイトル :
+      </label>
+      <div class="col-sm-9">
+        <input type="text" class="form-control" v-model="title" placeholder="15字以内">
+      </div>
+    </div>
+    <div class="row mb-3 align-items-start">
+      <label class="col-sm-3 col-form-label text-end">
+        内容 :
+      </label>
+      <div class="col-sm-9">
+        <textarea class="form-control" rows="5" v-model="content" placeholder="50字以内" />
+      </div>
+    </div>
+  </form>
+</script>
+{% end_area %}
+
+{% _area component %}
+<script type="text/x-template" id="forum-top-list">
+  <div class="mt-5">
+    <h3>投稿一覧</h3>
+
+    <div v-if="loading">
+      読み込み中...
+    </div>
+
+    <div v-else-if="forums.length == 0">
+      投稿がありません。
+    </div>
+
+    <div v-else>
+      <div class="py-3 border-bottom" v-for="(forum, index) in forums" :key="forum.ForumId">
+        <div class="d-flex justify-content-between align-items-start">
+          <div>
+            <span class="fw-bold">
+              #${ ((currentPage - 1) * pageSize + index + 1).toString().padStart(3, '0') }
+            </span>
+            <span class="ms-3">
+              投稿者： <strong>${ forum.UserName }</strong>
+            </span>
+            <span class="ms-3">
+              投稿日時： ${ forum.DateCreated }
+            </span>
+          </div>
+        </div>
+        <div class="mt-2">
+          タイトル： <strong>${ forum.Title }</strong>
+        </div>
+        <div class="mt-1">
+          本文： ${ forum.Text }
+        </div>
+        <div class="d-flex justify-content-end">
+          <a href="#" class="me-2">レス</a>
+          <a href="#" class="me-2" @click.prevent="editForum(forum)">編集</a>
+          <a href="#">削除</a>
+        </div>
+
+        <div v-if="editingForumId == forum.ForumId" class="border rounded p-3 mt-3 bg-light">
+          <div class="row mb-3">
+            <label class="col-sm-2 text-end">
+              編集タイトル：
+            </label>
+            <div class="col-sm-10">
+              <input class="form-control" v-model="editTitle">
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label class="col-sm-2 text-end">
+              編集本文：
+            </label>
+            <div class="col-sm-10">
+              <textarea rows="5" class="form-control" v-model="editContent">
+            </textarea>
+            </div>
+          </div>
+          <div class="text-end">
+            <a href="#" class="me-3" @click.prevent="updateForum">更新</a>
+            <a href="#" @click.prevent="cancelEdit">キャンセル</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <nav v-if="totalPage>1">
+      <ul class="pagination justify-content-center mt-5">
+        <li :class="['page-item', { disabled: currentPage == 1 }]">
+          <a href="#" class="page-link" @click.prevent="changePage(currentPage-1)"> Previous </a>
+        </li>
+        <li :class="['page-item', { active:page==currentPage }]" v-for="page in pages" :key="page" >
+          <a href="#" class="page-link" @click.prevent="changePage(page)"> ${ page } </a>
+        </li>
+        <li :class="['page-item', { disabled: currentPage == totalPage }]">
+          <a href="#" class="page-link" @click.prevent="changePage(currentPage+1)"> Next </a>
+        </li>
+      </ul>
+    </nav>
   </div>
 </script>
 {% end_area %}
 
 <script>
   {% _javascript key: "onload" %}
-  g_vueManager.setComponent('vue-index', {
-    template: '#vue-index',
+  g_vueManager.setComponent('forum-top-create', {
+    template: '#forum-top-create',
     data() {
       return {
-        message: null,
-        stateMessage: null,
+        title: null,
+        content: null,
       }
     },
     mounted() {
-      this.getMessage().then(msg => {
-        this.message = msg.Message;
-      })
     },
     methods: {
-      getMessage: function () {
-        return fetch(window.apiRoot + '/get-message').then(response => {
-          if (!response.ok) {
-            throw new Error(`HTTP ${res.status}`);
-          }
-
-          return response.json();
-        });
-      },
-      updateMessage: function () {
+      postForum() {
         const options = {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ message: this.message }),
-        }
+          body: JSON.stringify({
+            title: this.title,
+            content: this.content
+          })
+        };
 
-        const promise = fetch(window.apiRoot + '/update-message', options)
+        fetch(window.apiRoot + 'forum/post-forum', options)
           .then(response => {
             if (!response.ok) {
-              throw new Error(`HTTP ${res.status}`);
+              throw new Error(`HTTP ${response.Status}`);
             }
 
-            this.stateMessage = 'DB更新完了!';
-
             return response.json();
+          })
+          .then(result => {
+            if (result.Success) {
+              window.location.href = result.RedirectUrl;
+              return;
+            }
+
+            this.errors = result.Errors || {};
+            this.errorMessage = result.Message || '';
+          })
+          .catch(error => {
+            this.errorMessage = 'エラーが発生しました。';
+          });
+      }
+    }
+  });
+  g_vueManager.setComponent("forum-top-list", {
+    template: "#forum-top-list",
+
+    data() {
+      return {
+        forums: [],
+        currentPage: 1,
+        pageSize: 10,
+        totalPage: 0,
+        totalCount: 0,
+        loading: false,
+
+        editingForumId: null,
+        editTitle: "",
+        editContent: ""
+      };
+    },
+
+    computed: {
+      pages() {
+        const pages = [];
+        let start = Math.max(1, this.currentPage - 2);
+        let end = Math.min(this.totalPage, start + 4);
+        if (end - start < 4) start = Math.max(1, end - 4);
+
+        for (let i = start; i <= end; i++) {
+          pages.push(i);
+        }
+
+        return pages;
+      }
+    },
+
+    mounted() {
+      const page = this.getPageFromUrl();
+      this.loadForums(page);
+      window.addEventListener("forum-created", () => {
+        this.loadForums(1);
+      });
+      window.addEventListener("popstate", () => {
+        this.loadForums(this.getPageFromUrl(), false);
+      });
+    },
+    methods: {
+      getPageFromUrl() {
+        const params = new URLSearchParams(window.location.search);
+        const page = parseInt(params.get("page"), 10);
+
+        if (isNaN(page) || page < 1) return 1;
+
+        return page;
+      },
+      updateUrl(page) {
+        const url = new URL(window.location.href);
+        if (page <= 1) url.searchParams.delete("page");
+        else url.searchParams.set("page", page);
+
+        history.pushState({}, "", url);
+      },
+      loadForums(page = 1, updateHistory = true) {
+        this.loading = true;
+        if (updateHistory) this.updateUrl(page);
+        fetch(`${window.apiRoot}forum/get-forums?page=${page}`)
+          .then(response => {
+            if (!response.ok) {
+              throw new Error(`HTTP ${response.status}`);
+            }
+            return response.json();
+          })
+          .then(result => {
+            const data = result.ResponseObject;
+            this.forums = data.Items;
+            this.currentPage = data.CurrentPage;
+            this.pageSize = data.PageSize;
+            this.totalPage = data.TotalPage;
+            this.totalCount = data.TotalCount;
+            this.loading = false;
+          })
+          .catch(error => {
+            this.loading = false;
+          });
+      },
+      changePage(page) {
+        if (page < 1 || page > this.totalPage) return;
+
+        this.loadForums(page);
+      },
+      editForum(forum) {
+
+        this.editingForumId = forum.ForumId;
+        this.editTitle = forum.ForumTitle;
+        this.editContent = forum.ForumText;
+      },
+
+      cancelEdit() {
+
+        this.editingForumId = null;
+        this.editTitle = "";
+        this.editContent = "";
+      },
+
+      updateForum() {
+
+        const options = {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            forumId: this.editingForumId,
+            title: this.editTitle,
+            content: this.editContent
+          })
+        };
+
+        fetch(window.apiRoot + "forum/update-forum", options)
+          .then(r => r.json())
+          .then(result => {
+
+            if (result.Success) {
+
+              this.cancelEdit();
+              this.loadForums(this.currentPage);
+
+              return;
+            }
+
+            alert(result.Message);
+
           });
       }
     }

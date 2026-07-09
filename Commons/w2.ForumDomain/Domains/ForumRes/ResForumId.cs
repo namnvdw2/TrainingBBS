@@ -1,12 +1,12 @@
 ﻿// (c) 2025 W2 Co.,Ltd.
 
-namespace w2.ForumDomain.Domains.Forum
+namespace w2.ForumDomain.Domains.ForumRes
 {
 	/// <summary>
-	/// Forum User ID
+	/// Response forum id
 	/// </summary>
-	/// <param name="AsInt">The user id as int</param>
-	public sealed record ForumUserId(int AsInt)
+	/// <param name="AsInt">The id as int</param>
+	public sealed record ResForumId(int AsInt)
 	{
 		/// <inheritdoc />
 		public override string ToString()
@@ -15,3 +15,4 @@ namespace w2.ForumDomain.Domains.Forum
 		}
 	}
 }
+

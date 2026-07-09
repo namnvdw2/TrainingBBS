@@ -1,7 +1,6 @@
 ﻿// (c) 2025 W2 Co.,Ltd.
 
 using w2.AccountDomain.Domains.Account;
-using w2.AccountDomain.Dto.Account;
 using w2.AccountDomain.Services.Account;
 using w2.WebFrontDomain.Dto.Account;
 using static w2.WebFrontDomain.Validator.CommonMessages;
@@ -59,11 +58,11 @@ namespace w2.WebFrontDomain.Validator.User
 				return response;
 			}
 
-			response.ResponseObject = new AccountDto
+			response.ResponseObject = new AccountModel
 			{
-				LoginId = request.LoginId,
-				Name = request.Name,
-				Password = request.Password,
+				LoginId = new LoginId(request.LoginId),
+				Name = new Name(request.Name),
+				Password = new Password(request.Password),
 			};
 
 			return response;

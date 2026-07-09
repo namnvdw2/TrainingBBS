@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--  (c) 2025 W2 Co.,Ltd.  -->
+<Forum>
+  <!--  Update existing user  -->
+  <GetForumsWithPagination>
+    <Statement>
+      <![CDATA[
+        SELECT  w2_Forum.*,
+                w2_Account.name
+          FROM  (
+                  SELECT  w2_Forum.forum_id,
+                          ROW_NUMBER()
+                          OVER
+                          (
+                            w2_Forum.forum_id,
+                            w2_Forum.date_created
+                          ) AS row_num
+                    FROM  w2_Forum
+                ) AS RowIndex
+                INNER JOIN w2_Forum ON
+                (
+                  RowIndex.forum_id = w2_Forum.forum_id
+                )
+                LEFT JOIN w2_Account ON
+                (
+                  w2_Forum.user_id = w2_Account.id
+                )
+         WHERE  @bgn_row_num <= RowIndex.row_num
+           AND  RowIndex.row_num <= @end_row_num
+        ORDER BY RowIndex.row_num ASC
+      ]]>
+    </Statement>
+    <Parameter>
+      <Input Name="bgn_row_num" Type="int"/>
+      <Input Name="end_row_num" Type="int"/>
+    </Parameter>
+  </GetForumsWithPagination>
+</Forum>

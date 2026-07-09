@@ -1,5 +1,6 @@
 ﻿// (c) 2025 W2 Co.,Ltd.
 
+using System;
 using w2.AccountDomain.Dto.Account;
 using w2.Common.Helper.Attribute;
 
@@ -8,6 +9,7 @@ namespace w2.AccountDomain.Domains.Account
 	/// <summary>
 	/// Account model
 	/// </summary>
+	[Serializable]
 	public sealed class AccountModel
 	{
 		/// <summary>

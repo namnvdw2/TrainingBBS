@@ -1,8 +1,8 @@
 ﻿// (c) 2025 W2 Co.,Ltd.
 
 using Unity;
-using w2.ForumDomain.RdbRepositories.Forum;
-using w2.ForumDomain.RepositoryInterfaces.Forum;
+using w2.ForumDomain.RdbRepositories.Forums;
+using w2.ForumDomain.RepositoryInterfaces.Forums;
 using w2.FoundationDomain.DependencyInjections;
 
 namespace w2.ForumDomain.DependencyInjection

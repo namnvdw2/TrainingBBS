@@ -5,10 +5,9 @@ using System;
 namespace w2.BBS.Front.ViewModels.Request.User
 {
 	[Serializable]
-	public class UserRegisterViewModel : BaseViewModel
+	public class LoginUserViewModel : BaseViewModel
 	{
 		public string LoginId { get; set; }
-		public string Password { get; set; }
 		public string Name { get; set; }
 	}
 }

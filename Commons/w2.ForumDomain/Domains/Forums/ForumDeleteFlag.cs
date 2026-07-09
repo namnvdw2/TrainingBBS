@@ -2,7 +2,7 @@
 
 using w2.Common.Helper.Attribute;
 
-namespace w2.ForumDomain.Domains.Forum
+namespace w2.ForumDomain.Domains.Forums
 {
 	/// <summary>
 	/// Forum Delete Flag Type

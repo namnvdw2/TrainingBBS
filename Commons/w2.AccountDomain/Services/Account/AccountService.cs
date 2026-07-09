@@ -47,23 +47,22 @@ namespace w2.AccountDomain.Services.Account
 		/// <summary>
 		/// 
 		/// </summary>
-		/// <param name="accountdto"></param>
+		/// <param name="account"></param>
 		/// <returns></returns>
 		/// <exception cref="System.Exception"></exception>
 
-		public AccountModel Insert(AccountDto accountdto)
+		public AccountModel Insert(AccountModel account)
 		{
-			var accountModel = AccountModel.CreateByDto(accountdto);
-			var existed = _accountRepository.Get(accountModel.LoginId);
+			var existed = _accountRepository.Get(account.LoginId);
 			if (existed == null)
 			{
-				_accountRepository.Insert(accountModel);
+				_accountRepository.Insert(account);
 			}
 			else
 			{
 				throw new System.Exception();
 			}
-			return accountModel;
+			return account;
 		}
 	}
 }

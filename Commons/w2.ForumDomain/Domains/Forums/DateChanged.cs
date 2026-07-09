@@ -2,7 +2,7 @@
 
 using System;
 
-namespace w2.ForumDomain.Domains.Forum
+namespace w2.ForumDomain.Domains.Forums
 {
 	/// <summary>
 	/// Date changed value object

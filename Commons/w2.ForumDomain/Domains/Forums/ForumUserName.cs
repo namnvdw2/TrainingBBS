@@ -1,6 +1,6 @@
 ﻿// (c) 2025 W2 Co.,Ltd.
 
-namespace w2.ForumDomain.Domains.Forum
+namespace w2.ForumDomain.Domains.Forums
 {
 	/// <summary>
 	/// Forum user name
