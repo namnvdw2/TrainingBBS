@@ -485,6 +485,3 @@ $RECYCLE.BIN/
 
 # distributable zip archive
 template.zip
-
-# built libraries
-lib/
