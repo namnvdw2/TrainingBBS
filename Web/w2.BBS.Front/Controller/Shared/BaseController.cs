@@ -1,7 +1,10 @@
 ﻿using Newtonsoft.Json;
+using SessionDomain;
+using SessionDomain.Repositories;
 using System;
 using System.Text;
 using System.Web.Mvc;
+using Unity;
 using w2.BBS.Front.Codes.Helper;
 using w2.BBS.Front.ViewModels;
 using w2.FoundationDomain.Domains.DateStrings;
@@ -18,6 +21,11 @@ namespace w2.BBS.Front.Controller.Shared
 	public abstract class BaseController : System.Web.Mvc.Controller
 	{
 		/// <summary>
+		/// LoginUserSessionRepository
+		/// </summary>
+		protected LoginUserSessionRepository _session => DependencyResolver.Current.GetService<LoginUserSessionRepository>();
+
+		/// <summary>
 		/// ViewをレンダリングしたActionResultを返す
 		/// </summary>
 		/// <param name="viewFileVirtualPath">ビューファイルのパス</param>
@@ -25,7 +33,8 @@ namespace w2.BBS.Front.Controller.Shared
 		/// <returns>ActionResult</returns>
 		protected new ActionResult View(string viewFileVirtualPath, object model = null)
 		{
-			this.Response.ContentEncoding = Encoding.UTF8;
+			Response.ContentEncoding = Encoding.UTF8;
+
 			ITemplateRenderer templateRenderer = new FluidRenderer(new ThemeTemplatePhysicalPathRoute());
 
 			var optionData = FluidOptionData.Create(
@@ -34,11 +43,23 @@ namespace w2.BBS.Front.Controller.Shared
 				DateStringFormat.GetJpDefault(),
 				DateStringFormat.GetAll(),
 				DateTime.Now,
-				this.TempData.Get<string>(TempDataKey.AntiCsrfFormToken));
+				TempData.Get<string>(TempDataKey.AntiCsrfFormToken));
+
+			model = model ?? new BaseViewModel();
+			if (_session is not null && _session.ExistsUser())
+			{
+				if (model is BaseViewModel vm)
+				{
+					var loginUser = _session.LoginUser;
+
+					vm.IsLogin = loginUser != null;
+					vm.LoginUserName = loginUser.Name.AsString;
+				}
+			}
 
 			return new ContentResult
 			{
-				Content = templateRenderer.RenderByFile(viewFileVirtualPath, model ?? new BaseViewModel(), optionData),
+				Content = templateRenderer.RenderByFile(viewFileVirtualPath, model, optionData),
 				ContentEncoding = Encoding.UTF8,
 				ContentType = "text/html",
 			};

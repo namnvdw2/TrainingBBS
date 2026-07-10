@@ -9,7 +9,7 @@ namespace w2.WebFrontDomain.Dto.Account
 	/// User register response
 	/// </summary>
 	[Serializable]
-	public sealed class UserRegisterResponse : BaseResponse<AccountModel>
+	public sealed class UserRegisterResponse : BaseResponse<AccountDomain.Domains.Account.Account>
 	{
 		/// <summary>
 		/// Creates a success response

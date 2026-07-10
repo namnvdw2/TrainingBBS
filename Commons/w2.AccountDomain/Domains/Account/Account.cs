@@ -10,16 +10,16 @@ namespace w2.AccountDomain.Domains.Account
 	/// Account model
 	/// </summary>
 	[Serializable]
-	public sealed class AccountModel
+	public sealed class Account
 	{
 		/// <summary>
 		/// Create by Dto
 		/// </summary>
 		/// <param name="dto">DTO</param>
 		/// <returns>Account model</returns>
-		public static AccountModel CreateByDto(AccountDto dto)
+		public static Account CreateByDto(AccountDto dto)
 		{
-			return new AccountModel
+			return new Account
 			{
 				Id = new Id(dto.Id),
 				LoginId = new LoginId(dto.LoginId),
@@ -39,7 +39,6 @@ namespace w2.AccountDomain.Domains.Account
 		{
 			return new AccountDto
 			{
-				Id = this.Id.AsString,
 				LoginId = this.LoginId.AsString,
 				Name = this.Name.AsString,
 				Password = this.Password.AsString,

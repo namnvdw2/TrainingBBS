@@ -16,7 +16,7 @@ namespace w2.AccountDomain.Dto.Account
 		/// <summary>Id</summary>
 		[HashtableIgnore]
 		[HashtableAlias("id")]
-		public string Id { get; set; } = null!;
+		public int Id { get; set; }
 		/// <summary>LoginId</summary>
 		[HashtableAlias("login_id")]
 		public string LoginId { get; set; } = null!;

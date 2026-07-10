@@ -8,5 +8,6 @@ namespace w2.AccountDomain.Domains.Account
 	/// Date changed value object
 	/// </summary>
 	/// <param name="AsDateTime">Date changed as DateTime</param>
+	[Serializable]
 	public sealed record DateChanged(DateTime AsDateTime);
 }

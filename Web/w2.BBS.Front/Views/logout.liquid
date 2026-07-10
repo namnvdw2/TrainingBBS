@@ -1,0 +1,41 @@
+{% _layout 'layout.liquid' %}
+
+{% _area title %}ログアウト{% end_area %}
+
+{% _area page_body %}
+<logout-page></logout-page>
+{% end_area %}
+
+{% _area component %}
+<script type="text/x-template" id="logout-page">
+</script>
+{% end_area %}
+
+<script>
+{% _javascript key: "onload" %}
+g_vueManager.setComponent("logout-page", {
+  template: "#logout-page",
+  mounted() {
+    fetch(window.apiRoot + "logout/logout", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error();
+      }
+
+      return response.json();
+    })
+    .then(result => {
+      if (result.Success) {
+        window.location.href = result.RedirectUrl;
+        return;
+      }
+    });
+  }
+});
+{% end_javascript %}
+</script>

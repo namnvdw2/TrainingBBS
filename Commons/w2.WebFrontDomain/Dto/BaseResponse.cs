@@ -3,6 +3,8 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using w2.WebFrontDomain.Configurations;
+using w2.WebFrontDomain.Dto.Account;
 
 namespace w2.WebFrontDomain.Dto
 {

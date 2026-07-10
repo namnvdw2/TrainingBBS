@@ -27,7 +27,7 @@ namespace w2.AccountDomain.Services.Account
 		/// </summary>
 		/// <param name="id"></param>
 		/// <returns></returns>
-		public AccountModel? GetById(Id id)
+		public Domains.Account.Account? GetById(Id id)
 		{
 			var model = _accountRepository.Get(id);
 			return model;
@@ -38,7 +38,7 @@ namespace w2.AccountDomain.Services.Account
 		/// </summary>
 		/// <param name="loginId"></param>
 		/// <returns></returns>
-		public AccountModel? GetByLoginId(LoginId loginId)
+		public Domains.Account.Account? GetByLoginId(LoginId loginId)
 		{
 			var model = _accountRepository.Get(loginId);
 			return model;
@@ -51,7 +51,7 @@ namespace w2.AccountDomain.Services.Account
 		/// <returns></returns>
 		/// <exception cref="System.Exception"></exception>
 
-		public AccountModel Insert(AccountModel account)
+		public Domains.Account.Account Insert(Domains.Account.Account account)
 		{
 			var existed = _accountRepository.Get(account.LoginId);
 			if (existed == null)

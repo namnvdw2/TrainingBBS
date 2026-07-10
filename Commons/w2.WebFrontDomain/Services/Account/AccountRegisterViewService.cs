@@ -39,12 +39,9 @@ namespace w2.WebFrontDomain.Services.Account
 		{
 			if (_session.ExistsUser()) return UserRegisterResponse.CreateSuccessResponse();
 
-			UserRegisterResponse userRegisteResponse = new UserRegisterResponse();
-			using (var connection = new SqlConnection(Constants.STRING_SQL_CONNECTION))
-			{
-				userRegisteResponse = UserRegisterValidator.Validate(request, _accountService);
-				if (userRegisteResponse.HasError) return (UserRegisterResponse)userRegisteResponse;
-			}
+			var userRegisteResponse = new UserRegisterResponse();
+			userRegisteResponse = UserRegisterValidator.Validate(request, _accountService);
+			if (userRegisteResponse.HasError) return (UserRegisterResponse)userRegisteResponse;
 			_session.SetInput(userRegisteResponse.ResponseObject);
 			userRegisteResponse = UserRegisterResponse.CreateSuccessResponse(ConstantsPage.UserRegisterConfirmPageUrl);
 

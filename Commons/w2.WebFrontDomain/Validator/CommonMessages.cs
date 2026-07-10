@@ -36,6 +36,8 @@ namespace w2.WebFrontDomain.Validator
 			ErrorModifyFailed,
 			/// <summary>User cancellation failed</summary>
 			ErrorCancelFailed,
+			/// <summary>User access denined</summary>
+			ErrorCannotAccess,
 		}
 
 		/// <summary>Path to the message XML file</summary>

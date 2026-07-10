@@ -74,9 +74,9 @@
               return;
             }
 
-            this.name = result.ResponseObject.Name || '';
-            this.loginId = result.ResponseObject.LoginId || '';
-            this.password = result.ResponseObject.Password || '';
+            this.name = result.ResponseObject.Name.AsString || '';
+            this.loginId = result.ResponseObject.LoginId.AsString || '';
+            this.password = result.ResponseObject.Password.AsString || '';
           })
           .catch(error => {
             if (window.showToast) {

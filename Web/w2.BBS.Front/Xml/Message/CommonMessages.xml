@@ -45,4 +45,8 @@
   <ErrorCancelFailed>
     <![CDATA[ ErrorCancelFailed ]]>
   </ErrorCancelFailed>
+
+  <ErrorCannotAccess>
+    <![CDATA[ ErrorCannotAccess ]]>
+  </ErrorCannotAccess>
 </ErrorMessages>

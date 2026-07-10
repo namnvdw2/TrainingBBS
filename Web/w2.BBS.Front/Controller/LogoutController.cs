@@ -2,15 +2,12 @@
 
 using System.Web.Mvc;
 using w2.BBS.Front.Controller.Shared;
-using w2.WebFrontDomain.Dto.Account;
 using w2.WebFrontDomain.Services.Account;
 
 namespace w2.BBS.Front.Controller
 {
-	/// <summary>
-	/// Login controller
-	/// </summary>
-	public sealed class LoginController : BaseController
+	[RoutePrefix("logout")]
+	public class LogoutController : BaseController
 	{
 		private LoginLogoutService _loginLogoutService;
 
@@ -18,24 +15,24 @@ namespace w2.BBS.Front.Controller
 		/// Constructor
 		/// </summary>
 		/// <param name="loginLogoutService">Login logout service</param>
-		public LoginController(LoginLogoutService loginLogoutService)
+		public LogoutController(LoginLogoutService loginLogoutService)
 		{
 			_loginLogoutService = loginLogoutService;
 		}
 
 		[HttpGet]
-		[Route("~/login")]
+		[Route("")]
 		public ActionResult Index()
 		{
-			return View("login.liquid");
+			return View("logout.liquid");
 		}
 
 		[HttpPost]
-		[Route("~/login")]
-		public ActionResult Login(LoginRequest request)
+		[Route("logout")]
+		public ActionResult Logout()
 		{
-			var loginResult = _loginLogoutService.Login(request);
-			return JsonForJs(loginResult);
+			var logoutResult = _loginLogoutService.Logout();
+			return JsonForJs(logoutResult);
 		}
 	}
 }

@@ -1,8 +1,9 @@
 ﻿// (c) 2025 W2 Co.,Ltd.
 
 using w2.ForumDomain.Common;
-using w2.ForumDomain.Domains.Forums;
 using w2.ForumDomain.Domains.ForumRes;
+using w2.ForumDomain.Domains.Forums;
+using w2.ForumDomain.Dto.ForumRes;
 
 namespace w2.ForumDomain.RepositoryInterfaces.Forums
 {
@@ -25,6 +26,13 @@ namespace w2.ForumDomain.RepositoryInterfaces.Forums
 		Forum? Get(ForumId id);
 
 		/// <summary>
+		/// Get response
+		/// </summary>
+		/// <param name="ids">Forum id list</param>
+		/// <returns>Forum response dto list</returns>
+		ForumResDto[] GetResponse(ForumId[] ids);
+
+		/// <summary>
 		/// Insert
 		/// </summary>
 		/// <param name="forum">Forum</param>
@@ -40,13 +48,14 @@ namespace w2.ForumDomain.RepositoryInterfaces.Forums
 		/// Update
 		/// </summary>
 		/// <param name="forum">Forum</param>
-		void Update(Forum forum);
+		int Update(Forum forum);
 
 		/// <summary>
 		/// Delete
 		/// </summary>
 		/// <param name="id">Forum id</param>
-		void Delete(ForumId id);
+		/// <returns>deleted</returns>
+		int Delete(ForumId id);
 
 	}
 }

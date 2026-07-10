@@ -58,7 +58,7 @@ namespace w2.WebFrontDomain.Validator.User
 				return response;
 			}
 
-			response.ResponseObject = new AccountModel
+			response.ResponseObject = new Account
 			{
 				LoginId = new LoginId(request.LoginId),
 				Name = new Name(request.Name),

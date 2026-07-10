@@ -110,5 +110,15 @@ namespace w2.BBS.Front.Controller
 				viewModel);
 		}
 
+		/// <summary>
+		/// Cancel confirm
+		/// </summary>
+		/// <returns>アクションリザルト</returns>
+		[HttpGet]
+		[Route("withdrawal/confirm")]
+		public ActionResult CancelConfirm()
+		{
+			return View("User/Withdrawal/confirm.liquid");
+		}
 	}
 }

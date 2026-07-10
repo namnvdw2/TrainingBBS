@@ -28,7 +28,7 @@ namespace w2.WebFrontDomain.Configurations
 		/// <summary>User cancel complete page URL</summary>
 		public static string UserCancelCompletePageUrl => $"{EnvironmentConfig.FrontRootPath}user/withdrawal/complete";
 		/// <summary>Login page URL</summary>
-		public static string LoginPageUrl => $"{EnvironmentConfig.FrontRootPath}";
+		public static string LoginPageUrl => $"{EnvironmentConfig.FrontRootPath}login";
 		/// <summary>Logout page URL</summary>
 		public static string LogoutPageUrl => $"{EnvironmentConfig.FrontRootPath}logout";
 		/// <summary>Top forum page URL</summary>

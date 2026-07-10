@@ -1,6 +1,8 @@
 ﻿using System.Web.Mvc;
+using w2.BBS.Front.Codes.Attributes;
 using w2.BBS.Front.Controller.Shared;
 using w2.BBS.Front.ViewModels.Request.User;
+using w2.WebFrontDomain.Dto.Forums;
 using w2.WebFrontDomain.Services.Forums;
 
 namespace w2.BBS.Front.Controller
@@ -8,6 +10,7 @@ namespace w2.BBS.Front.Controller
 	/// <summary>
 	/// User controller
 	/// </summary>
+	[CustomAuthorizeAttribute]
 	[RoutePrefix("forum")]
 	public sealed class ForumController : BaseController
 	{
@@ -50,9 +53,34 @@ namespace w2.BBS.Front.Controller
 
 		[HttpPost]
 		[Route("post-forum")]
-		public ActionResult PostForum()
+		public ActionResult PostForum(PostForumRequest request)
 		{
-			return View("Forum/forum.liquid");
+			var response = _forumService.PostForum(request);
+			return JsonForJs(response);
+		}
+
+		[HttpPost]
+		[Route("post-reply")]
+		public ActionResult PostReply(ReplyForumRequest request)
+		{
+			var response = _forumService.PostForumResponse(request);
+			return JsonForJs(response);
+		}
+
+		[HttpPost]
+		[Route("update-forum")]
+		public ActionResult UpdateForum(UpdateForumRequest request)
+		{
+			var response = _forumService.UpdateForum(request);
+			return JsonForJs(response);
+		}
+
+		[HttpPost]
+		[Route("delete-forum")]
+		public ActionResult Delete(int forumId)
+		{
+			var response = _forumService.DeleteForum(forumId);
+			return JsonForJs(response);
 		}
 	}
 }

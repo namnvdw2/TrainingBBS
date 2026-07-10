@@ -32,7 +32,7 @@ namespace SessionDomain.Dto.User
 		/// </summary>
 		/// <param name="user">The user model</param>
 		/// <returns>User login model</returns>
-		public static LoginUser CreateByUser(AccountModel user)
+		public static LoginUser CreateByUser(Account user)
 		{
 			var result = new LoginUser(
 				user.Id,

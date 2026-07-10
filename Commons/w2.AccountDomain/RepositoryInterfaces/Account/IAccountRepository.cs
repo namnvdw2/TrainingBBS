@@ -11,19 +11,19 @@ namespace w2.AccountDomain.RepositoryInterfaces.Account
 		/// </summary>
 		/// <param name="id">Id</param>
 		/// <returns>Account model</returns>
-		AccountModel? Get(Id id);
+		Domains.Account.Account? Get(Id id);
 
 		/// <summary>
 		/// Get account by login id
 		/// </summary>
 		/// <param name="loginId">Login id</param>
 		/// <returns>Account model</returns>
-		AccountModel? Get(LoginId loginId);
+		Domains.Account.Account? Get(LoginId loginId);
 
 		/// <summary>
 		/// Insert
 		/// </summary>
 		/// <param name="account">Account model</param>
-		void Insert(AccountModel account);
+		void Insert(Domains.Account.Account account);
 	}
 }

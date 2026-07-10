@@ -17,7 +17,6 @@ namespace w2.ForumDomain.Dto.Forums
 		/// </summary>
 		public ForumDto()
 		{
-			this.ForumResponseId = 0;
 			this.ForumId = 0;
 			this.UserId = 0;
 			this.UserName = string.Empty;
@@ -28,16 +27,15 @@ namespace w2.ForumDomain.Dto.Forums
 			this.DateChanged = DateTime.MinValue;
 		}
 
-		/// <summary>Forum response id</summary>
-		[HashtableAlias("forum_response_id")]
-		public int ForumResponseId { get; set; }
 		/// <summary>Forum id</summary>
+		[HashtableIgnore]
 		[HashtableAlias("forum_id")]
 		public int ForumId { get; set; }
 		/// <summary>User id</summary>
 		[HashtableAlias("user_id")]
 		public int UserId { get; set; }
 		/// <summary>User name</summary>
+		[HashtableIgnore]
 		[HashtableAlias("name")]
 		public string UserName { get; set; }
 		/// <summary>Forum title</summary>

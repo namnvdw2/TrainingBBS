@@ -148,6 +148,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
+    <Compile Include="Codes\Attributes\CustomAuthorizeAttribute.cs" />
     <Compile Include="Codes\Binding\AliasedPropertyDescriptor.cs" />
     <Compile Include="Codes\Binding\AliasModelBinder.cs" />
     <Compile Include="Codes\Binding\BindAliasAttribute.cs" />
@@ -156,6 +157,7 @@
     <Compile Include="Controller\ForumController.cs" />
     <Compile Include="Controller\IndexController.cs" />
     <Compile Include="Controller\LoginController.cs" />
+    <Compile Include="Controller\LogoutController.cs" />
     <Compile Include="Controller\Shared\BaseController.cs" />
     <Compile Include="Controller\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -184,6 +186,7 @@
     <Content Include="Views\Error\404.liquid" />
     <Content Include="Views\Forum\forum.liquid" />
     <Content Include="Views\_Shared\header.liquid" />
+    <Content Include="Views\logout.liquid" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -209,7 +212,9 @@
       <Name>w2.WebFrontDomain</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\Logout\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

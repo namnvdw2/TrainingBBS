@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using w2.AccountDomain.Services.Account;
 using w2.Common;
 using w2.WebFrontDomain.Configurations;
+using w2.WebFrontDomain.Dto;
 using w2.WebFrontDomain.Dto.Account;
 using w2.WebFrontDomain.Validator;
 using w2.WebFrontDomain.Validator.User;
@@ -46,13 +47,10 @@ namespace w2.WebFrontDomain.Services.Account
 				return loginResponse;
 			}
 
-			using (var connection = new SqlConnection(Constants.STRING_SQL_CONNECTION))
-			{
-				var result = LoginValidator.Validate(request, _accountService, out var user);
-				if (result.HasError || (user is null)) return (LoginResponse)result;
+			var result = LoginValidator.Validate(request, _accountService, out var user);
+			if (result.HasError || (user is null)) return (LoginResponse)result;
 
-				_session.LoginUser = user;
-			}
+			_session.LoginUser = user;
 			return LoginResponse.CreateSuccessResponse(request?.NextUrl);
 		}
 
@@ -60,10 +58,13 @@ namespace w2.WebFrontDomain.Services.Account
 		/// Logout
 		/// </summary>
 		/// <returns></returns>
-		public string Logout()
+		public BaseResponse Logout()
 		{
 			_session.RemoveAllSession();
-			return ConstantsPage.LoginPageUrl;
+			return new BaseResponse()
+			{
+				RedirectUrl = ConstantsPage.LoginPageUrl
+			};
 		}
 	}
 }

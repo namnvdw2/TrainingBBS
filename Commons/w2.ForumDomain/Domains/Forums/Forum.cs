@@ -91,9 +91,21 @@ namespace w2.ForumDomain.Domains.Forums
 				ForumTitle = this.Title.AsString,
 				ForumText = this.Text.AsString,
 				DeleteFlg = this.DeleteFlag.ToDbValue(),
+				DateCreated = this.DateCreated.AsDateTime,
+				DateChanged = this.DateChanged.AsDateTime,
 			};
 
 			return dto;
+		}
+
+		/// <summary>
+		/// Can access
+		/// </summary>
+		/// <param name="userId">userId</param>
+		/// <returns>True if user id can update or delete, otherwise return false</returns>
+		public bool CanAccess(int userId)
+		{
+			return userId == this.UserId.AsInt;
 		}
 
 		/// <summary>Forum ID</summary>
@@ -101,9 +113,9 @@ namespace w2.ForumDomain.Domains.Forums
 		/// <summary>Forum user ID</summary>
 		public ForumUserId UserId { get; }
 		/// <summary>Forum title</summary>
-		public ForumTitle Title { get; }
+		public ForumTitle Title { get; set; }
 		/// <summary>Forum text</summary>
-		public ForumText Text { get; }
+		public ForumText Text { get; set; }
 		/// <summary>Delete flag</summary>
 		public ForumDeleteFlagStatus DeleteFlag { get; }
 		/// <summary>Date changed</summary>

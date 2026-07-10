@@ -1,10 +1,17 @@
 <header class="navbar navbar-expand-lg shadow-sm px-4">
-    <div class="">
-      <a class="navbar-brand" href="{{ RootUrl }}">掲示板課題</a>
-    </div>
-    <div class="ms-auto">
-      <a class="btn btn-primary w-20 mx-1" href="{{ RootUrl }}">会員情報変更</a>
-      <a class="btn btn-primary w-20 mx-1" href="{{ RootUrl }}">会員退会</a>
-      <a class="btn btn-primary w-20 mx-1" href="{{ RootUrl }}">ログアウト</a>
-    </div>
+  <div>
+    <a class="navbar-brand" href="{{ RootUrl }}">掲示板課題</a>
+  </div>
+
+  {% if IsLogin %}
+  <div class="ms-auto">
+    <a class="btn btn-primary mx-1" href="{{ ModifyUrl }}">会員情報変更</a>
+    <a class="btn btn-primary mx-1" href="{{ CancelUrl }}">会員退会</a>
+    <a class="btn btn-primary mx-1" href="{{ LogoutUrl }}">ログアウト</a>
+  </div>
+  {% else %}
+  <div class="ms-auto">
+    <a class="btn btn-primary mx-1" href="{{ LoginUrl }}">ログイン</a>
+  </div>
+  {% endif %}
 </header>

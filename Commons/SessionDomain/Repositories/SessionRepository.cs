@@ -10,6 +10,7 @@ namespace SessionDomain.Repositories
 	/// </summary>
 	public abstract class SessionRepository<TInput> : SessionRepositoryBase, ISessionRepository<TInput>
 	{
+		/// <summary>Session key login user</summary>
 		public const string SESSION_KEY_LOGIN_USER = "login_user";
 
 		/// <summary>
@@ -24,6 +25,7 @@ namespace SessionDomain.Repositories
 		public bool ExistsUser()
 			=> this.Session[SESSION_KEY_LOGIN_USER] is LoginUser;
 
+		/// <inheritdoc />
 		public void RemoveAllSession()
 		{
 			Session.Contents.RemoveAll();

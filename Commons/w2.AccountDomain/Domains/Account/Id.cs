@@ -8,12 +8,12 @@ namespace w2.AccountDomain.Domains.Account
 	/// Id
 	/// </summary>
 	[Serializable]
-	public sealed record Id(string AsString)
+	public sealed record Id(int AsInt)
 	{
 		/// <inheritdoc />
 		public override string ToString()
 		{
-			return this.AsString.ToString();
+			return this.AsInt.ToString();
 		}
 	}
 }

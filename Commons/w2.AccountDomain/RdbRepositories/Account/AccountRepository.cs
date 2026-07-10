@@ -27,26 +27,26 @@ namespace w2.AccountDomain.RdbRepositories.Account
 		}
 
 		/// <inheritdoc />
-		public AccountModel? Get(Id id)
+		public Domains.Account.Account? Get(Id id)
 		{
 			var dto = _repository
 				.GetWithBuilder<AccountDto>(f =>
 					f.Query("w2_Account")
-					.Where("id", id.AsString))
+					.Where("id", id.AsInt))
 				.FirstOrDefault();
-			return dto is not null ? AccountModel.CreateByDto(dto) : null;
+			return dto is not null ? Domains.Account.Account.CreateByDto(dto) : null;
 		}
 
 		/// <inheritdoc />
-		public AccountModel? Get(LoginId loginId)
+		public Domains.Account.Account? Get(LoginId loginId)
 		{
 			var dto = _repository.GetWithBuilder<AccountDto>(
 				f => f.Query("w2_Account").Where("login_id", loginId.AsString)).FirstOrDefault();
-			return dto is not null ? AccountModel.CreateByDto(dto) : null;
+			return dto is not null ? Domains.Account.Account.CreateByDto(dto) : null;
 		}
 
 		/// <inheritdoc />
-		public void Insert(AccountModel account)
+		public void Insert(Domains.Account.Account account)
 		{
 			account.DateChanged = new DateChanged(DateTime.Now);
 			account.DateCreated = new DateCreated(DateTime.Now);

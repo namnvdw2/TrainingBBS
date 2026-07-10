@@ -8,6 +8,7 @@ namespace w2.AccountDomain.Domains.Account
 	/// <summary>
 	/// User cancel flag status
 	/// </summary>
+	[Serializable]
 	public enum UserCancelStatus
 	{
 		[DbValue("0")]
