@@ -43,7 +43,7 @@
     template: "#account-delete",
     data() {
       return {
-        errorMessage: ""
+        errorMessage: ''
       };
     },
     methods: {
@@ -63,6 +63,7 @@
               window.location.href = result.RedirectUrl;
               return;
             }
+
             this.errorMessage = result.Message || "エラーが発生しました。";
           });
       }
