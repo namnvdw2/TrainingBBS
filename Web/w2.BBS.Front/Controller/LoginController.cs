@@ -12,7 +12,7 @@ namespace w2.BBS.Front.Controller
 	/// </summary>
 	public sealed class LoginController : BaseController
 	{
-		private LoginLogoutService _loginLogoutService;
+		private readonly LoginLogoutService _loginLogoutService;
 
 		/// <summary>
 		/// Constructor

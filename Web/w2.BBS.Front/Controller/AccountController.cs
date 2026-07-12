@@ -39,11 +39,11 @@ namespace w2.BBS.Front.Controller
 			{
 				BackUrl = ConstantsPage.LoginPageUrl,
 			};
-			var response = _service.InputInit();
+			var response = _service.GetInputInfor();
 			if (response.ResponseObject is not null)
 			{
-				viewModel.LoginId = response.ResponseObject.LoginId.AsString;
-				viewModel.Name = response.ResponseObject.Name.AsString;
+				viewModel.LoginId = response.ResponseObject?.LoginId.AsString;
+				viewModel.Name = response.ResponseObject?.Name.AsString;
 			}
 
 			return View(
@@ -82,7 +82,7 @@ namespace w2.BBS.Front.Controller
 		[Route("register/confirm/get")]
 		public ActionResult GetConfirmInput()
 		{
-			var response = _service.InputInit();
+			var response = _service.GetInputInfor();
 			return JsonForJs(response);
 		}
 
@@ -161,8 +161,8 @@ namespace w2.BBS.Front.Controller
 			var response = _service.GetLoginAccountOrInputInfor();
 			var viewModel = new AccountRegisterModifyViewModel
 			{
-				LoginId = response.ResponseObject.LoginId.AsString,
-				Name = response.ResponseObject.Name.AsString,
+				LoginId = response.ResponseObject?.LoginId.AsString,
+				Name = response.ResponseObject?.Name.AsString,
 			};
 
 			return View(

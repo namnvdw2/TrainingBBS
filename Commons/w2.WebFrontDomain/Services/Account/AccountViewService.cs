@@ -50,15 +50,15 @@ namespace w2.WebFrontDomain.Services.Account
 		}
 
 		/// <summary>
-		/// Initialize input
+		/// Initialize input information
 		/// </summary>
 		/// <returns>User register context response</returns>
-		public AccountRegisterModifyResponse InputInit()
+		public AccountRegisterModifyResponse GetInputInfor()
 		{
 			var input = _session.IsExistsInput()
 				? _session.GetInput()
 				: null;
-
+			_session.Clear();
 			var response = ResponseFactory.Success<AccountRegisterModifyResponse>();
 			response.ResponseObject = input;
 
@@ -98,7 +98,7 @@ namespace w2.WebFrontDomain.Services.Account
 
 			var loginUser = _session.LoginAccount;
 			_accountService.Withdrawal(loginUser.AccountId);
-			_session.Clear();
+			_session.RemoveAllSession();
 
 			return ResponseFactory.Success(ConstantsPage.AccountCancelCompletePageUrl);
 		}
@@ -109,21 +109,16 @@ namespace w2.WebFrontDomain.Services.Account
 		/// <returns>Account register modify response</returns>
 		public AccountRegisterModifyResponse GetLoginAccountOrInputInfor()
 		{
-			var input = _session.IsExistsInput()
-				? _session.GetInput()
-				: null;
+			var response = GetInputInfor();
 
-			if (input is null && _session.ExistsLoggedIn())
+			if (response.ResponseObject is null && _session.ExistsLoggedIn())
 			{
 				var loginAccount = _session.LoginAccount;
-				input = _accountService.GetById(loginAccount.AccountId);
+				response.ResponseObject = _accountService.GetById(loginAccount.AccountId);
 			}
 
-			if (input is null)
-				return ResponseFactory.Success<AccountRegisterModifyResponse>(ConstantsPage.LoginPageUrl);
-
-			var response = ResponseFactory.Success<AccountRegisterModifyResponse>();
-			response.ResponseObject = input;
+			if (response.ResponseObject is null)
+				return ResponseFactory.Error<AccountRegisterModifyResponse>(ConstantsPage.LoginPageUrl);
 
 			return response;
 		}
@@ -135,12 +130,11 @@ namespace w2.WebFrontDomain.Services.Account
 		/// <returns>Account register response</returns>
 		public AccountRegisterModifyResponse ModifyValidate(AccountRegisterModifyRequest request)
 		{
-			if (_session.ExistsLoggedIn())
+			if (!_session.ExistsLoggedIn())
 				return ResponseFactory.Error<AccountRegisterModifyResponse>(ConstantsPage.LoginPageUrl);
 
 			var userRegisteResponse = AccountRegisterValidator.DataValidate(request);
-			if (userRegisteResponse.HasError)
-				return (AccountRegisterModifyResponse)userRegisteResponse;
+			if (userRegisteResponse.HasError) return userRegisteResponse;
 
 			_session.SetInput(userRegisteResponse.ResponseObject);
 			userRegisteResponse = ResponseFactory.Success<AccountRegisterModifyResponse>(ConstantsPage.AccountModifyConfirmPageUrl);
