@@ -1,10 +1,11 @@
-﻿// (c) 2025 W2 Co.,Ltd.
+﻿// (c) 2026 W2 Co.,Ltd.
 
-using SessionDomain.Dto.User;
+using SessionDomain.Dto.Accounts;
 using System.Diagnostics.CodeAnalysis;
 using w2.AccountDomain.Services.Account;
+using w2.WebFrontDomain.Dto;
 using w2.WebFrontDomain.Dto.Account;
-using w2.WebFrontDomain.Validator.User;
+using w2.WebFrontDomain.Validator.Accounts;
 using static w2.WebFrontDomain.Validator.CommonMessages;
 
 namespace w2.WebFrontDomain.Validator
@@ -12,7 +13,7 @@ namespace w2.WebFrontDomain.Validator
 	/// <summary>
 	/// Login validator
 	/// </summary>
-	public class LoginValidator : UserValidator
+	public class LoginValidator : AccountValidator
 	{
 		/// <summary>
 		/// Validate
@@ -24,12 +25,12 @@ namespace w2.WebFrontDomain.Validator
 		public static LoginResponse Validate(
 			LoginRequest request,
 			AccountService accountService,
-			[NotNullWhen(returnValue: true)] out LoginUser? resultUser)
+			[NotNullWhen(returnValue: true)] out LoginAccount? resultUser)
 		{
-			var response = new LoginResponse();
-			var user = accountService.GetByLoginId(new AccountDomain.Domains.Account.LoginId (request.LoginId));
+			var response = ResponseFactory.Success<LoginResponse>(request?.NextUrl);
+			var user = accountService.GetByLoginId(new AccountDomain.Domains.Account.LoginId(request?.LoginId ?? string.Empty));
 			if (user == null
-				|| !user.CanLogin(new AccountDomain.Domains.Account.Password(request.Password)))
+				|| !user.CanLogin(new AccountDomain.Domains.Account.Password(request?.Password ?? string.Empty)))
 			{
 				response.Success = false;
 				response.Message = GetMessage(CommonMessageKey.ErrorLoginIdOrPasswordInvalid);
@@ -37,11 +38,8 @@ namespace w2.WebFrontDomain.Validator
 				return response;
 			}
 
-			resultUser = LoginUser.CreateByUser(user);
-			return new LoginResponse
-			{
-				Success = true
-			};
+			resultUser = LoginAccount.CreateByUser(user);
+			return response;
 		}
 	}
 }

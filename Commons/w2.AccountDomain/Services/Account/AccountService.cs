@@ -1,5 +1,6 @@
-﻿// (c) 2025 W2 Co.,Ltd.
+﻿// (c) 2026 W2 Co.,Ltd.
 
+using System.Security.Principal;
 using w2.AccountDomain.Domains.Account;
 using w2.AccountDomain.Dto.Account;
 using w2.AccountDomain.RepositoryInterfaces.Account;
@@ -63,6 +64,19 @@ namespace w2.AccountDomain.Services.Account
 				throw new System.Exception();
 			}
 			return account;
+		}
+
+		/// <summary>
+		/// Withdrawal
+		/// </summary>
+		/// <param name="accountId">Account id</param>
+		/// <returns>Withdrawaled</returns>
+		public int Withdrawal(Id accountId)
+		{
+			var existed = _accountRepository.Get(accountId);
+			if (existed is null) return 0;
+
+			return _accountRepository.Withdrawal(accountId);
 		}
 	}
 }

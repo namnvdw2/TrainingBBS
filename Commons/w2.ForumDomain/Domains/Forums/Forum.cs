@@ -1,4 +1,4 @@
-﻿// (c) 2025 W2 Co.,Ltd.
+﻿// (c) 2026 W2 Co.,Ltd.
 
 using System;
 using w2.Common.Helper.Attribute;
@@ -48,10 +48,6 @@ namespace w2.ForumDomain.Domains.Forums
 				title,
 				text,
 				ForumDeleteFlagStatus.Active)
-		{
-		}
-
-		public Forum()
 		{
 		}
 

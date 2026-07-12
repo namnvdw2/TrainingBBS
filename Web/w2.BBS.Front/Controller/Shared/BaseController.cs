@@ -23,7 +23,7 @@ namespace w2.BBS.Front.Controller.Shared
 		/// <summary>
 		/// LoginUserSessionRepository
 		/// </summary>
-		protected LoginUserSessionRepository _session => DependencyResolver.Current.GetService<LoginUserSessionRepository>();
+		protected LoginAccountSessionRepository _session => DependencyResolver.Current.GetService<LoginAccountSessionRepository>();
 
 		/// <summary>
 		/// ViewをレンダリングしたActionResultを返す
@@ -46,14 +46,14 @@ namespace w2.BBS.Front.Controller.Shared
 				TempData.Get<string>(TempDataKey.AntiCsrfFormToken));
 
 			model = model ?? new BaseViewModel();
-			if (_session is not null && _session.ExistsUser())
+			if (_session is not null && _session.ExistsLoggedIn())
 			{
 				if (model is BaseViewModel vm)
 				{
-					var loginUser = _session.LoginUser;
+					var loginAccount = _session.LoginAccount;
 
-					vm.IsLogin = loginUser != null;
-					vm.LoginUserName = loginUser.Name.AsString;
+					vm.IsLogin = loginAccount != null;
+					vm.LoginUserName = loginAccount.Name.AsString;
 				}
 			}
 

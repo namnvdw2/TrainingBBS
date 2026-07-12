@@ -44,16 +44,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DependencyInjections\DiContainerConfigurator.cs" />
-    <Compile Include="Dto\User\LoginUser.cs" />
-    <Compile Include="Interface\ILoginUserSessionRepository.cs" />
+    <Compile Include="Dto\Accounts\LoginAccount.cs" />
+    <Compile Include="Interface\ILoginAccountSessionRepository.cs" />
     <Compile Include="Interface\ISessionErrorRepository.cs" />
     <Compile Include="Interface\ISessionRepository.cs" />
-    <Compile Include="Interface\IUserRegisterSessionRepository.cs" />
+    <Compile Include="Interface\IAccountRegisterSessionRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\LoginUserSessionRepository.cs" />
+    <Compile Include="Repositories\LoginAccountSessionRepository.cs" />
     <Compile Include="Repositories\SessionErrorRepository.cs" />
     <Compile Include="Repositories\SessionRepository.cs" />
-    <Compile Include="Repositories\UserRegisterSessionRepository.cs" />
+    <Compile Include="Repositories\AccountInputSessionRepository.cs" />
     <Compile Include="SessionRepositoryBase.cs" />
   </ItemGroup>
   <ItemGroup>

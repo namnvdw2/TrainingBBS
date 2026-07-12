@@ -1,4 +1,4 @@
-﻿// (c) 2025 W2 Co.,Ltd.
+﻿// (c) 2026 W2 Co.,Ltd.
 
 using System;
 using w2.AccountDomain.Domains.Account;
@@ -28,7 +28,7 @@ namespace w2.AccountDomain.Dto.Account
 		public string Password { get; set; } = null!;
 		/// <summary>Delete flag</summary>
 		[HashtableAlias("delete_flg")]
-		public string DeleteFlg { get; set; } = UserCancelStatus.Active.ToDbValue();
+		public string DeleteFlg { get; set; } = AccountWithdrawalStatus.Active.ToDbValue();
 		/// <summary>Date created</summary>
 		[HashtableAlias("date_created")]
 		public DateTime DateCreated { get; set; } = DateTime.MinValue;

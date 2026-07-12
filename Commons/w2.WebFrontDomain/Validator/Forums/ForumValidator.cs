@@ -1,11 +1,15 @@
-﻿// (c) 2025 W2 Co.,Ltd.
+﻿// (c) 2026 W2 Co.,Ltd.
 
 using w2.ForumDomain.Domains.Forums;
+using w2.WebFrontDomain.Dto;
 using w2.WebFrontDomain.Dto.Forums;
 using static w2.WebFrontDomain.Validator.CommonMessages;
 
 namespace w2.WebFrontDomain.Validator.Forums
 {
+	/// <summary>
+	/// Forum validator
+	/// </summary>
 	public class ForumValidator
 	{
 		/// <summary>Maximum length for forum tile</summary>
@@ -28,7 +32,7 @@ namespace w2.WebFrontDomain.Validator.Forums
 		/// <returns>Forum response</returns>
 		public static ForumResponse Validate(PostForumRequest request)
 		{
-			ForumResponse response = ForumResponse.CreateSuccessResponse();
+			ForumResponse response = ResponseFactory.Success<ForumResponse>();
 
 			var titleErrorMessage = CheckTitle(request.Title);
 			if (!string.IsNullOrEmpty(titleErrorMessage))
@@ -59,7 +63,7 @@ namespace w2.WebFrontDomain.Validator.Forums
 			int userId,
 			Forum forum)
 		{
-			ForumResponse response = ForumResponse.CreateSuccessResponse();
+			ForumResponse response = ResponseFactory.Success<ForumResponse>();
 			if (!forum.CanAccess(userId))
 			{
 				response.Message = GetMessage(CommonMessageKey.ErrorCannotAccess);
@@ -78,7 +82,9 @@ namespace w2.WebFrontDomain.Validator.Forums
 		{
 			if (ValidatorUtility.CheckRequired(title))
 			{
-				return GetMessage(CommonMessageKey.FormatErrorRequired, FORUM_TITLE_FIELD_NAME);
+				return GetMessage(
+					CommonMessageKey.FormatErrorRequired,
+					FORUM_TITLE_FIELD_NAME);
 			}
 
 			if (ValidatorUtility.CheckMaxLength(title, MAX_LENGTH_FORUM_TITLE))
@@ -101,7 +107,9 @@ namespace w2.WebFrontDomain.Validator.Forums
 		{
 			if (ValidatorUtility.CheckRequired(text))
 			{
-				return GetMessage(CommonMessageKey.FormatErrorRequired, FORUM_TEXT_FIELD_NAME);
+				return GetMessage(
+					CommonMessageKey.FormatErrorRequired,
+					FORUM_TEXT_FIELD_NAME);
 			}
 
 			if (ValidatorUtility.CheckMaxLength(text, MAX_LENGTH_FORUM_TEXT))

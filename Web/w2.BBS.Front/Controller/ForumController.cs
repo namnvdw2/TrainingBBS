@@ -1,7 +1,10 @@
-﻿using System.Web.Mvc;
+﻿// (c) 2026 W2 Co.,Ltd.
+
+using System.Web.Mvc;
 using w2.BBS.Front.Codes.Attributes;
 using w2.BBS.Front.Controller.Shared;
-using w2.BBS.Front.ViewModels.Request.User;
+using w2.BBS.Front.ViewModels.Accounts;
+using w2.WebFrontDomain.Configurations;
 using w2.WebFrontDomain.Dto.Forums;
 using w2.WebFrontDomain.Services.Forums;
 
@@ -14,9 +17,6 @@ namespace w2.BBS.Front.Controller
 	[RoutePrefix("forum")]
 	public sealed class ForumController : BaseController
 	{
-		/// <summary>Default page size</summary>
-		private const int DEFAULT_PAGE_SIZE = 10;
-
 		private readonly ForumViewService _forumService;
 
 		/// <summary>
@@ -28,29 +28,44 @@ namespace w2.BBS.Front.Controller
 			_forumService = forumService;
 		}
 
+		/// <summary>
+		/// Forum top
+		/// </summary>
+		/// <returns>Action result</returns>
 		[HttpGet]
 		[Route("")]
-		public ActionResult Index()
+		public ActionResult ForumTop()
 		{
 			var loginUser = _forumService.GetLoginInformation();
-			var viewModel = new LoginUserViewModel
+			var viewModel = new LoginAccountViewModel
 			{
 				LoginId = loginUser.LoginId.AsString,
 				Name = loginUser.Name.AsString,
 			};
+
 			return View("Forum/forum.liquid", viewModel);
 		}
 
+		/// <summary>
+		/// Get forums
+		/// </summary>
+		/// <param name="page">Page no</param>
+		/// <returns>Action result</returns>
 		[HttpGet]
 		[Route("get-forums")]
 		public ActionResult GetForums(int page = 1)
 		{
 			var response = _forumService.GetForumPagination(
 				page,
-				DEFAULT_PAGE_SIZE);
+				ConstantsPage.DefaultPageSize);
 			return JsonForJs(response);
 		}
 
+		/// <summary>
+		/// Post forum
+		/// </summary>
+		/// <param name="request">Post forum request</param>
+		/// <returns>Action result</returns>
 		[HttpPost]
 		[Route("post-forum")]
 		public ActionResult PostForum(PostForumRequest request)
@@ -59,6 +74,11 @@ namespace w2.BBS.Front.Controller
 			return JsonForJs(response);
 		}
 
+		/// <summary>
+		/// Post reply
+		/// </summary>
+		/// <param name="request">Reply forum request</param>
+		/// <returns>Action result</returns>
 		[HttpPost]
 		[Route("post-reply")]
 		public ActionResult PostReply(ReplyForumRequest request)
@@ -67,6 +87,11 @@ namespace w2.BBS.Front.Controller
 			return JsonForJs(response);
 		}
 
+		/// <summary>
+		/// Update forum
+		/// </summary>
+		/// <param name="request">Update forum request</param>
+		/// <returns>Action result</returns>
 		[HttpPost]
 		[Route("update-forum")]
 		public ActionResult UpdateForum(UpdateForumRequest request)
@@ -75,6 +100,11 @@ namespace w2.BBS.Front.Controller
 			return JsonForJs(response);
 		}
 
+		/// <summary>
+		/// Delete
+		/// </summary>
+		/// <param name="forumId">Forum id</param>
+		/// <returns>Action result</returns>
 		[HttpPost]
 		[Route("delete-forum")]
 		public ActionResult Delete(int forumId)

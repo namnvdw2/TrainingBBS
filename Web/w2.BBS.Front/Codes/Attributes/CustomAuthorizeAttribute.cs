@@ -1,4 +1,4 @@
-﻿// (c) 2025 W2 Co.,Ltd.
+﻿// (c) 2026 W2 Co.,Ltd.
 
 using SessionDomain.Repositories;
 using System.Web;
@@ -19,10 +19,9 @@ namespace w2.BBS.Front.Codes.Attributes
 		/// <returns>True if authorized, otherwise return false</returns>
 		protected override bool AuthorizeCore(HttpContextBase httpContext)
 		{
-			var session = DependencyResolver.Current
-				.GetService<LoginUserSessionRepository>();
+			var session = DependencyResolver.Current.GetService<LoginAccountSessionRepository>();
 
-			return session is not null && session.ExistsUser();
+			return session is not null && session.ExistsLoggedIn();
 		}
 
 		/// <summary>

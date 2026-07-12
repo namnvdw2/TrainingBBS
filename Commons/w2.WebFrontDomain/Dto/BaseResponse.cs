@@ -1,10 +1,8 @@
-﻿// (c) 2025 W2 Co.,Ltd.
+﻿// (c) 2026 W2 Co.,Ltd.
 
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using w2.WebFrontDomain.Configurations;
-using w2.WebFrontDomain.Dto.Account;
 
 namespace w2.WebFrontDomain.Dto
 {

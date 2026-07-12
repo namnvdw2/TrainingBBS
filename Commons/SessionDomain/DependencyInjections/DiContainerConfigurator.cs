@@ -1,4 +1,4 @@
-﻿// (c) 2025 W2 Co.,Ltd.
+﻿// (c) 2026 W2 Co.,Ltd.
 
 using Unity;
 using SessionDomain.Interface;
@@ -16,8 +16,8 @@ namespace SessionDomain.DependencyInjections
 		public UnityContainer Configure(UnityContainer container)
 		{
 			container.RegisterType<ISessionErrorRepository, SessionErrorRepository>();
-			container.RegisterType<IUserRegisterSessionRepository, UserRegisterSessionRepository>();
-			container.RegisterType<ILoginUserSessionRepository, LoginUserSessionRepository>();
+			container.RegisterType<IAccountRegisterSessionRepository, AccountInputSessionRepository>();
+			container.RegisterType<ILoginAccountSessionRepository, LoginAccountSessionRepository>();
 			return container;
 		}
 	}

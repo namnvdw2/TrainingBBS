@@ -1,0 +1,121 @@
+{% _layout 'layout.liquid' %}
+
+{% _area title %}登録内容確認{% end_area %}
+
+{% _area head_resource %}
+{% end_area %}
+
+{% _area page_body %}
+<modify-confirm></modify-confirm>
+{% end_area %}
+
+{% _area component %}
+<script type="text/x-template" id="modify-confirm">
+  <div class="container">
+    <div class="d-flex justify-content-center align-items-center vh-100">
+      <div class="justify-content-center">
+        <h4 class="text-center fw-bold mb-4">登録内容確認</h4>
+        <form class="align-items-center">
+          <div class="mb-1">
+            <div class="text-center">ユーザー名 : ${ name }</div>
+          </div>
+          <div class="mb-1">
+            <div class="text-center">ID : ${ loginId }</div>
+          </div>
+          <div class="mb-4">
+            <div class="text-center">パスワード : ${ password }</div>
+          </div>
+          <div class="mb-3 d-flex justify-content-around">
+            <button class="btn btn-primary w-20" @click="save()">登録</button>
+            <a class="btn btn-primary w-20" href="{{ BackUrl }}">戻る</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</script>
+{% end_area %}
+
+<script>
+  {% _javascript key: "onload" %}
+  g_vueManager.setComponent('modify-confirm', {
+    template: '#modify-confirm',
+    data() {
+      return {
+        name: '',
+        loginId: '',
+        password: '',
+      }
+    },
+    mounted() {
+      this.initData();
+    },
+    methods: {
+      initData: function () {
+        const options = {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        }
+        const endpointUrl = 'user/register/confirm/get';
+        fetch(window.apiRoot + endpointUrl, options)
+          .then(response => {
+            if (!response.ok) {
+              throw new Error(`HTTP ${response.status}`);
+            }
+
+            return response.json();
+          })
+          .then(result => {
+            if (result.RedirectUrl) {
+              window.location.href = result.redirectUrl;
+              return;
+            }
+
+            this.name = result.ResponseObject.Name.AsString || '';
+            this.loginId = result.ResponseObject.LoginId.AsString || '';
+            this.password = result.ResponseObject.Password.AsString || '';
+          })
+          .catch(error => {
+            if (window.showToast) {
+              window.showToast('エラーが発生しました。時間をおいて再度お試しください。', 'danger');
+            }
+          });
+      },
+      save: function () {
+        const options = {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name: this.name,
+            loginId: this.loginId,
+            password: this.password
+          })
+        }
+
+        const endpointUrl = 'user/register/confirm/save';
+        fetch(window.apiRoot + endpointUrl, options)
+          .then(response => {
+            if (!response.ok) {
+              throw new Error(`HTTP ${response.status}`);
+            }
+
+            return response.json();
+          })
+          .then(result => {
+            console.log(result)
+            window.location.href = result.RedirectUrl;
+          })
+          .catch(error => {
+            if (window.showToast) {
+              window.showToast('エラーが発生しました。時間をおいて再度お試しください。', 'danger');
+            }
+          });
+      }
+    }
+  });
+  {% end_javascript %}
+</script>

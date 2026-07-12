@@ -13,7 +13,7 @@
     <RootNamespace>w2.BBS.Front</RootNamespace>
     <AssemblyName>w2.BBS.Front</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort>44324</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
@@ -159,15 +159,14 @@
     <Compile Include="Controller\LoginController.cs" />
     <Compile Include="Controller\LogoutController.cs" />
     <Compile Include="Controller\Shared\BaseController.cs" />
-    <Compile Include="Controller\UserController.cs" />
+    <Compile Include="Controller\AccountController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\Accounts\AccountRegisterModifyViewModel.cs" />
+    <Compile Include="ViewModels\Accounts\LoginAccountViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
-    <Compile Include="ViewModels\IndexViewModel.cs" />
-    <Compile Include="ViewModels\Request\User\LoginRequestViewModel.cs" />
-    <Compile Include="ViewModels\Request\User\LoginUserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\_Razorは使わないでください.txt" />
@@ -176,17 +175,18 @@
     <Content Include="libman.json" />
     <None Include="packages.config" />
     <Content Include="Views\web.config" />
-    <Content Include="Views\User\Modify\input.liquid" />
-    <Content Include="Views\User\Register\complete.liquid" />
-    <Content Include="Views\User\Register\confirm.liquid" />
-    <Content Include="Views\User\Register\input.liquid" />
-    <Content Include="Views\User\Withdrawal\complete.liquid" />
-    <Content Include="Views\User\Withdrawal\confirm.liquid" />
+    <Content Include="Views\Account\Modify\input.liquid" />
+    <Content Include="Views\Account\Register\complete.liquid" />
+    <Content Include="Views\Account\Register\confirm.liquid" />
+    <Content Include="Views\Account\Register\input.liquid" />
+    <Content Include="Views\Account\Withdrawal\complete.liquid" />
+    <Content Include="Views\Account\Withdrawal\confirm.liquid" />
     <Content Include="Views\login.liquid" />
     <Content Include="Views\Error\404.liquid" />
     <Content Include="Views\Forum\forum.liquid" />
     <Content Include="Views\_Shared\header.liquid" />
     <Content Include="Views\logout.liquid" />
+    <Content Include="Views\Account\Modify\confirm.liquid" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

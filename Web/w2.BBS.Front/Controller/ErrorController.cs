@@ -1,10 +1,19 @@
-﻿using System.Web.Mvc;
+﻿// (c) 2026 W2 Co.,Ltd.
+
+using System.Web.Mvc;
 using w2.BBS.Front.Controller.Shared;
 
 namespace w2.BBS.Front.Controller
 {
+	/// <summary>
+	/// Error controller
+	/// </summary>
 	public class ErrorController : BaseController
 	{
+		/// <summary>
+		/// Not found
+		/// </summary>
+		/// <returns>Action result</returns>
 		public ActionResult NotFound()
 		{
 			Response.StatusCode = 404;

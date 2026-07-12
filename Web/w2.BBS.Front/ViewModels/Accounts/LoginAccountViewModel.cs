@@ -1,0 +1,15 @@
+﻿// (c) 2026 W2 Co.,Ltd.
+
+namespace w2.BBS.Front.ViewModels.Accounts
+{
+	/// <summary>
+	/// Login account view model
+	/// </summary>
+	public class LoginAccountViewModel : BaseViewModel
+	{
+		/// <summary>Login id</summary>
+		public string LoginId { get; set; }
+		/// <summary>Name</summary>
+		public string Name { get; set; }
+	}
+}

@@ -1,5 +1,4 @@
-﻿// (c) 2025 W2 Co.,Ltd.
-using w2.ForumDomain.Domains.Forums;
+﻿// (c) 2026 W2 Co.,Ltd.
 
 namespace w2.WebFrontDomain.Dto.Forums
 {
@@ -8,30 +7,5 @@ namespace w2.WebFrontDomain.Dto.Forums
 	/// </summary>
 	public class ForumPaginationResponse : BaseResponse<PaginationResponseObject<ForumResponseDto>>
 	{
-		/// <summary>
-		/// Creates a success response
-		/// </summary>
-		/// <returns>Login response</returns>
-		public static ForumPaginationResponse CreateSuccessResponse(string nextUrl = "")
-		{
-			return new ForumPaginationResponse
-			{
-				Success = true,
-				RedirectUrl = nextUrl,
-			};
-		}
-
-		/// <summary>
-		/// Creates a error response
-		/// </summary>
-		/// <returns>Login response</returns>
-		public static ForumPaginationResponse CreateErrorResponse(string nextUrl = "")
-		{
-			return new ForumPaginationResponse
-			{
-				Success = false,
-				RedirectUrl = nextUrl,
-			};
-		}
 	}
 }

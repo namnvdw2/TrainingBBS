@@ -1,10 +1,9 @@
-﻿// (c) 2025 W2 Co.,Ltd.
+﻿// (c) 2026 W2 Co.,Ltd.
 
 using System.Linq;
 using w2.ForumDomain.Common;
 using w2.ForumDomain.Domains.ForumRes;
 using w2.ForumDomain.Domains.Forums;
-using w2.ForumDomain.Dto.Forums;
 using w2.ForumDomain.RepositoryInterfaces.Forums;
 
 namespace w2.ForumDomain.Services.Forums

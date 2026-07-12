@@ -1,4 +1,4 @@
-﻿// (c) 2025 W2 Co.,Ltd.
+﻿// (c) 2026 W2 Co.,Ltd.
 
 using System.Web.Mvc;
 using w2.BBS.Front.Controller.Shared;
@@ -6,6 +6,9 @@ using w2.WebFrontDomain.Services.Account;
 
 namespace w2.BBS.Front.Controller
 {
+	/// <summary>
+	/// Logout controller
+	/// </summary>
 	[RoutePrefix("logout")]
 	public class LogoutController : BaseController
 	{
@@ -20,6 +23,10 @@ namespace w2.BBS.Front.Controller
 			_loginLogoutService = loginLogoutService;
 		}
 
+		/// <summary>
+		/// Index
+		/// </summary>
+		/// <returns>Action result</returns>
 		[HttpGet]
 		[Route("")]
 		public ActionResult Index()
@@ -27,6 +34,10 @@ namespace w2.BBS.Front.Controller
 			return View("logout.liquid");
 		}
 
+		/// <summary>
+		/// Logout
+		/// </summary>
+		/// <returns>Action result</returns>
 		[HttpPost]
 		[Route("logout")]
 		public ActionResult Logout()

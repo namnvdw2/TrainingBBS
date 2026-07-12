@@ -1,6 +1,6 @@
-﻿// (c) 2025 W2 Co.,Ltd.
+﻿// (c) 2026 W2 Co.,Ltd.
 
-using SessionDomain.Dto.User;
+using SessionDomain.Dto.Accounts;
 
 namespace SessionDomain.Interface
 {
@@ -10,10 +10,10 @@ namespace SessionDomain.Interface
 	public interface ISessionRepository<TInput>
 	{
 		/// <summary>
-		/// Check if user information exists
+		/// Check if account logged in exists
 		/// </summary>
-		/// <returns>True if user information exists; otherwise, false.</returns>
-		bool ExistsUser();
+		/// <returns>True if  account logged in exists, otherwise, false.</returns>
+		bool ExistsLoggedIn();
 
 		/// <summary>
 		/// Remove all session information
@@ -24,7 +24,7 @@ namespace SessionDomain.Interface
 		/// Get input
 		/// </summary>
 		/// <returns>TInput</returns>
-		public TInput? GetInput();
+		public TInput GetInput();
 
 		/// <summary>
 		/// Is Exists Input
@@ -43,7 +43,7 @@ namespace SessionDomain.Interface
 		/// </summary>
 		public void Clear();
 
-		/// <summary>Login user</summary>
-		LoginUser LoginUser { get; set; }
+		/// <summary>Login account</summary>
+		LoginAccount LoginAccount { get; set; }
 	}
 }

@@ -1,4 +1,4 @@
-﻿// (c) 2025 W2 Co.,Ltd.
+﻿// (c) 2026 W2 Co.,Ltd.
 
 namespace SessionDomain.Interface
 {
@@ -11,7 +11,7 @@ namespace SessionDomain.Interface
 		/// Get error message
 		/// </summary>
 		/// <returns>Error message</returns>
-		string? GetError();
+		string GetError();
 
 		/// <summary>
 		/// Set error message

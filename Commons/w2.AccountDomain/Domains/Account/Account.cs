@@ -1,4 +1,4 @@
-﻿// (c) 2025 W2 Co.,Ltd.
+﻿// (c) 2026 W2 Co.,Ltd.
 
 using System;
 using w2.AccountDomain.Dto.Account;
@@ -25,7 +25,7 @@ namespace w2.AccountDomain.Domains.Account
 				LoginId = new LoginId(dto.LoginId),
 				Name = new Name(dto.Name),
 				Password = new Password(dto.Password),
-				CancelFlag = DbValueAttribute.ParseToEnum<UserCancelStatus>(dto.DeleteFlg),
+				CancelFlag = DbValueAttribute.ParseToEnum<AccountWithdrawalStatus>(dto.DeleteFlg),
 				DateCreated = new DateCreated(dto.DateCreated),
 				DateChanged = new DateChanged(dto.DateChanged),
 			};
@@ -74,7 +74,7 @@ namespace w2.AccountDomain.Domains.Account
 		/// <summary>Password</summary>
 		public Password Password { get; init; } = null!;
 		/// <summary>Cancel flag</summary>
-		public UserCancelStatus CancelFlag { get; init; }
+		public AccountWithdrawalStatus CancelFlag { get; init; }
 		/// <summary>DateCreated</summary>
 		public DateCreated DateCreated { get; set; } = null!;
 		/// <summary>Date changed</summary>

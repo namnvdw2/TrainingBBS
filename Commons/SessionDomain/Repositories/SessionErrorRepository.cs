@@ -1,4 +1,4 @@
-﻿// (c) 2025 W2 Co.,Ltd.
+﻿// (c) 2026 W2 Co.,Ltd.
 
 using SessionDomain.Interface;
 
@@ -20,7 +20,7 @@ namespace SessionDomain.Repositories
 		}
 
 		/// <inheritdoc />
-		public string? GetError()
+		public string GetError()
 		{
 			if (this.Session[SESSION_KEY_ERROR_MESSAGE] is null)
 			{

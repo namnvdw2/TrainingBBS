@@ -51,21 +51,27 @@
         history.back();
       },
       deleteAccount() {
-        fetch(window.apiRoot + "account/delete", {
+        fetch(window.apiRoot + "user/withdrawal", {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
           }
         })
-          .then(r => r.json())
-          .then(result => {
-            if (result.Success) {
-              window.location.href = result.RedirectUrl;
-              return;
-            }
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+          }
 
-            this.errorMessage = result.Message || "エラーが発生しました。";
-          });
+          return response.json();
+        })
+        .then(result => {
+          if (result.Success) {
+            window.location.href = result.RedirectUrl;
+            return;
+          }
+
+          this.errorMessage = result.Message || "エラーが発生しました。";
+        });
       }
     }
   });

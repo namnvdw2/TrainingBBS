@@ -1,4 +1,6 @@
-﻿using System;
+﻿// (c) 2026 W2 Co.,Ltd.
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
@@ -7,7 +9,7 @@ using w2.Common.Logger;
 namespace w2.WebFrontDomain.Validator
 {
 	/// <summary>
-	/// CommonMessages
+	/// Common messages
 	/// </summary>
 	public class CommonMessages
 	{
@@ -40,14 +42,14 @@ namespace w2.WebFrontDomain.Validator
 			ErrorCannotAccess,
 		}
 
-		/// <summary>Path to the message XML file</summary>
+		/// <summary>Path to the message xml file</summary>
 		private static readonly string s_messageXmlPath =
 			Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Xml", "Message", "CommonMessages.xml");
 		/// <summary>Message dictionary</summary>
 		private static readonly Dictionary<string, string> s_messages = new();
 		/// <summary>Lock object for thread safety</summary>
 		private static readonly object s_lockObject = new();
-		/// <summary>Last load time of the message XML file</summary>
+		/// <summary>Last load time of the message xml file</summary>
 		private static DateTime s_lastLoadTime = DateTime.MinValue;
 		/// <summary>Singleton instance</summary>
 		private readonly static Lazy<CommonMessages> s_instance = new(() => new CommonMessages());
@@ -67,7 +69,7 @@ namespace w2.WebFrontDomain.Validator
 		}
 
 		/// <summary>
-		/// Loads messages from the XML file
+		/// Loads messages from the xml file
 		/// </summary>
 		private void LoadMessageXml()
 		{

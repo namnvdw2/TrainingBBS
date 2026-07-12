@@ -1,0 +1,104 @@
+{% _layout 'layout.liquid' %}
+
+{% _area title %}ログイン画面{% end_area %}
+
+{% _area head_resource %}
+{% end_area %}
+
+{% _area page_body %}
+<vue-modify></vue-modify>
+{% end_area %}
+
+{% _area component %}
+<script type="text/x-template" id="vue-modify">
+  <div class="container">
+    <div class="d-flex justify-content-center align-items-center vh-100">
+      <div class="justify-content-center">
+        <div class="align-items-center">
+          <h3 class="text-center fw-bold mb-5">アカウント作成</h3>
+          <form class="align-items-center" @submit.prevent="confirm" novalidate>
+            <div class="mb-4">
+              <input :class="['form-control', { 'is-invalid': errors.name }]" type="text" v-model="name" placeholder="ユーザー名(50文以内)" />
+              <div class="invalid-feedback">${ errors.name }</div>
+            </div>
+            <div class="mb-4">
+              <input :class="['form-control', { 'is-invalid': errors.loginId }]" type="text" v-model="loginId" placeholder="ログインID(15文以内)" />
+              <div class="invalid-feedback">${ errors.loginId }</div>
+            </div>
+            <div class="mb-4">
+              <input :class="['form-control', { 'is-invalid': errors.password }]" type="password" v-model="password" placeholder="パスワード(15文以内)" />
+              <div class="invalid-feedback">${ errors.password }</div>
+            </div>
+            <div class="text-center mb-3 text-danger" v-if="errorMessage">
+              ${ errorMessage }
+            </div>
+            <div class="mb-3 d-flex row">
+              <div class="col">
+                <button type="submit" class="btn btn-primary w-100">確認する</button>
+              </div>
+              <div class="col">
+                <a class="btn btn-primary w-100" href="{{ RootUrl | append: 'login' }}">戻る</a>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</script>
+{% end_area %}
+
+<script>
+  {% _javascript key: "onload" %}
+  g_vueManager.setComponent('vue-modify', {
+    template: '#vue-modify',
+    data() {
+      return {
+        name: '{{ Name }}',
+        loginId: '{{ LoginId }}',
+        password: ''
+        errors: {},
+        errorMessage: '',
+      }
+    },
+    mounted() {
+    },
+    methods: {
+      confirm: function () {
+        const options = {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name: this.name,
+            loginId: this.loginId,
+            password: this.password
+          }),
+        }
+
+        const promise = fetch(window.apiRoot + 'user/modify', options)
+          .then(response => {
+            if (!response.ok) {
+              throw new Error(`HTTP ${response.status}`);
+            }
+
+            return response.json();
+          })
+          .then(result => {
+            if (result.Success) {
+              window.location.href = result.RedirectUrl;
+              return;
+            }
+
+            this.errors = result.Errors || {};
+            this.errorMessage = result.Message || '';
+          })
+          .catch(error => {
+            this.errorMessage = 'エラーが発生しました。時間をおいて再度お試しください。';
+          });
+      }
+    }
+  });
+  {% end_javascript %}
+</script>

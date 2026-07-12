@@ -1,11 +1,11 @@
-﻿// (c) 2025 W2 Co.,Ltd.
+﻿// (c) 2026 W2 Co.,Ltd.
 
 namespace w2.WebFrontDomain.Dto.Account
 {
 	/// <summary>
-	/// User register request
+	/// Account register modify request
 	/// </summary>
-	public sealed class UserRegisterRequest : BaseRequest
+	public sealed class AccountRegisterModifyRequest : BaseRequest
 	{
 		/// <summary>Login id</summary>
 		public string LoginId { get; set; } = string.Empty;

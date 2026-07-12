@@ -1,14 +1,13 @@
-﻿// (c) 2025 W2 Co.,Ltd.
+﻿// (c) 2026 W2 Co.,Ltd.
 
-using w2.AccountDomain.Dto.Account;
 using static w2.WebFrontDomain.Validator.CommonMessages;
 
-namespace w2.WebFrontDomain.Validator.User
+namespace w2.WebFrontDomain.Validator.Accounts
 {
 	/// <summary>
-	/// User validator
+	/// Account validator
 	/// </summary>
-	public class UserValidator
+	public class AccountValidator
 	{
 		/// <summary>Maximum length for login ID</summary>
 		protected const int MAX_LENGTH_LOGIN_ID = 15;
@@ -38,7 +37,7 @@ namespace w2.WebFrontDomain.Validator.User
 		/// </summary>
 		/// <param name="loginId">Login id</param>
 		/// <returns>Error message</returns>
-		public static string CheckLoginId(string loginId)
+		public static string CheckLoginId(string? loginId)
 		{
 			if (ValidatorUtility.CheckRequired(loginId))
 			{
@@ -74,7 +73,7 @@ namespace w2.WebFrontDomain.Validator.User
 		/// </summary>
 		/// <param name="password">The password</param>
 		/// <returns>Error message if validation fails, otherwise an empty string</returns>
-		public static string CheckPassword(string password)
+		public static string CheckPassword(string? password)
 		{
 			if (ValidatorUtility.CheckRequired(password))
 			{
@@ -109,8 +108,8 @@ namespace w2.WebFrontDomain.Validator.User
 		/// Check name
 		/// </summary>
 		/// <param name="name">The name</param>
-		/// <returns>Error message if validation fails, otherwise an empty string</returns>
-		public static string CheckName(string name)
+		/// <returns>Error message if validation fails, otherwise return empty string</returns>
+		public static string CheckName(string? name)
 		{
 			if (ValidatorUtility.CheckRequired(name))
 			{
@@ -123,21 +122,6 @@ namespace w2.WebFrontDomain.Validator.User
 					CommonMessageKey.FormatErrorMaxLength,
 					USER_NAME_FIELD_NAME,
 					MAX_LENGTH_USER_NAME.ToString());
-			}
-
-			return string.Empty;
-		}
-
-		/// <summary>
-		/// Check login
-		/// </summary>
-		/// <param name="password">Login id</param>
-		/// <returns>Error message</returns>
-		public static string CheckLogin(AccountDto? account,string password)
-		{
-			if (account?.Password != password)
-			{
-				return "Error Login";
 			}
 
 			return string.Empty;
