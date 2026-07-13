@@ -18,6 +18,8 @@ namespace w2.BBS.Front.ViewModels
 		public string CancelUrl => ConstantsPage.AccountCancelConfirmPageUrl;
 		/// <summary>Login url</summary>
 		public string LoginUrl => ConstantsPage.LoginPageUrl;
+		/// <summary>Forum url</summary>
+		public string ForumUrl => ConstantsPage.TopForumPageUrl;
 		/// <summary>Is logged in</summary>
 		public bool IsLogin { get; set; }
 		/// <summary>Login user name</summary>

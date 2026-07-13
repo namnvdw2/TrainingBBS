@@ -2,6 +2,7 @@
 
 using SessionDomain.Dto.Accounts;
 using System.Diagnostics.CodeAnalysis;
+using w2.AccountDomain.Domains.Account;
 using w2.AccountDomain.Services.Account;
 using w2.WebFrontDomain.Dto;
 using w2.WebFrontDomain.Dto.Account;
@@ -23,14 +24,14 @@ namespace w2.WebFrontDomain.Validator
 		/// <param name="resultUser"></param>
 		/// <returns>Login response</returns>
 		public static LoginResponse Validate(
-			LoginRequest request,
+			LoginRequest? request,
 			AccountService accountService,
 			[NotNullWhen(returnValue: true)] out LoginAccount? resultUser)
 		{
 			var response = ResponseFactory.Success<LoginResponse>(request?.NextUrl);
 			var user = accountService.GetByLoginId(new AccountDomain.Domains.Account.LoginId(request?.LoginId ?? string.Empty));
 			if (user == null
-				|| !user.CanLogin(new AccountDomain.Domains.Account.Password(request?.Password ?? string.Empty)))
+				|| !user.CanLogin(Password.FromPlainText(request?.Password ?? string.Empty)))
 			{
 				response.Success = false;
 				response.Message = GetMessage(CommonMessageKey.ErrorLoginIdOrPasswordInvalid);

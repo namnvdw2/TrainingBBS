@@ -27,6 +27,12 @@ namespace w2.AccountDomain.RepositoryInterfaces.Account
 		void Insert(Domains.Account.Account account);
 
 		/// <summary>
+		/// Update
+		/// </summary>
+		/// <param name="account">Account model</param>
+		void Update(Domains.Account.Account account);
+
+		/// <summary>
 		/// Withdrawal
 		/// </summary>
 		/// <param name="accountId">Acoount id</param>

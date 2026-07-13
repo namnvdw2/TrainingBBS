@@ -58,7 +58,6 @@ namespace w2.WebFrontDomain.Services.Account
 			var input = _session.IsExistsInput()
 				? _session.GetInput()
 				: null;
-			_session.Clear();
 			var response = ResponseFactory.Success<AccountRegisterModifyResponse>();
 			response.ResponseObject = input;
 
@@ -93,7 +92,7 @@ namespace w2.WebFrontDomain.Services.Account
 		/// <returns>Register response</returns>
 		public BaseResponse ExcecWithdrawal()
 		{
-			if (_session.ExistsLoggedIn())
+			if (!_session.ExistsLoggedIn())
 				return ResponseFactory.Error();
 
 			var loginUser = _session.LoginAccount;
@@ -140,6 +139,29 @@ namespace w2.WebFrontDomain.Services.Account
 			userRegisteResponse = ResponseFactory.Success<AccountRegisterModifyResponse>(ConstantsPage.AccountModifyConfirmPageUrl);
 
 			return userRegisteResponse;
+		}
+
+		/// <summary>
+		/// Execute modify
+		/// </summary>
+		/// <returns>Modify response</returns>
+		public AccountRegisterModifyResponse ExecModify()
+		{
+			var input = _session.GetInput();
+			if (input is null || !_session.ExistsLoggedIn())
+				return ResponseFactory.Error<AccountRegisterModifyResponse>(ConstantsPage.AccountModifyInputPageUrl);
+
+			var loginAccount = _session.LoginAccount;
+			_accountService.Update(loginAccount.AccountId, input);
+			var account = _accountService.GetByLoginId(input.LoginId);
+			_session.Clear();
+
+			if (account is null)
+				return ResponseFactory.Error<AccountRegisterModifyResponse>(ConstantsPage.AccountModifyInputPageUrl);
+
+			_session.LoginAccount = LoginAccount.CreateByUser(account);
+
+			return ResponseFactory.Success<AccountRegisterModifyResponse>(ConstantsPage.TopForumPageUrl);
 		}
 	}
 }

@@ -1,8 +1,6 @@
 ﻿// (c) 2026 W2 Co.,Ltd.
 
-using System.Security.Principal;
 using w2.AccountDomain.Domains.Account;
-using w2.AccountDomain.Dto.Account;
 using w2.AccountDomain.RepositoryInterfaces.Account;
 
 namespace w2.AccountDomain.Services.Account
@@ -24,10 +22,10 @@ namespace w2.AccountDomain.Services.Account
 		}
 
 		/// <summary>
-		/// 
+		/// Get by id
 		/// </summary>
-		/// <param name="id"></param>
-		/// <returns></returns>
+		/// <param name="id">Account id</param>
+		/// <returns>Account</returns>
 		public Domains.Account.Account? GetById(Id id)
 		{
 			var model = _accountRepository.Get(id);
@@ -35,10 +33,10 @@ namespace w2.AccountDomain.Services.Account
 		}
 
 		/// <summary>
-		/// 
+		/// Get by login id
 		/// </summary>
 		/// <param name="loginId"></param>
-		/// <returns></returns>
+		/// <returns>Account</returns>
 		public Domains.Account.Account? GetByLoginId(LoginId loginId)
 		{
 			var model = _accountRepository.Get(loginId);
@@ -46,23 +44,44 @@ namespace w2.AccountDomain.Services.Account
 		}
 
 		/// <summary>
-		/// 
+		/// Insert account
 		/// </summary>
-		/// <param name="account"></param>
-		/// <returns></returns>
-		/// <exception cref="System.Exception"></exception>
+		/// <param name="account">Account</param>
+		/// <returns>Account inserted</returns>
 
 		public Domains.Account.Account Insert(Domains.Account.Account account)
 		{
 			var existed = _accountRepository.Get(account.LoginId);
-			if (existed == null)
+			if (existed is null)
 			{
 				_accountRepository.Insert(account);
 			}
-			else
+
+			return account;
+		}
+
+		/// <summary>
+		/// Update account
+		/// </summary>
+		/// <param name="id">Account id</param>
+		/// <param name="account">Account</param>
+		/// <returns>Account updated</returns>
+
+		public Domains.Account.Account Update(Id id, Domains.Account.Account account)
+		{
+			var existed = _accountRepository.Get(id);
+			if (existed is not null)
 			{
-				throw new System.Exception();
+				existed.LoginId = account.LoginId;
+				existed.Name = account.Name;
+				if (!string.IsNullOrEmpty(account.Password.ToString()))
+				{
+					existed.Password = account.Password;
+				}
+
+				_accountRepository.Update(existed);
 			}
+
 			return account;
 		}
 

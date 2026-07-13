@@ -60,6 +60,21 @@ namespace w2.AccountDomain.RdbRepositories.Account
 		}
 
 		/// <inheritdoc />
+		public void Update(Domains.Account.Account account)
+		{
+			account.DateChanged = new DateChanged(DateTime.Now);
+			var input = account
+				.CreateDto()
+				.ToHashtable()
+				.Cast<DictionaryEntry>()
+				.ToDictionary(de => (string)de.Key, de => de.Value);
+			_repository.ExecWithBuilder(f =>
+				f.Query("w2_Account")
+					.Where("id", account.Id.AsInt)
+					.AsUpdate(input));
+		}
+
+		/// <inheritdoc />
 		public int Withdrawal(Id accountId)
 		{
 			var result = _repository.ExecWithBuilder(f =>

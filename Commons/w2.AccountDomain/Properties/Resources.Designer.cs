@@ -59,15 +59,5 @@ namespace w2.AccountDomain.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] Account {
-            get {
-                object obj = ResourceManager.GetObject("Account", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
     }
 }

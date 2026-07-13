@@ -36,10 +36,14 @@ namespace w2.WebFrontDomain.Services.Account
 		/// <returns>Login response</returns>
 		public LoginResponse Login(LoginRequest request)
 		{
+			var nextUrl = !string.IsNullOrEmpty(request?.NextUrl)
+				? request?.NextUrl
+				: ConstantsPage.TopForumPageUrl;
+
 			if (_session.ExistsLoggedIn()) return
-					ResponseFactory.Success<LoginResponse>(request?.NextUrl);
+					ResponseFactory.Success<LoginResponse>(nextUrl);
 			LoginResponse loginResponse = new LoginResponse();
-			var error = AccountValidator.CheckLoginId(request.LoginId);
+			var error = AccountValidator.CheckLoginId(request?.LoginId);
 			if (error != string.Empty)
 			{
 				loginResponse.AddError(nameof(request.LoginId),error);
@@ -50,7 +54,7 @@ namespace w2.WebFrontDomain.Services.Account
 			if (result.HasError || (user is null)) return (LoginResponse)result;
 
 			_session.LoginAccount = user;
-			return ResponseFactory.Success<LoginResponse>(request?.NextUrl);
+			return ResponseFactory.Success<LoginResponse>(nextUrl);
 		}
 
 		/// <summary>

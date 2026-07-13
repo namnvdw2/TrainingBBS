@@ -1,10 +1,10 @@
-﻿using Newtonsoft.Json;
-using SessionDomain;
+﻿// (c) 2026 W2 Co.,Ltd.
+
+using Newtonsoft.Json;
 using SessionDomain.Repositories;
 using System;
 using System.Text;
 using System.Web.Mvc;
-using Unity;
 using w2.BBS.Front.Codes.Helper;
 using w2.BBS.Front.ViewModels;
 using w2.FoundationDomain.Domains.DateStrings;
@@ -16,7 +16,7 @@ using w2.TemplateEngine.TemplateEngines.PhysicalPathRoutes;
 namespace w2.BBS.Front.Controller.Shared
 {
 	/// <summary>
-	/// MVC基底コントローラ
+	/// Base controller
 	/// </summary>
 	public abstract class BaseController : System.Web.Mvc.Controller
 	{

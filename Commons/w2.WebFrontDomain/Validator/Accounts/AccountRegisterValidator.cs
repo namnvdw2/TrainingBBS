@@ -36,13 +36,6 @@ namespace w2.WebFrontDomain.Validator.Accounts
 				return response;
 			}
 
-			response.ResponseObject = new Account
-			{
-				LoginId = new LoginId(request.LoginId),
-				Name = new Name(request.Name),
-				Password = new Password(request.Password),
-			};
-
 			return response;
 		}
 
@@ -77,6 +70,13 @@ namespace w2.WebFrontDomain.Validator.Accounts
 					USER_NAME_ERROR_KEY,
 					userNameErrorMessage);
 			}
+
+			response.ResponseObject = new Account
+			{
+				LoginId = new LoginId(request?.LoginId ?? string.Empty),
+				Name = new Name(request?.Name ?? string.Empty),
+				Password = Password.FromPlainText(request?.Password ?? string.Empty),
+			};
 
 			return response;
 		}

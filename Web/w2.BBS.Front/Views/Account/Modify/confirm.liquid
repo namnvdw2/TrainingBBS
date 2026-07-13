@@ -42,47 +42,14 @@
     template: '#modify-confirm',
     data() {
       return {
-        name: '',
-        loginId: '',
-        password: '',
+        name: '{{ Name }}',
+        loginId: '{{ LoginId }}',
+        password: '{{ Password }}',
       }
     },
     mounted() {
-      this.initData();
     },
     methods: {
-      initData: function () {
-        const options = {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          }
-        }
-        const endpointUrl = 'user/register/confirm/get';
-        fetch(window.apiRoot + endpointUrl, options)
-          .then(response => {
-            if (!response.ok) {
-              throw new Error(`HTTP ${response.status}`);
-            }
-
-            return response.json();
-          })
-          .then(result => {
-            if (result.RedirectUrl) {
-              window.location.href = result.redirectUrl;
-              return;
-            }
-
-            this.name = result.ResponseObject.Name.AsString || '';
-            this.loginId = result.ResponseObject.LoginId.AsString || '';
-            this.password = result.ResponseObject.Password.AsString || '';
-          })
-          .catch(error => {
-            if (window.showToast) {
-              window.showToast('エラーが発生しました。時間をおいて再度お試しください。', 'danger');
-            }
-          });
-      },
       save: function () {
         const options = {
           method: 'POST',
@@ -96,7 +63,7 @@
           })
         }
 
-        const endpointUrl = 'user/register/confirm/save';
+        const endpointUrl = 'user/modify/confirm/save';
         fetch(window.apiRoot + endpointUrl, options)
           .then(response => {
             if (!response.ok) {

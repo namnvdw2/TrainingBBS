@@ -40,6 +40,7 @@ namespace w2.BBS.Front.Controller
 				BackUrl = ConstantsPage.LoginPageUrl,
 			};
 			var response = _service.GetInputInfor();
+
 			if (response.ResponseObject is not null)
 			{
 				viewModel.LoginId = response.ResponseObject?.LoginId.AsString;
@@ -71,19 +72,18 @@ namespace w2.BBS.Front.Controller
 		[Route("register/confirm")]
 		public ActionResult RegisterConfirmView()
 		{
-			return View("Account/Register/confirm.liquid");
-		}
-
-		/// <summary>
-		/// Confirm view
-		/// </summary>
-		/// <returns>Action result</returns>
-		[HttpGet]
-		[Route("register/confirm/get")]
-		public ActionResult GetConfirmInput()
-		{
+			var viewModel = new AccountRegisterModifyViewModel
+			{
+				BackUrl = ConstantsPage.AccountRegisterInputPageUrl,
+			};
 			var response = _service.GetInputInfor();
-			return JsonForJs(response);
+			if (response.ResponseObject is not null)
+			{
+				viewModel.LoginId = response.ResponseObject?.LoginId.AsString;
+				viewModel.Name = response.ResponseObject?.Name.AsString;
+				viewModel.Password = response.ResponseObject?.Password.ToString();
+			}
+			return View("Account/Register/confirm.liquid", viewModel);
 		}
 
 		/// <summary>
@@ -166,7 +166,7 @@ namespace w2.BBS.Front.Controller
 			};
 
 			return View(
-				"Account/Register/input.liquid",
+				"Account/Modify/input.liquid",
 				viewModel);
 		}
 
@@ -191,7 +191,33 @@ namespace w2.BBS.Front.Controller
 		[Route("modify/confirm")]
 		public ActionResult ModifyConfirmView()
 		{
-			return View("Account/Register/confirm.liquid");
+			var viewModel = new AccountRegisterModifyViewModel
+			{
+				BackUrl = ConstantsPage.AccountModifyInputPageUrl,
+			};
+			var response = _service.GetInputInfor();
+			if (response.ResponseObject is not null)
+			{
+				viewModel.LoginId = response.ResponseObject?.LoginId.AsString;
+				viewModel.Name = response.ResponseObject?.Name.AsString;
+				viewModel.Password = response.ResponseObject?.Password.ToString();
+			}
+
+			return View(
+				"Account/Modify/confirm.liquid",
+				viewModel);
+		}
+
+		/// <summary>
+		/// Confirm modiftview
+		/// </summary>
+		/// <returns>Action result</returns>
+		[HttpPost]
+		[Route("modify/confirm/save")]
+		public ActionResult SaveModifyUser()
+		{
+			var response = _service.ExecModify();
+			return JsonForJs(response);
 		}
 	}
 }

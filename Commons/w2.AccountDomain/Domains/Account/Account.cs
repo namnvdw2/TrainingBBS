@@ -24,7 +24,7 @@ namespace w2.AccountDomain.Domains.Account
 				Id = new Id(dto.Id),
 				LoginId = new LoginId(dto.LoginId),
 				Name = new Name(dto.Name),
-				Password = new Password(dto.Password),
+				Password = Password.FromHash(dto.Password),
 				CancelFlag = DbValueAttribute.ParseToEnum<AccountWithdrawalStatus>(dto.DeleteFlg),
 				DateCreated = new DateCreated(dto.DateCreated),
 				DateChanged = new DateChanged(dto.DateChanged),
@@ -41,7 +41,7 @@ namespace w2.AccountDomain.Domains.Account
 			{
 				LoginId = this.LoginId.AsString,
 				Name = this.Name.AsString,
-				Password = this.Password.AsString,
+				Password = this.Password.HashPassword,
 				DateCreated = this.DateCreated.AsDateTime,
 				DateChanged = this.DateChanged.AsDateTime,
 			};
@@ -54,11 +54,11 @@ namespace w2.AccountDomain.Domains.Account
 		/// <returns>True: user can login.</returns>
 		public bool CanLogin(Password password)
 		{
-			if (string.IsNullOrEmpty(password.AsString)) return false;
+			if (string.IsNullOrEmpty(password.RawPassword)) return false;
 
 			if (this.LoginId is null) return false;
 
-			if (this.Password != password) return false;
+			if (!this.Password.Verify(password.RawPassword)) return false;
 
 			if (this.CancelFlag.IsCanceled()) return false;
 
@@ -68,13 +68,13 @@ namespace w2.AccountDomain.Domains.Account
 		/// <summary>Id</summary>
 		public Id Id { get; init; } = null!;
 		/// <summary>Login id</summary>
-		public LoginId LoginId { get; init; } = null!;
+		public LoginId LoginId { get; set; } = null!;
 		/// <summary>Name</summary>
-		public Name Name { get; init; } = null!;
+		public Name Name { get; set; } = null!;
 		/// <summary>Password</summary>
-		public Password Password { get; init; } = null!;
+		public Password Password { get; set; } = null!;
 		/// <summary>Cancel flag</summary>
-		public AccountWithdrawalStatus CancelFlag { get; init; }
+		public AccountWithdrawalStatus CancelFlag { get; set; }
 		/// <summary>DateCreated</summary>
 		public DateCreated DateCreated { get; set; } = null!;
 		/// <summary>Date changed</summary>
