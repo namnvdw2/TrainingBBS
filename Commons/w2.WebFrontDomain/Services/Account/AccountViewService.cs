@@ -2,11 +2,15 @@
 
 using SessionDomain.Dto.Accounts;
 using SessionDomain.Repositories;
+using System;
 using w2.AccountDomain.Services.Account;
+using w2.Common.Logger;
 using w2.WebFrontDomain.Configurations;
 using w2.WebFrontDomain.Dto;
 using w2.WebFrontDomain.Dto.Account;
+using w2.WebFrontDomain.Validator;
 using w2.WebFrontDomain.Validator.Accounts;
+using static w2.WebFrontDomain.Validator.CommonMessages;
 
 namespace w2.WebFrontDomain.Services.Account
 {
@@ -73,8 +77,19 @@ namespace w2.WebFrontDomain.Services.Account
 			var input = _session.GetInput();
 			if (input is null)
 				return ResponseFactory.Error<AccountRegisterModifyResponse>(ConstantsPage.AccountRegisterInputPageUrl);
+			try
+			{
+				_accountService.Insert(input);
+			}
+			catch (Exception ex)
+			{
+				FileLogger.WriteError(ex);
+				var response = ResponseFactory.Error<AccountRegisterModifyResponse>(ConstantsPage.AccountRegisterInputPageUrl);
+				response.Message = CommonMessages.GetMessage(CommonMessageKey.ErrorRegisterFailed);
 
-			_accountService.Insert(input);
+				return response;
+			}
+
 			var account = _accountService.GetByLoginId(input.LoginId);
 			_session.Clear();
 
@@ -96,7 +111,19 @@ namespace w2.WebFrontDomain.Services.Account
 				return ResponseFactory.Error();
 
 			var loginUser = _session.LoginAccount;
-			_accountService.Withdrawal(loginUser.AccountId);
+			try
+			{
+				_accountService.Withdrawal(loginUser.AccountId);
+			}
+			catch (Exception ex)
+			{
+				FileLogger.WriteError(ex);
+				var response = ResponseFactory.Error(ConstantsPage.TopForumPageUrl);
+				response.Message = CommonMessages.GetMessage(CommonMessageKey.ErrorCancelFailed);
+
+				
+				return response;
+			}
 			_session.RemoveAllSession();
 
 			return ResponseFactory.Success(ConstantsPage.AccountCancelCompletePageUrl);
@@ -152,7 +179,19 @@ namespace w2.WebFrontDomain.Services.Account
 				return ResponseFactory.Error<AccountRegisterModifyResponse>(ConstantsPage.AccountModifyInputPageUrl);
 
 			var loginAccount = _session.LoginAccount;
-			_accountService.Update(loginAccount.AccountId, input);
+			try
+			{
+				_accountService.Update(loginAccount.AccountId, input);
+			}
+			catch (Exception ex)
+			{
+				FileLogger.WriteError(ex);
+				var response = ResponseFactory.Error<AccountRegisterModifyResponse>(ConstantsPage.AccountModifyInputPageUrl);
+				response.Message = CommonMessages.GetMessage(CommonMessageKey.ErrorModifyFailed);
+
+				return response;
+			}
+
 			var account = _accountService.GetByLoginId(input.LoginId);
 			_session.Clear();
 

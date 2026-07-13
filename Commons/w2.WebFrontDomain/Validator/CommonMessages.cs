@@ -24,10 +24,6 @@ namespace w2.WebFrontDomain.Validator
 			FormatErrorMinLength,
 			/// <summary>Alphanumeric error message format</summary>
 			FormatErrorAlphanumeric,
-			/// <summary>System error message</summary>
-			SystemError,
-			/// <summary>Error logged-in required message</summary>
-			ErrorLoggedInRequired,
 			/// <summary>Login ID or password invalid</summary>
 			ErrorLoginIdOrPasswordInvalid,
 			/// <summary>Login ID already in use</summary>
