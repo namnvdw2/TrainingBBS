@@ -13,7 +13,7 @@
     <RootNamespace>w2.BBS.Front</RootNamespace>
     <AssemblyName>w2.BBS.Front</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort>44324</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
@@ -139,9 +139,9 @@
       <DependentUpon>bbs.mdf</DependentUpon>
     </Content>
     <Content Include="Global.asax" />
+    <Content Include="Images\404.gif" />
     <Content Include="Scripts\vue_manager.js" />
     <Content Include="Web.config" />
-    <Content Include="Xml\Db\Sample.xml" />
     <Content Include="Xml\Message\CommonMessages.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -173,6 +173,7 @@
     <Content Include="Views\index.liquid" />
     <Content Include="Views\_Shared\layout.liquid" />
     <Content Include="libman.json" />
+    <Content Include="Images\404.webp" />
     <None Include="packages.config" />
     <Content Include="Views\web.config" />
     <Content Include="Views\Account\Modify\input.liquid" />

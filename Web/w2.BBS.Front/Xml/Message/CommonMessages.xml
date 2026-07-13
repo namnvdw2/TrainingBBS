@@ -1,52 +1,52 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 
-<!--  (c) 2025 W2 Co.,Ltd.  -->
+<!-- (c) 2026 W2 Co.,Ltd. -->
 <ErrorMessages>
   <FormatErrorRequired>
-    <![CDATA[ FormatErrorRequired ]]>
+    <![CDATA[@@ 0 @@を入力してください。]]>
   </FormatErrorRequired>
 
   <FormatErrorMaxLength>
-    <![CDATA[ FormatErrorMaxLength ]]>
+    <![CDATA[@@ 0 @@は@@ 1 @@文字以内で入力してください。]]>
   </FormatErrorMaxLength>
 
   <FormatErrorMinLength>
-    <![CDATA[ FormatErrorMinLength ]]>
+    <![CDATA[@@ 0 @@は@@ 1 @@文字以上で入力してください。]]>
   </FormatErrorMinLength>
 
   <FormatErrorAlphanumeric>
-    <![CDATA[ FormatErrorAlphanumeric ]]>
+    <![CDATA[@@ 0 @@は半角英数字で入力してください。]]>
   </FormatErrorAlphanumeric>
 
   <SystemError>
-    <![CDATA[ SystemError ]]>
+    <![CDATA[システムエラーが発生しました。時間をおいて再度お試しください。]]>
   </SystemError>
 
   <ErrorLoggedInRequired>
-    <![CDATA[ ErrorLoggedInRequired ]]>
+    <![CDATA[ログインしてください。]]>
   </ErrorLoggedInRequired>
 
   <ErrorLoginIdOrPasswordInvalid>
-    <![CDATA[ ErrorLoginIdOrPasswordInvalid ]]>
+    <![CDATA[ログインIDまたはパスワードが正しくありません。]]>
   </ErrorLoginIdOrPasswordInvalid>
 
   <ErrorLoginIdUsed>
-    <![CDATA[ ErrorLoginIdUsed ]]>
+    <![CDATA[入力されたログインIDは既に使用されています。]]>
   </ErrorLoginIdUsed>
 
   <ErrorRegisterFailed>
-    <![CDATA[ ErrorRegisterFailed ]]>
+    <![CDATA[アカウントの登録に失敗しました。]]>
   </ErrorRegisterFailed>
 
   <ErrorModifyFailed>
-    <![CDATA[ ErrorModifyFailed ]]>
+    <![CDATA[アカウント情報の変更に失敗しました。]]>
   </ErrorModifyFailed>
 
   <ErrorCancelFailed>
-    <![CDATA[ ErrorCancelFailed ]]>
+    <![CDATA[アカウントの削除に失敗しました。]]>
   </ErrorCancelFailed>
 
   <ErrorCannotAccess>
-    <![CDATA[ ErrorCannotAccess ]]>
+    <![CDATA[このページにはアクセスできません。]]>
   </ErrorCannotAccess>
 </ErrorMessages>

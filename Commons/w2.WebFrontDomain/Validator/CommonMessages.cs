@@ -140,7 +140,7 @@ namespace w2.WebFrontDomain.Validator
 			var originMessage = instance.GetMessage(errorKey.ToString());
 			for (int i = 0; i < replacers.Length; i++)
 			{
-				originMessage.Replace($"@@ {i} @@", replacers[i]);
+				originMessage = originMessage.Replace($"@@ {i} @@", replacers[i]);
 			}
 
 			return originMessage;
