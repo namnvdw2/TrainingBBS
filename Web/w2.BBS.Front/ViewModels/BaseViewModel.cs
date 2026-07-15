@@ -13,9 +13,9 @@ namespace w2.BBS.Front.ViewModels
 		/// <summary>Logout url</summary>
 		public string LogoutUrl => ConstantsPage.LogoutPageUrl;
 		/// <summary>Modify url</summary>
-		public string ModifyUrl => ConstantsPage.AccountModifyInputPageUrl;
+		public string ModifyUrl => ConstantsPage.UserModifyInputPageUrl;
 		/// <summary>CancelUrl</summary>
-		public string CancelUrl => ConstantsPage.AccountCancelConfirmPageUrl;
+		public string CancelUrl => ConstantsPage.UserCancelConfirmPageUrl;
 		/// <summary>Login url</summary>
 		public string LoginUrl => ConstantsPage.LoginPageUrl;
 		/// <summary>Forum url</summary>

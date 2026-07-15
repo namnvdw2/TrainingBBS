@@ -16,8 +16,8 @@ namespace SessionDomain.DependencyInjections
 		public UnityContainer Configure(UnityContainer container)
 		{
 			container.RegisterType<ISessionErrorRepository, SessionErrorRepository>();
-			container.RegisterType<IAccountRegisterSessionRepository, AccountInputSessionRepository>();
-			container.RegisterType<ILoginAccountSessionRepository, LoginAccountSessionRepository>();
+			container.RegisterType<IUserRegisterSessionRepository, UserInputSessionRepository>();
+			container.RegisterType<ILoginUserSessionRepository, LoginUserSessionRepository>();
 			return container;
 		}
 	}

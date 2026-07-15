@@ -1,8 +1,8 @@
 ﻿// (c) 2026 W2 Co.,Ltd.
 
 using Unity;
-using w2.AccountDomain.RdbRepositories.Account;
-using w2.AccountDomain.RepositoryInterfaces.Account;
+using w2.AccountDomain.RdbRepositories.Users;
+using w2.AccountDomain.RepositoryInterfaces.Users;
 using w2.FoundationDomain.DependencyInjections;
 
 namespace w2.AccountDomain.DependencyInjection
@@ -15,7 +15,7 @@ namespace w2.AccountDomain.DependencyInjection
 		/// <inheritdoc />
 		public UnityContainer Configure(UnityContainer container)
 		{
-			container.RegisterType<IAccountRepository, AccountRepository>();
+			container.RegisterType<IUserRepository, UserRepository>();
 			return container;
 		}
 	}

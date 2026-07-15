@@ -1,0 +1,29 @@
+﻿// (c) 2026 W2 Co.,Ltd.
+
+using System;
+using w2.Common.Helper.Attribute;
+
+namespace w2.AccountDomain.Domains.Users
+{
+	/// <summary>
+	/// User withdrawal status
+	/// </summary>
+	[Serializable]
+	public enum UsersWithdrawalStatus
+	{
+		[DbValue("0")]
+		Active,
+		[DbValue("1")]
+		Canceled,
+	}
+
+	/// <summary>
+	/// User withdrawal flag
+	/// </summary>
+	[Serializable]
+	public static class UsersWithdrawalFlag
+	{
+		/// <summary>Check if it's been drawaled</summary>
+		public static bool IsCanceled(this UsersWithdrawalStatus value) => value == UsersWithdrawalStatus.Canceled;
+	}
+}

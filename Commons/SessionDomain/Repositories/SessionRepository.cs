@@ -1,6 +1,6 @@
 ﻿// (c) 2026 W2 Co.,Ltd.
 
-using SessionDomain.Dto.Accounts;
+using SessionDomain.Dto.Users;
 using SessionDomain.Interface;
 
 namespace SessionDomain.Repositories
@@ -10,8 +10,8 @@ namespace SessionDomain.Repositories
 	/// </summary>
 	public abstract class SessionRepository<TInput> : SessionRepositoryBase, ISessionRepository<TInput>
 	{
-		/// <summary>Session key login account</summary>
-		public const string SESSION_KEY_LOGIN_ACCOUNT = "login_account";
+		/// <summary>Session key login user</summary>
+		public const string SESSION_KEY_LOGIN_USER = "login_user";
 
 		/// <summary>
 		/// Constructor
@@ -22,7 +22,7 @@ namespace SessionDomain.Repositories
 		}
 
 		/// <inheritdoc />
-		public bool ExistsLoggedIn() => this.Session[SESSION_KEY_LOGIN_ACCOUNT] is LoginAccount;
+		public bool ExistsLoggedIn() => this.Session[SESSION_KEY_LOGIN_USER] is LoginUser;
 
 		/// <inheritdoc />
 		public void RemoveAllSession() => Session.Contents.RemoveAll();
@@ -39,16 +39,16 @@ namespace SessionDomain.Repositories
 		/// <inheritdoc />
 		public abstract void Clear();
 
-		/// <summary>Login account</summary>
-		public LoginAccount LoginAccount
+		/// <summary>Login user</summary>
+		public LoginUser LoginUser
 		{
 			get
 			{
-				return (LoginAccount)this.Session[SESSION_KEY_LOGIN_ACCOUNT];
+				return (LoginUser)this.Session[SESSION_KEY_LOGIN_USER];
 			}
 			set
 			{
-				this.Session[SESSION_KEY_LOGIN_ACCOUNT] = value;
+				this.Session[SESSION_KEY_LOGIN_USER] = value;
 			}
 		}
 	}

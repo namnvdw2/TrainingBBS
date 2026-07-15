@@ -23,7 +23,7 @@ namespace w2.BBS.Front.Controller.Shared
 		/// <summary>
 		/// LoginUserSessionRepository
 		/// </summary>
-		protected LoginAccountSessionRepository _session => DependencyResolver.Current.GetService<LoginAccountSessionRepository>();
+		protected LoginUserSessionRepository _session => DependencyResolver.Current.GetService<LoginUserSessionRepository>();
 
 		/// <summary>
 		/// ViewをレンダリングしたActionResultを返す
@@ -50,10 +50,10 @@ namespace w2.BBS.Front.Controller.Shared
 			{
 				if (model is BaseViewModel vm)
 				{
-					var loginAccount = _session.LoginAccount;
+					var loginUser = _session.LoginUser;
 
-					vm.IsLogin = loginAccount != null;
-					vm.LoginUserName = loginAccount.Name.AsString;
+					vm.IsLogin = loginUser != null;
+					vm.LoginUserName = loginUser.Name.AsString;
 				}
 			}
 

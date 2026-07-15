@@ -13,20 +13,20 @@ namespace w2.WebFrontDomain.Configurations
 		/// <summary>Default page size</summary>
 		private const int DEFAULT_PAGE_SIZE = 10;
 
-		/// <summary>Account register input page url</summary>
-		public static string AccountRegisterInputPageUrl => $"{EnvironmentConfig.FrontRootPath}user/register/input";
-		/// <summary>Account register confirm page url</summary>
-		public static string AccountRegisterConfirmPageUrl => $"{EnvironmentConfig.FrontRootPath}user/register/confirm";
-		/// <summary>Account register complete page url</summary>
-		public static string AccountRegisterCompletePageUrl => $"{EnvironmentConfig.FrontRootPath}user/register/complete";
-		/// <summary>Account modify input page url</summary>
-		public static string AccountModifyInputPageUrl => $"{EnvironmentConfig.FrontRootPath}user/modify/input";
-		/// <summary>Account modify confirm page url</summary>
-		public static string AccountModifyConfirmPageUrl => $"{EnvironmentConfig.FrontRootPath}user/modify/confirm";
-		/// <summary>Account cancel confirm page url</summary>
-		public static string AccountCancelConfirmPageUrl => $"{EnvironmentConfig.FrontRootPath}user/withdrawal/confirm";
-		/// <summary>Account cancel complete page url</summary>
-		public static string AccountCancelCompletePageUrl => $"{EnvironmentConfig.FrontRootPath}user/withdrawal/complete";
+		/// <summary>User register input page url</summary>
+		public static string UserRegisterInputPageUrl => $"{EnvironmentConfig.FrontRootPath}user/register/input";
+		/// <summary>User register confirm page url</summary>
+		public static string UserRegisterConfirmPageUrl => $"{EnvironmentConfig.FrontRootPath}user/register/confirm";
+		/// <summary>User register complete page url</summary>
+		public static string UserRegisterCompletePageUrl => $"{EnvironmentConfig.FrontRootPath}user/register/complete";
+		/// <summary>User modify input page url</summary>
+		public static string UserModifyInputPageUrl => $"{EnvironmentConfig.FrontRootPath}user/modify/input";
+		/// <summary>User modify confirm page url</summary>
+		public static string UserModifyConfirmPageUrl => $"{EnvironmentConfig.FrontRootPath}user/modify/confirm";
+		/// <summary>User cancel confirm page url</summary>
+		public static string UserCancelConfirmPageUrl => $"{EnvironmentConfig.FrontRootPath}user/withdrawal/confirm";
+		/// <summary>User cancel complete page url</summary>
+		public static string UserCancelCompletePageUrl => $"{EnvironmentConfig.FrontRootPath}user/withdrawal/complete";
 		/// <summary>Login page url</summary>
 		public static string LoginPageUrl => $"{EnvironmentConfig.FrontRootPath}login";
 		/// <summary>Logout page url</summary>

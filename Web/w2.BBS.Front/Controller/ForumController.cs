@@ -3,7 +3,7 @@
 using System.Web.Mvc;
 using w2.BBS.Front.Codes.Attributes;
 using w2.BBS.Front.Controller.Shared;
-using w2.BBS.Front.ViewModels.Accounts;
+using w2.BBS.Front.ViewModels.Users;
 using w2.WebFrontDomain.Configurations;
 using w2.WebFrontDomain.Dto.Forums;
 using w2.WebFrontDomain.Services.Forums;
@@ -37,7 +37,7 @@ namespace w2.BBS.Front.Controller
 		public ActionResult ForumTop()
 		{
 			var loginUser = _forumService.GetLoginInformation();
-			var viewModel = new LoginAccountViewModel
+			var viewModel = new LoginUserViewModel
 			{
 				LoginId = loginUser.LoginId.AsString,
 				Name = loginUser.Name.AsString,

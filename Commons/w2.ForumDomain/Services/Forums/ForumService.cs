@@ -10,7 +10,7 @@ namespace w2.ForumDomain.Services.Forums
 {
 	public class ForumService
 	{
-		/// <summary>Account repository</summary>
+		/// <summary>Forum repository</summary>
 		private readonly IForumRepository _forumRepository;
 
 		/// <summary>

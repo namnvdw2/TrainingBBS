@@ -19,7 +19,7 @@ namespace w2.BBS.Front.Codes.Attributes
 		/// <returns>True if authorized, otherwise return false</returns>
 		protected override bool AuthorizeCore(HttpContextBase httpContext)
 		{
-			var session = DependencyResolver.Current.GetService<LoginAccountSessionRepository>();
+			var session = DependencyResolver.Current.GetService<LoginUserSessionRepository>();
 
 			return session is not null && session.ExistsLoggedIn();
 		}

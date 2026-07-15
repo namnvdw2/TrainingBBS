@@ -1,6 +1,6 @@
 ﻿// (c) 2026 W2 Co.,Ltd.
 
-using SessionDomain.Dto.Accounts;
+using SessionDomain.Dto.Users;
 using SessionDomain.Repositories;
 using System;
 using System.Linq;
@@ -19,14 +19,14 @@ namespace w2.WebFrontDomain.Services.Forums
 	public class ForumViewService
 	{
 		private readonly ForumService _forumService;
-		private readonly LoginAccountSessionRepository _session;
+		private readonly LoginUserSessionRepository _session;
 
 		/// <summary>
 		/// Constructor
 		/// </summary>
 		public ForumViewService(
 			ForumService forumService,
-			LoginAccountSessionRepository session)
+			LoginUserSessionRepository session)
 		{
 			_forumService = forumService;
 			_session = session;
@@ -36,9 +36,9 @@ namespace w2.WebFrontDomain.Services.Forums
 		/// Get login information
 		/// </summary>
 		/// <returns>Login user</returns>
-		public LoginAccount? GetLoginInformation()
+		public LoginUser? GetLoginInformation()
 		{
-			return _session.ExistsLoggedIn() ? _session.LoginAccount : null;
+			return _session.ExistsLoggedIn() ? _session.LoginUser : null;
 		}
 
 		/// <summary>
@@ -52,7 +52,7 @@ namespace w2.WebFrontDomain.Services.Forums
 			int pageSize)
 		{
 			if (!_session.ExistsLoggedIn()) return ResponseFactory.Error<ForumPaginationResponse>();
-			var loginUser =  _session.LoginAccount;
+			var loginUser =  _session.LoginUser;
 			var result = _forumService.GetAll(page, pageSize);
 			var responseIds = result.Items.Select(x => x.ForumId).ToArray();
 			var forumResponses = _forumService.GetResponses(responseIds);
@@ -63,7 +63,7 @@ namespace w2.WebFrontDomain.Services.Forums
 				Items = result.Items.Select(forum =>
 				{
 					var responseDto = new ForumResponseDto(forum);
-					responseDto.IsOwner = loginUser.AccountId.AsInt == responseDto.UserId;
+					responseDto.IsOwner = loginUser.UserId.AsInt == responseDto.UserId;
 					if (forumResponses is not null)
 					{
 						var responseList = forumResponses
@@ -94,9 +94,9 @@ namespace w2.WebFrontDomain.Services.Forums
 			var response = ForumValidator.Validate(request);
 			if (response.HasError) return (ForumResponse)response;
 
-			var loginUser = _session.LoginAccount;
+			var loginUser = _session.LoginUser;
 			var result = _forumService.Insert(new Forum(
-				new ForumUserId(loginUser.AccountId.AsInt),
+				new ForumUserId(loginUser.UserId.AsInt),
 				new ForumTitle(request.Title ?? string.Empty),
 				new ForumText(request.Content ?? string.Empty)));
 
@@ -114,7 +114,7 @@ namespace w2.WebFrontDomain.Services.Forums
 		{
 			if (!_session.ExistsLoggedIn()) return ResponseFactory.Error<ForumResponse>();
 
-			var loginUser = _session.LoginAccount;
+			var loginUser = _session.LoginUser;
 			var forum = _forumService.GetById(new ForumDomain.Domains.Forums.ForumId(request.ForumId));
 			if (forum is null) return ResponseFactory.Error<ForumResponse>();
 
@@ -137,12 +137,12 @@ namespace w2.WebFrontDomain.Services.Forums
 		{
 			if (!_session.ExistsLoggedIn()) return ResponseFactory.Error<ForumResponse>();
 
-			var loginUser = _session.LoginAccount;
+			var loginUser = _session.LoginUser;
 			var forum = _forumService.GetById(new ForumDomain.Domains.Forums.ForumId(request.ForumId));
 			if (forum is null) return ResponseFactory.Error<ForumResponse>();
 
 			var response = ForumValidator.CheckAssess(
-				loginUser.AccountId.AsInt,
+				loginUser.UserId.AsInt,
 				forum);
 			if (!response.Success) return (ForumResponse)response;
 
@@ -165,12 +165,12 @@ namespace w2.WebFrontDomain.Services.Forums
 		{
 			if (!_session.ExistsLoggedIn()) return ResponseFactory.Error<ForumResponse>();
 
-			var loginUser = _session.LoginAccount;
+			var loginUser = _session.LoginUser;
 			var forum = _forumService.GetById(new ForumDomain.Domains.Forums.ForumId(forumId));
 			if (forum is null) return ResponseFactory.Error<ForumResponse>();
 
 			var response = ForumValidator.CheckAssess(
-				loginUser.AccountId.AsInt,
+				loginUser.UserId.AsInt,
 				forum);
 			if (!response.Success) return response;
 

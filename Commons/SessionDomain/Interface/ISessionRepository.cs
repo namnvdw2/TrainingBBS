@@ -1,6 +1,6 @@
 ﻿// (c) 2026 W2 Co.,Ltd.
 
-using SessionDomain.Dto.Accounts;
+using SessionDomain.Dto.Users;
 
 namespace SessionDomain.Interface
 {
@@ -10,9 +10,9 @@ namespace SessionDomain.Interface
 	public interface ISessionRepository<TInput>
 	{
 		/// <summary>
-		/// Check if account logged in exists
+		/// Check if user logged in exists
 		/// </summary>
-		/// <returns>True if  account logged in exists, otherwise, false.</returns>
+		/// <returns>True if user logged in exists, otherwise, false.</returns>
 		bool ExistsLoggedIn();
 
 		/// <summary>
@@ -43,7 +43,7 @@ namespace SessionDomain.Interface
 		/// </summary>
 		public void Clear();
 
-		/// <summary>Login account</summary>
-		LoginAccount LoginAccount { get; set; }
+		/// <summary>Login user</summary>
+		LoginUser LoginUser { get; set; }
 	}
 }

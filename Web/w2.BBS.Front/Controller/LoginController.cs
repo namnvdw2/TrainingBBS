@@ -2,8 +2,8 @@
 
 using System.Web.Mvc;
 using w2.BBS.Front.Controller.Shared;
-using w2.WebFrontDomain.Dto.Account;
-using w2.WebFrontDomain.Services.Account;
+using w2.WebFrontDomain.Dto.Users;
+using w2.WebFrontDomain.Services.Users;
 
 namespace w2.BBS.Front.Controller
 {
