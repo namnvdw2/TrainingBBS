@@ -87,11 +87,11 @@ namespace w2.ForumDomain.RdbRepositories.Forums
 		/// <inheritdoc />
 		public void Insert(Forum forum)
 		{
-			forum.DateChanged = new DateChanged(DateTime.Now);
-			forum.DateCreated = new DateCreated(DateTime.Now);
-			var input = forum
-				.CreateDto()
-				.ToHashtable()
+			var dto = forum.CreateDto();
+			dto.DateChanged = DateTime.Now;
+			dto.DateCreated = DateTime.Now;
+
+			var input = dto.ToHashtable()
 				.Cast<DictionaryEntry>()
 				.ToDictionary(de => (string)de.Key, de => de.Value);
 			_repository.ExecWithBuilder(f => f.Query("w2_Forum").AsInsert(input));
@@ -113,10 +113,10 @@ namespace w2.ForumDomain.RdbRepositories.Forums
 		/// <inheritdoc />
 		public int Update(Forum forum)
 		{
-			forum.DateChanged = new DateChanged(DateTime.Now);
-			var input = forum
-				.CreateDto()
-				.ToHashtable()
+			var dto = forum.CreateDto();
+			dto.DateChanged = DateTime.Now;
+
+			var input = dto.ToHashtable()
 				.Cast<DictionaryEntry>()
 				.ToDictionary(de => (string)de.Key, de => de.Value);
 			var result = _repository.ExecWithBuilder(f =>

@@ -57,20 +57,6 @@ namespace w2.ForumDomain.Domains.ForumRes
 				ForumDeleteFlagStatus.Active)
 		{
 		}
-		/// <summary>
-		/// Contructor
-		/// </summary>
-		/// <param name="forum">The user id</param>
-		public ForumRes(Forum forum)
-			: this(
-				new ResForumId(AsInt: 0),
-				new ForumId(forum.ForumId.AsInt),
-				forum.UserId,
-				forum.Title,
-				forum.Text,
-				ForumDeleteFlagStatus.Active)
-		{
-		}
 
 		/// <summary>
 		/// Creates a model from a DTO

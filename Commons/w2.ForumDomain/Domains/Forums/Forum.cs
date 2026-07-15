@@ -31,6 +31,9 @@ namespace w2.ForumDomain.Domains.Forums
 			this.Title = title;
 			this.Text = text;
 			this.DeleteFlag = deleteFlag;
+			this.UserName = new ForumUserName(string.Empty);
+			this.DateCreated = new DateCreated(DateTime.MinValue);
+			this.DateChanged = new DateChanged(DateTime.MinValue);
 		}
 		/// <summary>
 		/// Contructor
@@ -105,20 +108,20 @@ namespace w2.ForumDomain.Domains.Forums
 		}
 
 		/// <summary>Forum ID</summary>
-		public ForumId ForumId { get; }
+		public ForumId ForumId { get; init; }
 		/// <summary>Forum user ID</summary>
-		public ForumUserId UserId { get; }
+		public ForumUserId UserId { get; init; }
 		/// <summary>Forum title</summary>
-		public ForumTitle Title { get; set; }
+		public ForumTitle Title { get; init; }
 		/// <summary>Forum text</summary>
-		public ForumText Text { get; set; }
+		public ForumText Text { get; init; }
 		/// <summary>Delete flag</summary>
-		public ForumDeleteFlagStatus DeleteFlag { get; }
+		public ForumDeleteFlagStatus DeleteFlag { get; init; }
 		/// <summary>Date changed</summary>
-		public DateChanged DateChanged { get; set; } = new DateChanged(DateTime.MinValue);
+		public DateChanged DateChanged { get; init; }
 		/// <summary>Date created</summary>
-		public DateCreated DateCreated { get; set; } = new DateCreated(DateTime.MinValue);
+		public DateCreated DateCreated { get; init; }
 		/// <summary>User name</summary>
-		public ForumUserName UserName { get; set; } = new ForumUserName(string.Empty);
+		public ForumUserName UserName { get; init; }
 	}
 }

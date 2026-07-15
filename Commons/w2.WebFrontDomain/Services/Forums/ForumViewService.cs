@@ -10,6 +10,7 @@ using w2.ForumDomain.Services.Forums;
 using w2.WebFrontDomain.Dto;
 using w2.WebFrontDomain.Dto.Forums;
 using w2.WebFrontDomain.Validator.Forums;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace w2.WebFrontDomain.Services.Forums
 {
@@ -120,10 +121,15 @@ namespace w2.WebFrontDomain.Services.Forums
 
 			var response = ForumValidator.Validate(request);
 			if (response.HasError) return (ForumResponse)response;
+			var forumResponse = new ForumRes(
+				new ResForumId(AsInt: 0),
+				new ForumId(forum.ForumId.AsInt),
+				new ForumUserId(loginUser.UserId.AsInt),
+				new ForumTitle(request.Title ?? string.Empty),
+				new ForumText(request.Content ?? string.Empty),
+				ForumDeleteFlagStatus.Active);
 
-			forum.Text = new ForumText(request.Content ?? string.Empty);
-			forum.Title = new ForumTitle(request.Title ?? string.Empty);
-			_forumService.InsertResponse( new ForumRes(forum));
+			_forumService.InsertResponse(forumResponse);
 
 			return response;
 		}
@@ -149,9 +155,13 @@ namespace w2.WebFrontDomain.Services.Forums
 			response = ForumValidator.Validate(request);
 			if (response.HasError) return (ForumResponse)response;
 
-			forum.Text = new ForumText(request.Content ?? string.Empty);
-			forum.Title = new ForumTitle(request.Title ?? string.Empty);
-			var result = _forumService.Update(forum);
+			var forumUpdated = new Forum(
+				forum.ForumId,
+				forum.UserId,
+				new ForumTitle(request.Title ?? string.Empty),
+				new ForumText(request.Content ?? string.Empty),
+				forum.DeleteFlag);
+			var result = _forumService.Update(forumUpdated);
 			if (result is not null) response.ResponseObject = result;
 
 			return response;
