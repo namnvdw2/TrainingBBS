@@ -6,7 +6,7 @@ namespace w2.BBS.Front
 	/// <summary>
 	/// ルーティング設定
 	/// </summary>
-	public class RouteConfig
+	public sealed class RouteConfig
 	{
 		/// <summary>
 		/// ルーティングの登録

@@ -5,7 +5,7 @@ namespace w2.BBS.Front.ViewModels.Users
 	/// <summary>
 	/// Login user view model
 	/// </summary>
-	public class LoginUserViewModel : BaseViewModel
+	public sealed class LoginUserViewModel : BaseViewModel
 	{
 		/// <summary>Login id</summary>
 		public string LoginId { get; set; }

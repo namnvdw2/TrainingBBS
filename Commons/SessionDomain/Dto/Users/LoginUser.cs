@@ -9,7 +9,7 @@ namespace SessionDomain.Dto.Users
 	/// Login user
 	/// </summary>
 	[Serializable]
-	public class LoginUser
+	public sealed class LoginUser
 	{
 		/// <summary>
 		/// Constructor

@@ -11,7 +11,7 @@ namespace w2.WebFrontDomain.Validator.Users
 	/// <summary>
 	/// User register validator
 	/// </summary>
-	public class UserRegisterValidator : UserValidator
+	public sealed class UserRegisterValidator : UserValidator
 	{
 		/// <summary>
 		/// Register validate

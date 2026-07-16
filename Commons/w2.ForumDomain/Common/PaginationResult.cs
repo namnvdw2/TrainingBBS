@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace w2.ForumDomain.Common
 {
-	public class PaginationResult<T>
+	public sealed class PaginationResult<T>
 	{
 		public IReadOnlyList<T> Items { get; }
 		public int TotalCount { get; }

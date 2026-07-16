@@ -5,7 +5,7 @@ namespace w2.WebFrontDomain.Dto.Forums
 	/// <summary>
 	/// Forum pagination response
 	/// </summary>
-	public class ForumPaginationResponse : BaseResponse<PaginationResponseObject<ForumResponseDto>>
+	public sealed class ForumPaginationResponse : BaseResponse<PaginationResponseObject<ForumResponseDto>>
 	{
 	}
 }

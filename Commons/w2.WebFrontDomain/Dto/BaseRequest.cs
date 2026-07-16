@@ -8,7 +8,7 @@ namespace w2.WebFrontDomain.Dto
 	/// Base request
 	/// </summary>
 	[Serializable]
-	public class BaseRequest
+	public abstract class BaseRequest
 	{
 		/// <summary>NextUrl</summary>
 		public string? NextUrl { get; set; } = null;

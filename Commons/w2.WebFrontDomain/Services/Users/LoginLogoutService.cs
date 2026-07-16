@@ -13,7 +13,7 @@ namespace w2.WebFrontDomain.Services.Users
 	/// <summary>
 	/// Login logout service
 	/// </summary>
-	public class LoginLogoutService
+	public sealed class LoginLogoutService
 	{
 		private readonly UserService _userService;
 		private readonly LoginUserSessionRepository _session;

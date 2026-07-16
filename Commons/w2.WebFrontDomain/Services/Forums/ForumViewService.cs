@@ -17,7 +17,7 @@ namespace w2.WebFrontDomain.Services.Forums
 	/// <summary>
 	/// Forum view service
 	/// </summary>
-	public class ForumViewService
+	public sealed class ForumViewService
 	{
 		private readonly ForumService _forumService;
 		private readonly LoginUserSessionRepository _session;

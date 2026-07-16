@@ -17,7 +17,7 @@ namespace w2.WebFrontDomain.Services.Users
 	/// <summary>
 	/// User view service
 	/// </summary>
-	public class UserViewService
+	public sealed class UserViewService
 	{
 		private readonly UserService _userService;
 		private readonly UserInputSessionRepository _session;

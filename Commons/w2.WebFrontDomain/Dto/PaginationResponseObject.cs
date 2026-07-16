@@ -7,7 +7,7 @@ namespace w2.WebFrontDomain.Dto
 	/// <summary>
 	/// Pagination response object
 	/// </summary>
-	public class PaginationResponseObject<T>
+	public sealed class PaginationResponseObject<T>
 	{
 		/// <summary>Items</summary>
 		public IReadOnlyList<T>? Items { get; set; }

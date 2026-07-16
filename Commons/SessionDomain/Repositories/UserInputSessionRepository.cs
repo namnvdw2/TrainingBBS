@@ -8,7 +8,7 @@ namespace SessionDomain.Repositories
 	/// <summary>
 	/// User input session repository
 	/// </summary>
-	public class UserInputSessionRepository : SessionRepository<User>, IUserRegisterSessionRepository
+	public sealed class UserInputSessionRepository : SessionRepository<User>, IUserRegisterSessionRepository
 	{
 		/// <summary>Session key for user input</summary>
 		private const string SESSION_KEY_USER_INPUT = "user_input";

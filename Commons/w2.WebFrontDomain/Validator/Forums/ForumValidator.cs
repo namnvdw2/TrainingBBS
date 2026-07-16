@@ -10,7 +10,7 @@ namespace w2.WebFrontDomain.Validator.Forums
 	/// <summary>
 	/// Forum validator
 	/// </summary>
-	public class ForumValidator
+	public sealed class ForumValidator
 	{
 		/// <summary>Maximum length for forum tile</summary>
 		protected const int MAX_LENGTH_FORUM_TITLE = 15;

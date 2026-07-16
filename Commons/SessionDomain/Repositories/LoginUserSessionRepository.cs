@@ -8,7 +8,7 @@ namespace SessionDomain.Repositories
 	/// <summary>
 	/// Login user session repository
 	/// </summary>
-	public class LoginUserSessionRepository : SessionRepository<LoginUser>, ILoginUserSessionRepository
+	public sealed class LoginUserSessionRepository : SessionRepository<LoginUser>, ILoginUserSessionRepository
 	{
 		/// <summary>
 		/// Constructor

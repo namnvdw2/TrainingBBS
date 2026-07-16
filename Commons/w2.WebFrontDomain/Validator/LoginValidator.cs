@@ -14,7 +14,7 @@ namespace w2.WebFrontDomain.Validator
 	/// <summary>
 	/// Login validator
 	/// </summary>
-	public class LoginValidator : UserValidator
+	public sealed class LoginValidator : UserValidator
 	{
 		/// <summary>
 		/// Validate
