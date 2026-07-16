@@ -127,7 +127,9 @@ namespace w2.WebFrontDomain.Services.Forums
 				new ForumUserId(loginUser.UserId.AsInt),
 				new ForumTitle(request.Title ?? string.Empty),
 				new ForumText(request.Content ?? string.Empty),
-				ForumDeleteFlagStatus.Active);
+				ForumDeleteFlagStatus.Active,
+				new DateCreated(forum.DateCreated.AsDateTime),
+				new DateChanged(forum.DateChanged.AsDateTime));
 
 			_forumService.InsertResponse(forumResponse);
 
@@ -160,7 +162,9 @@ namespace w2.WebFrontDomain.Services.Forums
 				forum.UserId,
 				new ForumTitle(request.Title ?? string.Empty),
 				new ForumText(request.Content ?? string.Empty),
-				forum.DeleteFlag);
+				forum.DeleteFlag,
+				forum.DateCreated,
+				forum.DateChanged);
 			var result = _forumService.Update(forumUpdated);
 			if (result is not null) response.ResponseObject = result;
 

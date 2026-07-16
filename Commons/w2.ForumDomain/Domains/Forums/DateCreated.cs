@@ -5,8 +5,8 @@ using System;
 namespace w2.ForumDomain.Domains.Forums
 {
 	/// <summary>
-	/// Date changed value object
+	/// Date created value object
 	/// </summary>
-	/// <param name="AsDateTime">Date changed as DateTime</param>
+	/// <param name="AsDateTime">Date created as DateTime</param>
 	public sealed record DateCreated(DateTime AsDateTime);
 }

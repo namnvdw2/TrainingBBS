@@ -322,7 +322,6 @@
             return response.json();
           })
           .then(result => {
-            console.log(result.ResponseObject)
             const data = result.ResponseObject;
             this.forums = data.Items;
             this.currentPage = data.CurrentPage;

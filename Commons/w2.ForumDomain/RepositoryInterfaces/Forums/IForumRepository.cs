@@ -30,7 +30,7 @@ namespace w2.ForumDomain.RepositoryInterfaces.Forums
 		/// </summary>
 		/// <param name="ids">Forum id list</param>
 		/// <returns>Forum response dto list</returns>
-		ForumResDto[] GetResponse(ForumId[] ids);
+		ForumRes[] GetResponse(ForumId[] ids);
 
 		/// <summary>
 		/// Insert

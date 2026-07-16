@@ -17,7 +17,6 @@ namespace w2.BBS.Front.Controller
 		/// <summary>
 		/// Constructor
 		/// </summary>
-		/// <param name="loginLogoutService">Login logout service</param>
 		public LoginController(LoginLogoutService loginLogoutService)
 		{
 			_loginLogoutService = loginLogoutService;
@@ -26,7 +25,6 @@ namespace w2.BBS.Front.Controller
 		/// <summary>
 		/// Index
 		/// </summary>
-		/// <returns>Action result</returns>
 		[HttpGet]
 		[Route("~/login")]
 		public ActionResult Index()
@@ -38,7 +36,6 @@ namespace w2.BBS.Front.Controller
 		/// Login
 		/// </summary>
 		/// <param name="request">Login request</param>
-		/// <returns>Action result</returns>
 		[HttpPost]
 		[Route("~/login")]
 		public ActionResult Login(LoginRequest request)

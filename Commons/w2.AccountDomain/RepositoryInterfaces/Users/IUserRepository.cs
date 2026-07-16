@@ -10,27 +10,27 @@ namespace w2.AccountDomain.RepositoryInterfaces.Users
 		/// Get user by id
 		/// </summary>
 		/// <param name="id">Id</param>
-		/// <returns>User model</returns>
-		User? Get(Id id);
+		/// <returns>User</returns>
+		User? Get(UserId id);
 
 		/// <summary>
 		/// Get user by login id
 		/// </summary>
 		/// <param name="loginId">Login id</param>
-		/// <returns>User model</returns>
+		/// <returns>User</returns>
 		User? Get(LoginId loginId);
 
 		/// <summary>
 		/// Insert
 		/// </summary>
-		/// <param name="user">User model</param>
+		/// <param name="user">User</param>
 		void Insert(User user);
 
 		/// <summary>
 		/// Update
 		/// </summary>
-		/// <param name="exUser">Ex user model</param>
-		/// <param name="user">User model</param>
+		/// <param name="exUser">Ex user</param>
+		/// <param name="user">User</param>
 		void Update(User exUser,
 			User user);
 
@@ -38,6 +38,6 @@ namespace w2.AccountDomain.RepositoryInterfaces.Users
 		/// Withdrawal
 		/// </summary>
 		/// <param name="userId">User id</param>
-		int Withdrawal(Id userId);
+		int Withdrawal(UserId userId);
 	}
 }

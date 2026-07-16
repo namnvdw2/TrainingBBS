@@ -30,7 +30,6 @@ namespace w2.BBS.Front.Controller
 		/// <summary>
 		/// Register input
 		/// </summary>
-		/// <returns>Action result</returns>
 		[HttpGet]
 		[Route("register/input")]
 		public ActionResult RegisterInput()
@@ -55,7 +54,6 @@ namespace w2.BBS.Front.Controller
 		/// <summary>
 		/// Register
 		/// </summary>
-		/// <returns>Action result</returns>
 		[HttpPost]
 		[Route("register")]
 		public ActionResult Register(UserRegisterModifyRequest request)
@@ -67,7 +65,6 @@ namespace w2.BBS.Front.Controller
 		/// <summary>
 		/// Register confirm view
 		/// </summary>
-		/// <returns>Action result</returns>
 		[HttpGet]
 		[Route("register/confirm")]
 		public ActionResult RegisterConfirmView()
@@ -89,7 +86,6 @@ namespace w2.BBS.Front.Controller
 		/// <summary>
 		/// Confirm view
 		/// </summary>
-		/// <returns>Action result</returns>
 		[HttpPost]
 		[Route("register/confirm/save")]
 		public ActionResult SaveUser()
@@ -101,7 +97,6 @@ namespace w2.BBS.Front.Controller
 		/// <summary>
 		/// Confirm view
 		/// </summary>
-		/// <returns>Action result</returns>
 		[HttpGet]
 		[Route("register/complete")]
 		public ActionResult Completed()
@@ -119,7 +114,6 @@ namespace w2.BBS.Front.Controller
 		/// <summary>
 		/// Cancel confirm
 		/// </summary>
-		/// <returns>Action result</returns>
 		[HttpGet]
 		[Route("withdrawal/confirm")]
 		public ActionResult CancelConfirm()
@@ -130,7 +124,6 @@ namespace w2.BBS.Front.Controller
 		/// <summary>
 		/// Cancel confirm
 		/// </summary>
-		/// <returns>Action result</returns>
 		[HttpPost]
 		[Route("withdrawal")]
 		public ActionResult ExcecCancel()
@@ -142,7 +135,6 @@ namespace w2.BBS.Front.Controller
 		/// <summary>
 		/// Cancel complete
 		/// </summary>
-		/// <returns>Action result</returns>
 		[HttpGet]
 		[Route("withdrawal/complete")]
 		public ActionResult CancelComplete()
@@ -153,7 +145,6 @@ namespace w2.BBS.Front.Controller
 		/// <summary>
 		/// Modify input
 		/// </summary>
-		/// <returns>Action result</returns>
 		[HttpGet]
 		[Route("modify/input")]
 		public ActionResult ModifyInput()
@@ -173,7 +164,6 @@ namespace w2.BBS.Front.Controller
 		/// <summary>
 		/// Modify account
 		/// </summary>
-		/// <returns>Action result</returns>
 		[HttpPost]
 		[Route("modify")]
 		public ActionResult ModifyAccount(UserRegisterModifyRequest request)
@@ -182,11 +172,9 @@ namespace w2.BBS.Front.Controller
 			return JsonForJs(response);
 		}
 
-
 		/// <summary>
 		/// Modify confirm view
 		/// </summary>
-		/// <returns>Action result</returns>
 		[HttpGet]
 		[Route("modify/confirm")]
 		public ActionResult ModifyConfirmView()
@@ -211,7 +199,6 @@ namespace w2.BBS.Front.Controller
 		/// <summary>
 		/// Confirm modiftview
 		/// </summary>
-		/// <returns>Action result</returns>
 		[HttpPost]
 		[Route("modify/confirm/save")]
 		public ActionResult SaveModifyUser()

@@ -10,7 +10,6 @@ namespace w2.AccountDomain.Services.Users
 	/// </summary>
 	public sealed class UserService
 	{
-		/// <summary>User repository</summary>
 		private readonly IUserRepository _userRepository;
 
 		/// <summary>
@@ -26,10 +25,10 @@ namespace w2.AccountDomain.Services.Users
 		/// </summary>
 		/// <param name="id">User id</param>
 		/// <returns>User</returns>
-		public User? GetById(Id id)
+		public User? GetById(UserId id)
 		{
-			var model = _userRepository.Get(id);
-			return model;
+			var user = _userRepository.Get(id);
+			return user;
 		}
 
 		/// <summary>
@@ -39,8 +38,8 @@ namespace w2.AccountDomain.Services.Users
 		/// <returns>Account</returns>
 		public User? GetByLoginId(LoginId loginId)
 		{
-			var model = _userRepository.Get(loginId);
-			return model;
+			var user = _userRepository.Get(loginId);
+			return user;
 		}
 
 		/// <summary>
@@ -67,7 +66,7 @@ namespace w2.AccountDomain.Services.Users
 		/// <param name="user">User</param>
 		/// <returns>User updated</returns>
 
-		public User Update(Id id, User user)
+		public User Update(UserId id, User user)
 		{
 			var existed = _userRepository.Get(id);
 			if (existed is not null)
@@ -83,7 +82,7 @@ namespace w2.AccountDomain.Services.Users
 		/// </summary>
 		/// <param name="userId">User id</param>
 		/// <returns>Withdrawaled</returns>
-		public int Withdrawal(Id userId)
+		public int Withdrawal(UserId userId)
 		{
 			var existed = _userRepository.Get(userId);
 			if (existed is null) return 0;

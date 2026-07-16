@@ -15,7 +15,7 @@ namespace SessionDomain.Dto.Users
 		/// Constructor
 		/// </summary>
 		public LoginUser(
-			Id userId,
+			UserId userId,
 			LoginId loginId,
 			Name name)
 		{
@@ -25,14 +25,14 @@ namespace SessionDomain.Dto.Users
 		}
 
 		/// <summary>
-		/// Create user login model by user model
+		/// Create user login by user
 		/// </summary>
-		/// <param name="user">The user model</param>
-		/// <returns>User login model</returns>
+		/// <param name="user">User</param>
+		/// <returns>User login</returns>
 		public static LoginUser CreateByUser(User user)
 		{
 			var result = new LoginUser(
-				user.Id,
+				user.UserId,
 				user.LoginId,
 				user.Name);
 
@@ -40,7 +40,7 @@ namespace SessionDomain.Dto.Users
 		}
 
 		/// <summary>User id</summary>
-		public Id UserId { get; }
+		public UserId UserId { get; }
 		/// <summary>User login ID</summary>
 		public LoginId LoginId { get; }
 		/// <summary>User name</summary>

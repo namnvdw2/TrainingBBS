@@ -16,7 +16,6 @@ class VueManager {
   init() {
     const app = {
       mounted() {
-        console.log('mounted');
       },
       watch: {
       },
@@ -27,7 +26,6 @@ class VueManager {
       components: {
       },
       created() {
-        console.log('created');
       },
       compilerOptions: {
         delimiters: ['${', '}'],
@@ -46,9 +44,7 @@ class VueManager {
     this.vueApp.use(plugin, options);
     if (this.checkInstallPlugin(pluginName) === false) {
       this.pluginNames.push(pluginName);
-      console.log(pluginName + 'プラグインが追加されました。');
     }
-    console.log(pluginName + 'プラグインの実行が登録されました。');
   }
   /**
    * コンポーネント追加
@@ -92,6 +88,5 @@ class VueManager {
         }
       },
     });
-    console.log('v-validatorディレクティブが登録されました。');
   }
 }

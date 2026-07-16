@@ -11,8 +11,10 @@ namespace w2.AccountDomain.Domains.Users
 	[Serializable]
 	public enum UsersWithdrawalStatus
 	{
+		/// <summary>Active</summary>
 		[DbValue("0")]
 		Active,
+		/// <summary>Canceled</summary>
 		[DbValue("1")]
 		Canceled,
 	}

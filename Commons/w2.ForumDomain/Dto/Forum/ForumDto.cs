@@ -36,7 +36,7 @@ namespace w2.ForumDomain.Dto.Forums
 		public int UserId { get; set; }
 		/// <summary>User name</summary>
 		[HashtableIgnore]
-		[HashtableAlias("name")]
+		[HashtableAlias("user_name")]
 		public string UserName { get; set; }
 		/// <summary>Forum title</summary>
 		[HashtableAlias("forum_title")]

@@ -10,7 +10,7 @@ namespace w2.AccountDomain.DependencyInjection
 	/// <summary>
 	/// Di container configurator
 	/// </summary>
-	public class DiContainerConfigurator : IDiContainerConfigurator
+	public sealed class DiContainerConfigurator : IDiContainerConfigurator
 	{
 		/// <inheritdoc />
 		public UnityContainer Configure(UnityContainer container)

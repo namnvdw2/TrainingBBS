@@ -8,7 +8,7 @@ namespace w2.AccountDomain.Domains.Users
 	/// Id
 	/// </summary>
 	[Serializable]
-	public sealed record Id(int AsInt)
+	public sealed record UserId(int AsInt)
 	{
 		/// <inheritdoc />
 		public override string ToString()

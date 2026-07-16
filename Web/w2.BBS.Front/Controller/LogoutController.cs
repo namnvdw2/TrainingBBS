@@ -10,9 +10,9 @@ namespace w2.BBS.Front.Controller
 	/// Logout controller
 	/// </summary>
 	[RoutePrefix("logout")]
-	public class LogoutController : BaseController
+	public sealed class LogoutController : BaseController
 	{
-		private LoginLogoutService _loginLogoutService;
+		private readonly LoginLogoutService _loginLogoutService;
 
 		/// <summary>
 		/// Constructor
@@ -26,7 +26,6 @@ namespace w2.BBS.Front.Controller
 		/// <summary>
 		/// Index
 		/// </summary>
-		/// <returns>Action result</returns>
 		[HttpGet]
 		[Route("")]
 		public ActionResult Index()
@@ -37,7 +36,6 @@ namespace w2.BBS.Front.Controller
 		/// <summary>
 		/// Logout
 		/// </summary>
-		/// <returns>Action result</returns>
 		[HttpPost]
 		[Route("logout")]
 		public ActionResult Logout()

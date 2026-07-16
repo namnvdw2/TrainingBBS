@@ -67,7 +67,7 @@ namespace w2.ForumDomain.RdbRepositories.Forums
 		}
 
 		/// <inheritdoc />
-		public ForumResDto[] GetResponse(ForumId[] ids)
+		public ForumRes[] GetResponse(ForumId[] ids)
 		{
 			var forumIds = ids
 				.Select(x => x.AsInt)
@@ -81,6 +81,7 @@ namespace w2.ForumDomain.RdbRepositories.Forums
 						.Join("w2_Account", "w2_ForumRes.user_id", "w2_Account.id")
 						.Where("w2_ForumRes.delete_flg", ForumDeleteFlagStatus.Active.ToDbValue())
 						.WhereIn("forum_id", forumIds))
+				.Select(dto => ForumRes.CreateByDto(dto))
 				.ToArray();
 		}
 

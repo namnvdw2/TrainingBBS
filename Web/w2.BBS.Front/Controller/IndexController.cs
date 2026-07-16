@@ -13,7 +13,6 @@ namespace w2.BBS.Front.Controller
 		/// <summary>
 		/// Index
 		/// </summary>
-		/// <returns>Action result</returns>
 		[Route("~/")]
 		public ActionResult Index()
 		{

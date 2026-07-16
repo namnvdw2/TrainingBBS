@@ -73,7 +73,6 @@
             return response.json();
           })
           .then(result => {
-            console.log(result)
             window.location.href = result.RedirectUrl;
           })
           .catch(error => {

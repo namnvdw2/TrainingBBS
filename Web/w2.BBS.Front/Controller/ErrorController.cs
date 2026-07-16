@@ -8,12 +8,11 @@ namespace w2.BBS.Front.Controller
 	/// <summary>
 	/// Error controller
 	/// </summary>
-	public class ErrorController : BaseController
+	public sealed class ErrorController : BaseController
 	{
 		/// <summary>
 		/// Not found
 		/// </summary>
-		/// <returns>Action result</returns>
 		public ActionResult NotFound()
 		{
 			Response.StatusCode = 404;

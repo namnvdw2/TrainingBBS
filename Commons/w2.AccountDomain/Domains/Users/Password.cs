@@ -17,6 +17,11 @@ namespace w2.AccountDomain.Domains.Users
 		/// <summary>Hash password</summary>
 		public string HashPassword { get; }
 
+		/// <summary>
+		/// Password
+		/// </summary>
+		/// <param name="rawPassword">Raw password</param>
+		/// <param name="hashPassword">Hash password</param>
 		private Password(string rawPassword, string hashPassword)
 		{
 			RawPassword = rawPassword;

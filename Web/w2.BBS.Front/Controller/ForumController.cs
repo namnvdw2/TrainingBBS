@@ -20,7 +20,7 @@ namespace w2.BBS.Front.Controller
 		private readonly ForumViewService _forumService;
 
 		/// <summary>
-		/// Forum controller
+		/// Constructor
 		/// </summary>
 		/// <param name="forumService">Forum view service</param>
 		public ForumController(ForumViewService forumService)
@@ -31,7 +31,6 @@ namespace w2.BBS.Front.Controller
 		/// <summary>
 		/// Forum top
 		/// </summary>
-		/// <returns>Action result</returns>
 		[HttpGet]
 		[Route("")]
 		public ActionResult ForumTop()
@@ -50,7 +49,6 @@ namespace w2.BBS.Front.Controller
 		/// Get forums
 		/// </summary>
 		/// <param name="page">Page no</param>
-		/// <returns>Action result</returns>
 		[HttpGet]
 		[Route("get-forums")]
 		public ActionResult GetForums(int page = 1)
@@ -65,7 +63,6 @@ namespace w2.BBS.Front.Controller
 		/// Post forum
 		/// </summary>
 		/// <param name="request">Post forum request</param>
-		/// <returns>Action result</returns>
 		[HttpPost]
 		[Route("post-forum")]
 		public ActionResult PostForum(PostForumRequest request)
@@ -78,7 +75,6 @@ namespace w2.BBS.Front.Controller
 		/// Post reply
 		/// </summary>
 		/// <param name="request">Reply forum request</param>
-		/// <returns>Action result</returns>
 		[HttpPost]
 		[Route("post-reply")]
 		public ActionResult PostReply(ReplyForumRequest request)
@@ -91,7 +87,6 @@ namespace w2.BBS.Front.Controller
 		/// Update forum
 		/// </summary>
 		/// <param name="request">Update forum request</param>
-		/// <returns>Action result</returns>
 		[HttpPost]
 		[Route("update-forum")]
 		public ActionResult UpdateForum(UpdateForumRequest request)
@@ -104,7 +99,6 @@ namespace w2.BBS.Front.Controller
 		/// Delete
 		/// </summary>
 		/// <param name="forumId">Forum id</param>
-		/// <returns>Action result</returns>
 		[HttpPost]
 		[Route("delete-forum")]
 		public ActionResult Delete(int forumId)

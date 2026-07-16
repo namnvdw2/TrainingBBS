@@ -28,7 +28,7 @@ namespace w2.AccountDomain.RdbRepositories.Users
 		}
 
 		/// <inheritdoc />
-		public User? Get(Id id)
+		public User? Get(UserId id)
 		{
 			var dto = _repository
 				.GetWithBuilder<UserDto>(f =>
@@ -81,12 +81,12 @@ namespace w2.AccountDomain.RdbRepositories.Users
 				.ToDictionary(de => (string)de.Key, de => de.Value);
 			_repository.ExecWithBuilder(f =>
 				f.Query("w2_Account")
-					.Where("id", exUser.Id.AsInt)
+					.Where("id", exUser.UserId.AsInt)
 					.AsUpdate(input));
 		}
 
 		/// <inheritdoc />
-		public int Withdrawal(Id userId)
+		public int Withdrawal(UserId userId)
 		{
 			var result = _repository.ExecWithBuilder(f =>
 				f.Query("w2_Account")

@@ -1,5 +1,6 @@
 ﻿// (c) 2026 W2 Co.,Ltd.
 
+using Humanizer;
 using System;
 using w2.Common.Helper.Attribute;
 using w2.ForumDomain.Dto.Forums;
@@ -24,7 +25,9 @@ namespace w2.ForumDomain.Domains.Forums
 			ForumUserId userId,
 			ForumTitle title,
 			ForumText text,
-			ForumDeleteFlagStatus deleteFlag)
+			ForumDeleteFlagStatus deleteFlag,
+			DateCreated dateCreated,
+			DateChanged dateChanged)
 		{
 			this.ForumId = forumId;
 			this.UserId = userId;
@@ -32,8 +35,8 @@ namespace w2.ForumDomain.Domains.Forums
 			this.Text = text;
 			this.DeleteFlag = deleteFlag;
 			this.UserName = new ForumUserName(string.Empty);
-			this.DateCreated = new DateCreated(DateTime.MinValue);
-			this.DateChanged = new DateChanged(DateTime.MinValue);
+			this.DateCreated = dateCreated;
+			this.DateChanged = dateChanged;
 		}
 		/// <summary>
 		/// Contructor
@@ -50,30 +53,32 @@ namespace w2.ForumDomain.Domains.Forums
 				userId,
 				title,
 				text,
-				ForumDeleteFlagStatus.Active)
+				ForumDeleteFlagStatus.Active,
+				new DateCreated(DateTime.MinValue),
+				new DateChanged(DateTime.MinValue))
 		{
 		}
 
 		/// <summary>
-		/// Creates a model from a DTO
+		/// Creates a forum from a DTO
 		/// </summary>
 		/// <param name="dto">The forum DTO</param>
-		/// <returns>Forum model</returns>
+		/// <returns>Forum</returns>
 		public static Forum CreateByDto(ForumDto dto)
 		{
-			var model = new Forum(
+			var forum = new Forum(
 				new ForumId(dto.ForumId),
 				new ForumUserId(dto.UserId),
 				new ForumTitle(dto.ForumTitle),
 				new ForumText(dto.ForumText),
-				DbValueAttribute.ParseToEnum<ForumDeleteFlagStatus>(dto.DeleteFlg))
+				DbValueAttribute.ParseToEnum<ForumDeleteFlagStatus>(dto.DeleteFlg),
+				new DateCreated(dto.DateCreated),
+				new DateChanged(dto.DateChanged))
 			{
-				DateCreated = new DateCreated(dto.DateCreated),
-				DateChanged = new DateChanged(dto.DateChanged),
 				UserName = new ForumUserName(dto.UserName),
 			};
 
-			return model;
+			return forum;
 		}
 
 		/// <summary>
@@ -102,9 +107,9 @@ namespace w2.ForumDomain.Domains.Forums
 		/// </summary>
 		/// <param name="userId">userId</param>
 		/// <returns>True if user id can update or delete, otherwise return false</returns>
-		public bool CanAccess(int userId)
+		public bool CanAccess(ForumUserId userId)
 		{
-			return userId == this.UserId.AsInt;
+			return userId == this.UserId;
 		}
 
 		/// <summary>Forum ID</summary>

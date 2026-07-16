@@ -7,7 +7,7 @@ using w2.Common.Helper.Attribute;
 namespace w2.AccountDomain.Domains.Users
 {
 	/// <summary>
-	/// User model
+	/// User
 	/// </summary>
 	[Serializable]
 	public sealed class User
@@ -15,14 +15,14 @@ namespace w2.AccountDomain.Domains.Users
 		/// <summary>
 		/// Constructor
 		/// </summary>
-		/// <param name="id">Id</param>
+		/// <param name="userId">User id</param>
 		/// <param name="loginId">Login id</param>
 		/// <param name="name">Name</param>
 		/// <param name="password">Password</param>
 		/// <param name="cancelFlag">Users withdrawal status</param>
 		/// <param name="dateCreated">Date created</param>
 		/// <param name="dateChanged">Date changed</param>
-		public User(Id id,
+		public User(UserId userId,
 			LoginId loginId,
 			Name name,
 			Password password,
@@ -30,7 +30,7 @@ namespace w2.AccountDomain.Domains.Users
 			DateCreated dateCreated,
 			DateChanged dateChanged)
 		{
-			this.Id = id;
+			this.UserId = userId;
 			this.LoginId = loginId;
 			this.Name = name;
 			this.Password = password;
@@ -49,7 +49,7 @@ namespace w2.AccountDomain.Domains.Users
 			string? name,
 			string? password)
 		{
-			return new User(new Id(int.MinValue),
+			return new User(new UserId(int.MinValue),
 				new LoginId(loginId ?? string.Empty),
 				new Name(name ?? string.Empty),
 				Password.FromPlainText(password ?? string.Empty),
@@ -62,10 +62,10 @@ namespace w2.AccountDomain.Domains.Users
 		/// Create by Dto
 		/// </summary>
 		/// <param name="dto">DTO</param>
-		/// <returns>User model</returns>
+		/// <returns>User</returns>
 		public static User CreateByDto(UserDto dto)
 		{
-			return new User(new Id(dto.Id),
+			return new User(new UserId(dto.Id),
 				new LoginId(dto.LoginId),
 				new Name(dto.Name),
 				Password.FromHash(dto.Password),
@@ -81,7 +81,7 @@ namespace w2.AccountDomain.Domains.Users
 		public UserDto CreateDto()
 		{
 			return new UserDto(
-				this.Id.AsInt,
+				this.UserId.AsInt,
 				this.LoginId.AsString,
 				this.Name.AsString,
 				this.Password.HashPassword,
@@ -108,8 +108,8 @@ namespace w2.AccountDomain.Domains.Users
 			return true;
 		}
 
-		/// <summary>Id</summary>
-		public Id Id { get; init; }
+		/// <summary>User id</summary>
+		public UserId UserId { get; init; }
 		/// <summary>Login id</summary>
 		public LoginId LoginId { get; init; }
 		/// <summary>Name</summary>

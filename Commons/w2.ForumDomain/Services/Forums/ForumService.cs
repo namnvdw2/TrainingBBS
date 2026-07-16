@@ -1,6 +1,5 @@
 ﻿// (c) 2026 W2 Co.,Ltd.
 
-using System.Linq;
 using w2.ForumDomain.Common;
 using w2.ForumDomain.Domains.ForumRes;
 using w2.ForumDomain.Domains.Forums;
@@ -8,9 +7,11 @@ using w2.ForumDomain.RepositoryInterfaces.Forums;
 
 namespace w2.ForumDomain.Services.Forums
 {
+	/// <summary>
+	/// Forum service
+	/// </summary>
 	public class ForumService
 	{
-		/// <summary>Forum repository</summary>
 		private readonly IForumRepository _forumRepository;
 
 		/// <summary>
@@ -39,8 +40,8 @@ namespace w2.ForumDomain.Services.Forums
 		/// <returns>Forum</returns>
 		public Forum? GetById(ForumId id)
 		{
-			var model = _forumRepository.Get(id);
-			return model;
+			var forum = _forumRepository.Get(id);
+			return forum;
 		}
 
 		/// <summary>
@@ -50,8 +51,8 @@ namespace w2.ForumDomain.Services.Forums
 		/// <returns>Forum response list</returns>
 		public ForumRes[] GetResponses(ForumId[] ids)
 		{
-			var model = _forumRepository.GetResponse(ids);
-			return model.Select(dto => ForumRes.CreateByDto(dto)).ToArray();
+			var forum = _forumRepository.GetResponse(ids);
+			return forum;
 		}
 
 		/// <summary>
