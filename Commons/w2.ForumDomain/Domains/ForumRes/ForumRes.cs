@@ -70,7 +70,7 @@ namespace w2.ForumDomain.Domains.ForumRes
 		/// </summary>
 		/// <param name="dto">The forum DTO</param>
 		/// <returns>Forum</returns>
-		public static ForumRes CreateByDto(ForumResDto dto)
+		internal static ForumRes CreateByDto(ForumResDto dto)
 		{
 			var forumRes = new ForumRes(
 				new ResForumId(dto.ResponseId),

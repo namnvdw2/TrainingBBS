@@ -10,7 +10,7 @@ namespace w2.ForumDomain.Dto.Forums
 	/// <summary>
 	/// Forum dto
 	/// </summary>
-	public sealed class ForumDto : IHashtableGeneratable
+	internal sealed class ForumDto : IHashtableGeneratable
 	{
 		/// <summary>
 		/// Contructor

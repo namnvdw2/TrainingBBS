@@ -63,7 +63,7 @@ namespace w2.AccountDomain.Domains.Users
 		/// </summary>
 		/// <param name="dto">DTO</param>
 		/// <returns>User</returns>
-		public static User CreateByDto(UserDto dto)
+		internal static User CreateByDto(UserDto dto)
 		{
 			return new User(new UserId(dto.Id),
 				new LoginId(dto.LoginId),
@@ -78,7 +78,7 @@ namespace w2.AccountDomain.Domains.Users
 		/// Create Dto
 		/// </summary>
 		/// <returns>DTO</returns>
-		public UserDto CreateDto()
+		internal UserDto CreateDto()
 		{
 			return new UserDto(
 				this.UserId.AsInt,

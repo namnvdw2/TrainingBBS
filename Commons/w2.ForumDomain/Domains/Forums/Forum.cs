@@ -64,7 +64,7 @@ namespace w2.ForumDomain.Domains.Forums
 		/// </summary>
 		/// <param name="dto">The forum DTO</param>
 		/// <returns>Forum</returns>
-		public static Forum CreateByDto(ForumDto dto)
+		internal static Forum CreateByDto(ForumDto dto)
 		{
 			var forum = new Forum(
 				new ForumId(dto.ForumId),

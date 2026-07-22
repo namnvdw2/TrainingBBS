@@ -9,7 +9,7 @@ namespace w2.BBS.Front
 	/// <summary>
 	/// グローバルアプリケーションクラス
 	/// </summary>
-	public class Global : HttpApplication
+	public sealed class Global : HttpApplication
 	{
 		/// <summary>
 		/// アプリケーション開始

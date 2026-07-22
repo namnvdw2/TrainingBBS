@@ -12,7 +12,7 @@ namespace w2.AccountDomain.Dto.Users
 	/// User Dto
 	/// </summary>
 	[Serializable]
-	public sealed class UserDto : IHashtableGeneratable
+	internal sealed class UserDto : IHashtableGeneratable
 	{
 		/// <summary>
 		/// Constructor
