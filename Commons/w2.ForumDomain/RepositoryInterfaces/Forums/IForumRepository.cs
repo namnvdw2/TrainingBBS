@@ -3,7 +3,6 @@
 using w2.ForumDomain.Common;
 using w2.ForumDomain.Domains.ForumRes;
 using w2.ForumDomain.Domains.Forums;
-using w2.ForumDomain.Dto.ForumRes;
 
 namespace w2.ForumDomain.RepositoryInterfaces.Forums
 {
@@ -16,7 +15,7 @@ namespace w2.ForumDomain.RepositoryInterfaces.Forums
 		/// Get all
 		/// </summary>
 		/// <returns></returns>
-		PaginationResult<Forum> GetAll(int page, int pageSize);
+		PaginationResult<Forum> GetAll(Page page, PageSize pageSize);
 
 		/// <summary>
 		/// Get

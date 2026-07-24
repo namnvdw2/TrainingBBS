@@ -19,7 +19,7 @@ namespace w2.BBS.Front
 		protected void Application_Start(object sender, EventArgs e)
 		{
 			Constants.APPLICATION_NAME = "w2.BBS.Front";
-			Constants.PHYSICALDIRPATH_LOGFILE = $"C:\\Logs\\Traning.BBS\\{Constants.APPLICATION_NAME}\\";
+			Constants.PHYSICALDIRPATH_LOGFILE = $"C:\\Logs\\Training.BBS\\{Constants.APPLICATION_NAME}\\";
 			Constants.STRING_SQL_CONNECTION = "Data Source=.\\SQLEXPRESS;database=BBS.Training;User ID=sa;Password=w2Sa;TrustServerCertificate=True;";
 			RouteConfig.RegisterRoutes(RouteTable.Routes);
 		}

@@ -11,7 +11,7 @@ namespace w2.WebFrontDomain.Validator
 	/// <summary>
 	/// Common messages
 	/// </summary>
-	public class CommonMessages
+	public sealed class CommonMessages
 	{
 		/// <summary>Message key</summary>
 		public enum CommonMessageKey

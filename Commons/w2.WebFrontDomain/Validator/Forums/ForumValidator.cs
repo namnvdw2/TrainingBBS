@@ -1,5 +1,6 @@
 ﻿// (c) 2026 W2 Co.,Ltd.
 
+using w2.AccountDomain.Domains.Users;
 using w2.ForumDomain.Domains.Forums;
 using w2.WebFrontDomain.Dto;
 using w2.WebFrontDomain.Dto.Forums;
@@ -54,17 +55,17 @@ namespace w2.WebFrontDomain.Validator.Forums
 		}
 
 		/// <summary>
-		/// Check assess
+		/// Check access
 		/// </summary>
 		/// <param name="userId">User id</param>
 		/// <param name="forum">Forum</param>
 		/// <returns>Forum response</returns>
-		public static ForumResponse CheckAssess(
-			int userId,
+		public static ForumResponse CheckAccess(
+			UserId userId,
 			Forum forum)
 		{
 			ForumResponse response = ResponseFactory.Success<ForumResponse>();
-			if (!forum.CanAccess(new ForumUserId(userId)))
+			if (!forum.CanAccess(new ForumUserId(userId.AsInt)))
 			{
 				response.Message = GetMessage(CommonMessageKey.ErrorCannotAccess);
 				response.Success = false;

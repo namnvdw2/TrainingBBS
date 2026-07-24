@@ -1,6 +1,6 @@
 ﻿// (c) 2026 W2 Co.,Ltd.
 
-namespace w2.BBS.Front.ViewModels.Users
+namespace w2.WebFrontDomain.ViewModels.Users
 {
 	/// <summary>
 	/// Login user view model

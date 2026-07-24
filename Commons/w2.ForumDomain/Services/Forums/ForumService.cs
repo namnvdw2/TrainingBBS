@@ -27,7 +27,7 @@ namespace w2.ForumDomain.Services.Forums
 		/// </summary>
 		/// <param name="id">Forum id</param>
 		/// <returns>Forum</returns>
-		public PaginationResult<Forum> GetAll(int page, int pageSize)
+		public PaginationResult<Forum> GetAll(Page page, PageSize pageSize)
 		{
 			var result = _forumRepository.GetAll(page, pageSize);
 			return result;

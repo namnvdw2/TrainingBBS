@@ -3,10 +3,10 @@
 using System.Web.Mvc;
 using w2.BBS.Front.Codes.Attributes;
 using w2.BBS.Front.Controller.Shared;
-using w2.BBS.Front.ViewModels.Users;
 using w2.WebFrontDomain.Configurations;
 using w2.WebFrontDomain.Dto.Forums;
 using w2.WebFrontDomain.Services.Forums;
+using w2.WebFrontDomain.ViewModels.Users;
 
 namespace w2.BBS.Front.Controller
 {
@@ -103,7 +103,7 @@ namespace w2.BBS.Front.Controller
 		[Route("delete-forum")]
 		public ActionResult Delete(int forumId)
 		{
-			var response = _forumService.DeleteForum(forumId);
+			var response = _forumService.DeleteForum(new ForumDomain.Domains.Forums.ForumId(forumId));
 			return JsonForJs(response);
 		}
 	}

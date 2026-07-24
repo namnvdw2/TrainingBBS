@@ -1,6 +1,5 @@
 ﻿// (c) 2026 W2 Co.,Ltd.
 
-using Humanizer;
 using System;
 using w2.Common.Helper.Attribute;
 using w2.ForumDomain.Domains.Forums;
@@ -14,11 +13,12 @@ namespace w2.ForumDomain.Domains.ForumRes
 	public sealed class ForumRes
 	{
 		/// <summary>
-		/// Contructor
+		/// Constructor
 		/// </summary>
 		/// <param name="resForumId">Response forum id</param>
 		/// <param name="forumId">The forum id</param>
 		/// <param name="userId">The user id</param>
+		/// <param name="userName">The user name</param>
 		/// <param name="title">The title</param>
 		/// <param name="text">The text</param>
 		/// <param name="deleteFlag">The delete flag</param>
@@ -26,6 +26,7 @@ namespace w2.ForumDomain.Domains.ForumRes
 			ResForumId resForumId,
 			ForumId forumId,
 			ForumUserId userId,
+			ForumUserName userName,
 			ForumTitle title,
 			ForumText text,
 			ForumDeleteFlagStatus deleteFlag,
@@ -35,6 +36,7 @@ namespace w2.ForumDomain.Domains.ForumRes
 			this.ResForumId = resForumId;
 			this.ForumId = forumId;
 			this.UserId = userId;
+			this.UserName = userName;
 			this.Title = title;
 			this.Text = text;
 			this.DeleteFlag = deleteFlag;
@@ -42,7 +44,7 @@ namespace w2.ForumDomain.Domains.ForumRes
 			this.DateChanged = dateChanged;
 		}
 		/// <summary>
-		/// Contructor
+		/// Constructor
 		/// </summary>
 		/// <param name="forumId">Forum id</param>
 		/// <param name="userId">The user id</param>
@@ -57,11 +59,12 @@ namespace w2.ForumDomain.Domains.ForumRes
 				new ResForumId(AsInt: 0),
 				forumId,
 				userId,
+				new ForumUserName(AsString: string.Empty),
 				title,
 				text,
 				ForumDeleteFlagStatus.Active,
-				new DateCreated(DateTime.MinValue),
-				new DateChanged(DateTime.MinValue))
+				new DateCreated(AsDateTime: DateTime.MinValue),
+				new DateChanged(AsDateTime: DateTime.MinValue))
 		{
 		}
 
@@ -73,17 +76,15 @@ namespace w2.ForumDomain.Domains.ForumRes
 		internal static ForumRes CreateByDto(ForumResDto dto)
 		{
 			var forumRes = new ForumRes(
-				new ResForumId(dto.ResponseId),
-				new ForumId(dto.ForumId),
-				new ForumUserId(dto.UserId),
-				new ForumTitle(dto.ResponseTitle),
-				new ForumText(dto.ResponseText),
+				new ResForumId(AsInt: dto.ResponseId),
+				new ForumId(AsInt: dto.ForumId),
+				new ForumUserId(AsInt: dto.UserId),
+				new ForumUserName(AsString: dto.UserName),
+				new ForumTitle(AsString: dto.ResponseTitle),
+				new ForumText(AsString: dto.ResponseText),
 				DbValueAttribute.ParseToEnum<ForumDeleteFlagStatus>(dto.DeleteFlg),
-				new DateCreated(dto.DateCreated),
-				new DateChanged(dto.DateChanged))
-			{
-				UserName = new ForumUserName(dto.UserName),
-			};
+				new DateCreated(AsDateTime: dto.DateCreated),
+				new DateChanged(AsDateTime: dto.DateChanged));
 
 			return forumRes;
 		}
@@ -122,10 +123,10 @@ namespace w2.ForumDomain.Domains.ForumRes
 		/// <summary>Delete flag</summary>
 		public ForumDeleteFlagStatus DeleteFlag { get; }
 		/// <summary>Date changed</summary>
-		public DateChanged DateChanged { get; set; } = new DateChanged(DateTime.MinValue);
+		public DateChanged DateChanged { get; }
 		/// <summary>Date created</summary>
-		public DateCreated DateCreated { get; set; } = new DateCreated(DateTime.MinValue);
+		public DateCreated DateCreated { get; }
 		/// <summary>User name</summary>
-		public ForumUserName UserName { get; set; } = new ForumUserName(string.Empty);
+		public ForumUserName UserName { get; }
 	}
 }

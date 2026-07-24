@@ -1,6 +1,5 @@
 ﻿// (c) 2026 W2 Co.,Ltd.
 
-using Humanizer;
 using System;
 using w2.Common.Helper.Attribute;
 using w2.ForumDomain.Dto.Forums;
@@ -13,16 +12,18 @@ namespace w2.ForumDomain.Domains.Forums
 	public sealed class Forum
 	{
 		/// <summary>
-		/// Contructor
+		/// Constructor
 		/// </summary>
 		/// <param name="forumId">The forum id</param>
 		/// <param name="userId">The user id</param>
+		/// <param name="userName">The user name</param>
 		/// <param name="title">The title</param>
 		/// <param name="text">The text</param>
 		/// <param name="deleteFlag">The delete flag</param>
 		public Forum(
 			ForumId forumId,
 			ForumUserId userId,
+			ForumUserName userName,
 			ForumTitle title,
 			ForumText text,
 			ForumDeleteFlagStatus deleteFlag,
@@ -31,6 +32,7 @@ namespace w2.ForumDomain.Domains.Forums
 		{
 			this.ForumId = forumId;
 			this.UserId = userId;
+			this.UserName = userName;
 			this.Title = title;
 			this.Text = text;
 			this.DeleteFlag = deleteFlag;
@@ -39,7 +41,7 @@ namespace w2.ForumDomain.Domains.Forums
 			this.DateChanged = dateChanged;
 		}
 		/// <summary>
-		/// Contructor
+		/// Constructor
 		/// </summary>
 		/// <param name="userId">The user id</param>
 		/// <param name="title">The title</param>
@@ -51,6 +53,7 @@ namespace w2.ForumDomain.Domains.Forums
 			: this(
 				new ForumId(AsInt: 0),
 				userId,
+				new ForumUserName(AsString: string.Empty),
 				title,
 				text,
 				ForumDeleteFlagStatus.Active,
@@ -69,14 +72,12 @@ namespace w2.ForumDomain.Domains.Forums
 			var forum = new Forum(
 				new ForumId(dto.ForumId),
 				new ForumUserId(dto.UserId),
+				new ForumUserName(dto.UserName),
 				new ForumTitle(dto.ForumTitle),
 				new ForumText(dto.ForumText),
 				DbValueAttribute.ParseToEnum<ForumDeleteFlagStatus>(dto.DeleteFlg),
 				new DateCreated(dto.DateCreated),
-				new DateChanged(dto.DateChanged))
-			{
-				UserName = new ForumUserName(dto.UserName),
-			};
+				new DateChanged(dto.DateChanged));
 
 			return forum;
 		}
@@ -113,20 +114,20 @@ namespace w2.ForumDomain.Domains.Forums
 		}
 
 		/// <summary>Forum ID</summary>
-		public ForumId ForumId { get; init; }
+		public ForumId ForumId { get; }
 		/// <summary>Forum user ID</summary>
-		public ForumUserId UserId { get; init; }
+		public ForumUserId UserId { get; }
 		/// <summary>Forum title</summary>
-		public ForumTitle Title { get; init; }
+		public ForumTitle Title { get; }
 		/// <summary>Forum text</summary>
-		public ForumText Text { get; init; }
+		public ForumText Text { get; }
 		/// <summary>Delete flag</summary>
-		public ForumDeleteFlagStatus DeleteFlag { get; init; }
+		public ForumDeleteFlagStatus DeleteFlag { get; }
 		/// <summary>Date changed</summary>
-		public DateChanged DateChanged { get; init; }
+		public DateChanged DateChanged { get; }
 		/// <summary>Date created</summary>
-		public DateCreated DateCreated { get; init; }
+		public DateCreated DateCreated { get; }
 		/// <summary>User name</summary>
-		public ForumUserName UserName { get; init; }
+		public ForumUserName UserName { get; }
 	}
 }

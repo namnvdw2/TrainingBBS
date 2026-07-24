@@ -29,7 +29,7 @@ namespace w2.WebFrontDomain.Dto
 		/// <param name="message">The error message</param>
 		public void AddError(string key, string message)
 		{
-			if (this.Errors.ContainsKey(key) == false)
+			if (!this.Errors.ContainsKey(key))
 			{
 				this.Errors.Add(key, message);
 			}

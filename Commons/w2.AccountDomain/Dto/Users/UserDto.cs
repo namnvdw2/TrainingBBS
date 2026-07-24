@@ -1,7 +1,6 @@
 ﻿// (c) 2026 W2 Co.,Ltd.
 
 using System;
-using System.Xml.Linq;
 using w2.AccountDomain.Domains.Users;
 using w2.Common.Helper.Attribute;
 using w2.FoundationDomain.Helpers;

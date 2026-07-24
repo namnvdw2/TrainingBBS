@@ -164,9 +164,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\Users\UserRegisterModifyViewModel.cs" />
-    <Compile Include="ViewModels\Users\LoginUserViewModel.cs" />
-    <Compile Include="ViewModels\BaseViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\_Razorは使わないでください.txt" />

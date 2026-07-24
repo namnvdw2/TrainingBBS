@@ -1,5 +1,6 @@
-using System;
+// (c) 2026 W2 Co.,Ltd.
 
+using System;
 using Unity;
 using w2.FoundationDomain.DependencyInjections;
 

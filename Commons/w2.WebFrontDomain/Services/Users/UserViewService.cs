@@ -10,6 +10,7 @@ using w2.WebFrontDomain.Dto;
 using w2.WebFrontDomain.Dto.Users;
 using w2.WebFrontDomain.Validator;
 using w2.WebFrontDomain.Validator.Users;
+using w2.WebFrontDomain.ViewModels.Users;
 using static w2.WebFrontDomain.Validator.CommonMessages;
 
 namespace w2.WebFrontDomain.Services.Users
@@ -43,21 +44,21 @@ namespace w2.WebFrontDomain.Services.Users
 			if (_session.ExistsLoggedIn())
 				return ResponseFactory.Success<UserRegisterModifyResponse>(ConstantsPage.TopForumPageUrl);
 
-			var userRegisteResponse = UserRegisterValidator.RegisterValidate(request, _userService);
-			if (userRegisteResponse.HasError)
-				return (UserRegisterModifyResponse)userRegisteResponse;
+			var userRegisterResponse = UserRegisterValidator.RegisterValidate(request, _userService);
+			if (userRegisterResponse.HasError)
+				return (UserRegisterModifyResponse)userRegisterResponse;
 
-			_session.SetInput(userRegisteResponse.ResponseObject);
-			userRegisteResponse = ResponseFactory.Success<UserRegisterModifyResponse>(ConstantsPage.UserRegisterConfirmPageUrl);
+			_session.SetInput(userRegisterResponse.ResponseObject);
+			userRegisterResponse = ResponseFactory.Success<UserRegisterModifyResponse>(ConstantsPage.UserRegisterConfirmPageUrl);
 
-			return userRegisteResponse;
+			return userRegisterResponse;
 		}
 
 		/// <summary>
 		/// Initialize input information
 		/// </summary>
 		/// <returns>User register context response</returns>
-		public UserRegisterModifyResponse GetInputInfor()
+		public UserRegisterModifyResponse GetInputInformation()
 		{
 			var input = _session.IsExistsInput()
 				? _session.GetInput()
@@ -105,7 +106,7 @@ namespace w2.WebFrontDomain.Services.Users
 		/// Execute withdrawal
 		/// </summary>
 		/// <returns>Register response</returns>
-		public BaseResponse ExcecWithdrawal()
+		public BaseResponse ExecWithdrawal()
 		{
 			if (!_session.ExistsLoggedIn())
 				return ResponseFactory.Error();
@@ -133,9 +134,9 @@ namespace w2.WebFrontDomain.Services.Users
 		/// Get login information
 		/// </summary>
 		/// <returns>Account register modify response</returns>
-		public UserRegisterModifyResponse GetLoginAccountOrInputInfor()
+		public UserRegisterModifyResponse GetLoginAccountOrInputInformation()
 		{
-			var response = GetInputInfor();
+			var response = GetInputInformation();
 
 			if (response.ResponseObject is null && _session.ExistsLoggedIn())
 			{
@@ -159,13 +160,13 @@ namespace w2.WebFrontDomain.Services.Users
 			if (!_session.ExistsLoggedIn())
 				return ResponseFactory.Error<UserRegisterModifyResponse>(ConstantsPage.LoginPageUrl);
 
-			var userRegisteResponse = UserRegisterValidator.DataValidate(request);
-			if (userRegisteResponse.HasError) return userRegisteResponse;
+			var userRegisterResponse = UserRegisterValidator.DataValidate(request);
+			if (userRegisterResponse.HasError) return userRegisterResponse;
 
-			_session.SetInput(userRegisteResponse.ResponseObject);
-			userRegisteResponse = ResponseFactory.Success<UserRegisterModifyResponse>(ConstantsPage.UserModifyConfirmPageUrl);
+			_session.SetInput(userRegisterResponse.ResponseObject);
+			userRegisterResponse = ResponseFactory.Success<UserRegisterModifyResponse>(ConstantsPage.UserModifyConfirmPageUrl);
 
-			return userRegisteResponse;
+			return userRegisterResponse;
 		}
 
 		/// <summary>

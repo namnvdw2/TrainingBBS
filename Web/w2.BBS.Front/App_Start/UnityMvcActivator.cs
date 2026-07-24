@@ -1,6 +1,7 @@
+// (c) 2026 W2 Co.,Ltd.
+
 using System.Linq;
 using System.Web.Mvc;
-
 using Unity.AspNet.Mvc;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(w2.BBS.Front.UnityMvcActivator), nameof(w2.BBS.Front.UnityMvcActivator.Start))]

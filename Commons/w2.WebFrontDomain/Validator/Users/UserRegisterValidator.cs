@@ -1,5 +1,7 @@
 ﻿// (c) 2026 W2 Co.,Ltd.
 
+using System.Web.UI.WebControls;
+using System.Xml.Linq;
 using w2.AccountDomain.Domains.Users;
 using w2.AccountDomain.Services.Users;
 using w2.WebFrontDomain.Dto;
@@ -72,9 +74,9 @@ namespace w2.WebFrontDomain.Validator.Users
 			}
 
 			response.ResponseObject = User.CreateUserForModify(
-				request?.LoginId,
-				request?.Name,
-				request?.Password);
+				new LoginId(request?.LoginId ?? string.Empty),
+				new Name(request?.Name ?? string.Empty),
+				Password.FromPlainText(request?.Password ?? string.Empty));
 
 			return response;
 		}

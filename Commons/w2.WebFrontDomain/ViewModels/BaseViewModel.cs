@@ -1,12 +1,12 @@
 ﻿using w2.FoundationDomain.Configurations;
 using w2.WebFrontDomain.Configurations;
 
-namespace w2.BBS.Front.ViewModels
+namespace w2.WebFrontDomain.ViewModels
 {
 	/// <summary>
 	/// Base view model
 	/// </summary>
-	public class BaseViewModel
+	public abstract class BaseViewModel
 	{
 		/// <summary>Root url</summary>
 		public string RootUrl => EnvironmentConfig.FrontRootPath;
@@ -23,10 +23,10 @@ namespace w2.BBS.Front.ViewModels
 		/// <summary>Is logged in</summary>
 		public bool IsLogin { get; set; }
 		/// <summary>Login user name</summary>
-		public string LoginUserName { get; set; }
+		public string? LoginUserName { get; set; }
 		/// <summary>Next url</summary>
-		public string NextUrl { get; set; }
+		public string? NextUrl { get; set; }
 		/// <summary>Back url</summary>
-		public string BackUrl { get; set; }
+		public string? BackUrl { get; set; }
 	}
 }

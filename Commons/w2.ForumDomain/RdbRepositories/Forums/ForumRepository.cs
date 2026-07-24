@@ -2,7 +2,6 @@
 
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using w2.Common.Helper.Attribute;
 using w2.ForumDomain.Common;
@@ -32,7 +31,7 @@ namespace w2.ForumDomain.RdbRepositories.Forums
 		}
 
 		/// <inheritdoc />
-		public PaginationResult<Forum> GetAll(int page, int pageSize)
+		public PaginationResult<Forum> GetAll(Page page, PageSize pageSize)
 		{
 			var query = _repository
 				.GetWithBuilder<ForumDto>(f =>
@@ -44,11 +43,11 @@ namespace w2.ForumDomain.RdbRepositories.Forums
 						.OrderByDesc("w2_Forum.date_created"));
 			var totalCount = query.Count();
 
-			var skip = Math.Max(0, (page - 1) * pageSize);
+			var skip = Math.Max(0, (page.AsInt - 1) * pageSize.AsInt);
 
 			var forums = query
 				.Skip(skip)
-				.Take(pageSize)
+				.Take(pageSize.AsInt)
 				.Select(dto => Forum.CreateByDto(dto))
 				.ToArray();
 
@@ -101,8 +100,10 @@ namespace w2.ForumDomain.RdbRepositories.Forums
 		/// <inheritdoc />
 		public void InsertResponse(ForumRes forum)
 		{
-			forum.DateChanged = new DateChanged(DateTime.Now);
-			forum.DateCreated = new DateCreated(DateTime.Now);
+			var dto = forum.CreateDto();
+			dto.DateChanged = DateTime.Now;
+			dto.DateCreated = DateTime.Now;
+
 			var input = forum
 				.CreateDto()
 				.ToHashtable()

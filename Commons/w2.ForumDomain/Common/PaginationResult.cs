@@ -4,10 +4,17 @@ using System.Collections.Generic;
 
 namespace w2.ForumDomain.Common
 {
+	/// <summary>
+	/// Pagination result
+	/// </summary>
+	/// <typeparam name="T"></typeparam>
 	public sealed class PaginationResult<T>
 	{
-		public IReadOnlyList<T> Items { get; }
-		public int TotalCount { get; }
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="items">Items</param>
+		/// <param name="totalCount">Total count</param>
 		public PaginationResult(
 			IReadOnlyList<T> items,
 			int totalCount)
@@ -15,5 +22,10 @@ namespace w2.ForumDomain.Common
 			Items = items;
 			TotalCount = totalCount;
 		}
+
+		/// <summary>Items</summary>
+		public IReadOnlyList<T> Items { get; }
+		/// <summary>Total count</summary>
+		public int TotalCount { get; }
 	}
 }

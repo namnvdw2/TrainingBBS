@@ -2,11 +2,10 @@
 
 using System.Web.Mvc;
 using w2.BBS.Front.Controller.Shared;
-using w2.BBS.Front.ViewModels;
-using w2.BBS.Front.ViewModels.Users;
 using w2.WebFrontDomain.Configurations;
 using w2.WebFrontDomain.Dto.Users;
 using w2.WebFrontDomain.Services.Users;
+using w2.WebFrontDomain.ViewModels;
 
 namespace w2.BBS.Front.Controller
 {
@@ -16,7 +15,6 @@ namespace w2.BBS.Front.Controller
 	[RoutePrefix("user")]
 	public sealed class UserController : BaseController
 	{
-		/// <summary>User register view service</summary>
 		private readonly UserViewService _service;
 
 		/// <summary>
@@ -34,21 +32,13 @@ namespace w2.BBS.Front.Controller
 		[Route("register/input")]
 		public ActionResult RegisterInput()
 		{
-			var viewModel = new UserRegisterModifyViewModel
-			{
-				BackUrl = ConstantsPage.LoginPageUrl,
-			};
-			var response = _service.GetInputInfor();
-
-			if (response.ResponseObject is not null)
-			{
-				viewModel.LoginId = response.ResponseObject?.LoginId.AsString;
-				viewModel.Name = response.ResponseObject?.Name.AsString;
-			}
+			var response = _service.GetInputInformation();
 
 			return View(
 				"Account/Register/input.liquid",
-				viewModel);
+				response.ToViewModel(
+					ConstantsPage.LoginPageUrl,
+					includePassword: true));
 		}
 
 		/// <summary>
@@ -69,18 +59,13 @@ namespace w2.BBS.Front.Controller
 		[Route("register/confirm")]
 		public ActionResult RegisterConfirmView()
 		{
-			var viewModel = new UserRegisterModifyViewModel
-			{
-				BackUrl = ConstantsPage.UserRegisterInputPageUrl,
-			};
-			var response = _service.GetInputInfor();
-			if (response.ResponseObject is not null)
-			{
-				viewModel.LoginId = response.ResponseObject?.LoginId.AsString;
-				viewModel.Name = response.ResponseObject?.Name.AsString;
-				viewModel.Password = response.ResponseObject?.Password.ToString();
-			}
-			return View("Account/Register/confirm.liquid", viewModel);
+			var request = _service.GetInputInformation();
+
+			return View(
+				"Account/Register/confirm.liquid",
+				request.ToViewModel(
+					ConstantsPage.UserRegisterInputPageUrl,
+					includePassword: true));
 		}
 
 		/// <summary>
@@ -101,7 +86,7 @@ namespace w2.BBS.Front.Controller
 		[Route("register/complete")]
 		public ActionResult Completed()
 		{
-			var viewModel = new BaseViewModel
+			var viewModel = new EmptyViewModel
 			{
 				NextUrl = ConstantsPage.TopForumPageUrl,
 			};
@@ -126,9 +111,9 @@ namespace w2.BBS.Front.Controller
 		/// </summary>
 		[HttpPost]
 		[Route("withdrawal")]
-		public ActionResult ExcecCancel()
+		public ActionResult ExecCancel()
 		{
-			var response = _service.ExcecWithdrawal();
+			var response = _service.ExecWithdrawal();
 			return JsonForJs(response);
 		}
 
@@ -138,7 +123,7 @@ namespace w2.BBS.Front.Controller
 		[HttpGet]
 		[Route("withdrawal/complete")]
 		public ActionResult CancelComplete()
-		{
+		{ 
 			return View("Account/Withdrawal/complete.liquid");
 		}
 
@@ -149,16 +134,11 @@ namespace w2.BBS.Front.Controller
 		[Route("modify/input")]
 		public ActionResult ModifyInput()
 		{
-			var response = _service.GetLoginAccountOrInputInfor();
-			var viewModel = new UserRegisterModifyViewModel
-			{
-				LoginId = response.ResponseObject?.LoginId.AsString,
-				Name = response.ResponseObject?.Name.AsString,
-			};
+			var response = _service.GetLoginAccountOrInputInformation();
 
 			return View(
 				"Account/Modify/input.liquid",
-				viewModel);
+				response.ToViewModel(ConstantsPage.TopForumPageUrl));
 		}
 
 		/// <summary>
@@ -179,21 +159,13 @@ namespace w2.BBS.Front.Controller
 		[Route("modify/confirm")]
 		public ActionResult ModifyConfirmView()
 		{
-			var viewModel = new UserRegisterModifyViewModel
-			{
-				BackUrl = ConstantsPage.UserModifyInputPageUrl,
-			};
-			var response = _service.GetInputInfor();
-			if (response.ResponseObject is not null)
-			{
-				viewModel.LoginId = response.ResponseObject?.LoginId.AsString;
-				viewModel.Name = response.ResponseObject?.Name.AsString;
-				viewModel.Password = response.ResponseObject?.Password.ToString();
-			}
+			var response = _service.GetInputInformation();
 
 			return View(
 				"Account/Modify/confirm.liquid",
-				viewModel);
+				response.ToViewModel(
+					ConstantsPage.UserModifyInputPageUrl,
+					includePassword: true));
 		}
 
 		/// <summary>

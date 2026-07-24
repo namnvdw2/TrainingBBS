@@ -45,17 +45,17 @@ namespace w2.AccountDomain.Domains.Users
 		/// <param name="loginId">Login id</param>
 		/// <param name="name">Name</param>
 		/// <param name="password">Password</param>
-		public static User CreateUserForModify(string? loginId,
-			string? name,
-			string? password)
+		public static User CreateUserForModify(LoginId loginId,
+			Name name,
+			Password password)
 		{
-			return new User(new UserId(int.MinValue),
-				new LoginId(loginId ?? string.Empty),
-				new Name(name ?? string.Empty),
-				Password.FromPlainText(password ?? string.Empty),
+			return new User(new UserId(AsInt: int.MinValue),
+				loginId,
+				name,
+				password,
 				new UsersWithdrawalStatus(),
-				new DateCreated(DateTime.MinValue),
-				new DateChanged(DateTime.MinValue));
+				new DateCreated(AsDateTime: DateTime.MinValue),
+				new DateChanged(AsDateTime: DateTime.MinValue));
 		}
 
 		/// <summary>
@@ -65,13 +65,13 @@ namespace w2.AccountDomain.Domains.Users
 		/// <returns>User</returns>
 		internal static User CreateByDto(UserDto dto)
 		{
-			return new User(new UserId(dto.Id),
-				new LoginId(dto.LoginId),
-				new Name(dto.Name),
+			return new User(new UserId(AsInt: dto.Id),
+				new LoginId(AsString: dto.LoginId),
+				new Name(AsString: dto.Name),
 				Password.FromHash(dto.Password),
 				DbValueAttribute.ParseToEnum<UsersWithdrawalStatus>(dto.DeleteFlg),
-				new DateCreated(dto.DateCreated),
-				new DateChanged(dto.DateChanged));
+				new DateCreated(AsDateTime: dto.DateCreated),
+				new DateChanged(AsDateTime: dto.DateChanged));
 		}
 
 		/// <summary>
@@ -109,18 +109,18 @@ namespace w2.AccountDomain.Domains.Users
 		}
 
 		/// <summary>User id</summary>
-		public UserId UserId { get; init; }
+		public UserId UserId { get; }
 		/// <summary>Login id</summary>
-		public LoginId LoginId { get; init; }
+		public LoginId LoginId { get; }
 		/// <summary>Name</summary>
-		public Name Name { get; init; }
+		public Name Name { get; }
 		/// <summary>Password</summary>
-		public Password Password { get; init; }
+		public Password Password { get; }
 		/// <summary>Cancel flag</summary>
-		public UsersWithdrawalStatus CancelFlag { get; init; }
+		public UsersWithdrawalStatus CancelFlag { get; }
 		/// <summary>DateCreated</summary>
-		public DateCreated DateCreated { get; init; }
+		public DateCreated DateCreated { get; }
 		/// <summary>Date changed</summary>
-		public DateChanged DateChanged { get; init; }
+		public DateChanged DateChanged { get; }
 	}
 }

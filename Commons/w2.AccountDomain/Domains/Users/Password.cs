@@ -18,7 +18,7 @@ namespace w2.AccountDomain.Domains.Users
 		public string HashPassword { get; }
 
 		/// <summary>
-		/// Password
+		/// Constructor
 		/// </summary>
 		/// <param name="rawPassword">Raw password</param>
 		/// <param name="hashPassword">Hash password</param>
