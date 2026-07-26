@@ -2,7 +2,9 @@
 
 using Unity;
 using w2.ForumDomain.RdbRepositories.Forums;
+using w2.ForumDomain.RdbRepositories.ForumsRes;
 using w2.ForumDomain.RepositoryInterfaces.Forums;
+using w2.ForumDomain.RepositoryInterfaces.ForumsRes;
 using w2.FoundationDomain.DependencyInjections;
 
 namespace w2.ForumDomain.DependencyInjection
@@ -16,6 +18,7 @@ namespace w2.ForumDomain.DependencyInjection
 		public UnityContainer Configure(UnityContainer container)
 		{
 			container.RegisterType<IForumRepository, ForumRepository>();
+			container.RegisterType<IForumResRepository, ForumResRepository>();
 			return container;
 		}
 	}

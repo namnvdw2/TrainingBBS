@@ -7,6 +7,7 @@ using w2.WebFrontDomain.Dto;
 using w2.WebFrontDomain.Dto.Users;
 using w2.WebFrontDomain.Validator;
 using w2.WebFrontDomain.Validator.Users;
+using w2.WebFrontDomain.ViewModels;
 
 namespace w2.WebFrontDomain.Services.Users
 {
@@ -68,6 +69,23 @@ namespace w2.WebFrontDomain.Services.Users
 			{
 				RedirectUrl = ConstantsPage.LoginPageUrl
 			};
+		}
+
+		/// <summary>
+		/// Set login user to view model
+		/// </summary>
+		public void SetLoginUserToViewModel(object oldViewModel)
+		{
+			if (_session is not null && _session.ExistsLoggedIn())
+			{
+				if (oldViewModel is BaseViewModel vm)
+				{
+					var loginUser = _session.LoginUser;
+
+					vm.IsLogin = loginUser != null;
+					vm.LoginUserName = loginUser?.Name.AsString;
+				}
+			}
 		}
 	}
 }

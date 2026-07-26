@@ -17,8 +17,7 @@ namespace w2.BBS.Front.Controller
 		/// <summary>
 		/// Constructor
 		/// </summary>
-		/// <param name="loginLogoutService">Login logout service</param>
-		public LogoutController(LoginLogoutService loginLogoutService)
+		public LogoutController(LoginLogoutService loginLogoutService) : base(loginLogoutService)
 		{
 			_loginLogoutService = loginLogoutService;
 		}

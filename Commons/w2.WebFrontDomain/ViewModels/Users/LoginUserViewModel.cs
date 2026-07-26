@@ -8,8 +8,8 @@ namespace w2.WebFrontDomain.ViewModels.Users
 	public sealed class LoginUserViewModel : BaseViewModel
 	{
 		/// <summary>Login id</summary>
-		public string LoginId { get; set; }
+		public string? LoginId { get; set; }
 		/// <summary>Name</summary>
-		public string Name { get; set; }
+		public string? Name { get; set; }
 	}
 }

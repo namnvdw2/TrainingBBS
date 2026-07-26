@@ -1,11 +1,11 @@
 ﻿// (c) 2026 W2 Co.,Ltd.
 
 using Unity;
-using SessionDomain.Interface;
-using SessionDomain.Repositories;
 using w2.FoundationDomain.DependencyInjections;
+using w2.WebFrontDomain.Interface;
+using w2.WebFrontDomain.Validator.Forums;
 
-namespace SessionDomain.DependencyInjections
+namespace w2.WebFrontDomain.DependencyInjections
 {
 	/// <summary>
 	/// DIコンテナコンフィギュレータ
@@ -15,8 +15,7 @@ namespace SessionDomain.DependencyInjections
 		/// <inheritdoc />
 		public UnityContainer Configure(UnityContainer container)
 		{
-			container.RegisterType<IUserRegisterSessionRepository, UserInputSessionRepository>();
-			container.RegisterType<ILoginUserSessionRepository, LoginUserSessionRepository>();
+			container.RegisterType<IForumValidator, ForumValidator>();
 			return container;
 		}
 	}

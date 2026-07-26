@@ -1,7 +1,6 @@
 ﻿// (c) 2026 W2 Co.,Ltd.
 
 using Newtonsoft.Json;
-using SessionDomain.Repositories;
 using System;
 using System.Text;
 using System.Web.Mvc;
@@ -11,6 +10,7 @@ using w2.FoundationDomain.Domains.Numeric;
 using w2.TemplateEngine.TemplateEngines;
 using w2.TemplateEngine.TemplateEngines.Fluid;
 using w2.TemplateEngine.TemplateEngines.PhysicalPathRoutes;
+using w2.WebFrontDomain.Services.Users;
 using w2.WebFrontDomain.ViewModels;
 
 namespace w2.BBS.Front.Controller.Shared
@@ -20,7 +20,12 @@ namespace w2.BBS.Front.Controller.Shared
 	/// </summary>
 	public abstract class BaseController : System.Web.Mvc.Controller
 	{
-		protected LoginUserSessionRepository _session => DependencyResolver.Current.GetService<LoginUserSessionRepository>();
+		protected readonly LoginLogoutService _service;
+
+		protected BaseController(LoginLogoutService service)
+		{
+			_service = service;
+		}
 
 		protected new ActionResult View(string viewFileVirtualPath, object model = null)
 		{
@@ -37,16 +42,7 @@ namespace w2.BBS.Front.Controller.Shared
 				TempData.Get<string>(TempDataKey.AntiCsrfFormToken));
 
 			model = model ?? new EmptyViewModel();
-			if (_session is not null && _session.ExistsLoggedIn())
-			{
-				if (model is BaseViewModel vm)
-				{
-					var loginUser = _session.LoginUser;
-
-					vm.IsLogin = loginUser != null;
-					vm.LoginUserName = loginUser.Name.AsString;
-				}
-			}
+			_service.SetLoginUserToViewModel(model);
 
 			return new ContentResult
 			{

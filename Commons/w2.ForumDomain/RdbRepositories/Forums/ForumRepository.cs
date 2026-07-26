@@ -66,25 +66,6 @@ namespace w2.ForumDomain.RdbRepositories.Forums
 		}
 
 		/// <inheritdoc />
-		public ForumRes[] GetResponse(ForumId[] ids)
-		{
-			var forumIds = ids
-				.Select(x => x.AsInt)
-				.ToArray();
-
-			return _repository
-				.GetWithBuilder<ForumResDto>(f =>
-					f.Query("w2_ForumRes")
-						.Select("w2_ForumRes.*")
-						.Select("w2_Account.name as user_name")
-						.Join("w2_Account", "w2_ForumRes.user_id", "w2_Account.id")
-						.Where("w2_ForumRes.delete_flg", ForumDeleteFlagStatus.Active.ToDbValue())
-						.WhereIn("forum_id", forumIds))
-				.Select(dto => ForumRes.CreateByDto(dto))
-				.ToArray();
-		}
-
-		/// <inheritdoc />
 		public void Insert(Forum forum)
 		{
 			var dto = forum.CreateDto();
@@ -95,21 +76,6 @@ namespace w2.ForumDomain.RdbRepositories.Forums
 				.Cast<DictionaryEntry>()
 				.ToDictionary(de => (string)de.Key, de => de.Value);
 			_repository.ExecWithBuilder(f => f.Query("w2_Forum").AsInsert(input));
-		}
-
-		/// <inheritdoc />
-		public void InsertResponse(ForumRes forum)
-		{
-			var dto = forum.CreateDto();
-			dto.DateChanged = DateTime.Now;
-			dto.DateCreated = DateTime.Now;
-
-			var input = forum
-				.CreateDto()
-				.ToHashtable()
-				.Cast<DictionaryEntry>()
-				.ToDictionary(de => (string)de.Key, de => de.Value);
-			_repository.ExecWithBuilder(f => f.Query("w2_ForumRes").AsInsert(input));
 		}
 
 		/// <inheritdoc />

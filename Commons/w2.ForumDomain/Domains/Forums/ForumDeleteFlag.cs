@@ -22,7 +22,5 @@ namespace w2.ForumDomain.Domains.Forums
 	/// </summary>
 	public static class ForumDeleteFlag
 	{
-		/// <summary>Check if it's been deleted</summary>
-		public static bool IsDeleted(this ForumDeleteFlagStatus value) => value == ForumDeleteFlagStatus.Deleted;
 	}
 }

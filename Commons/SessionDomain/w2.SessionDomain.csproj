@@ -46,12 +46,10 @@
     <Compile Include="DependencyInjections\DiContainerConfigurator.cs" />
     <Compile Include="Dto\Users\LoginUser.cs" />
     <Compile Include="Interface\ILoginUserSessionRepository.cs" />
-    <Compile Include="Interface\ISessionErrorRepository.cs" />
     <Compile Include="Interface\ISessionRepository.cs" />
     <Compile Include="Interface\IUserRegisterSessionRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\LoginUserSessionRepository.cs" />
-    <Compile Include="Repositories\SessionErrorRepository.cs" />
     <Compile Include="Repositories\SessionRepository.cs" />
     <Compile Include="Repositories\UserInputSessionRepository.cs" />
     <Compile Include="SessionRepositoryBase.cs" />

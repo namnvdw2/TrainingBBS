@@ -17,7 +17,7 @@ namespace w2.BBS.Front.Controller
 		/// <summary>
 		/// Constructor
 		/// </summary>
-		public LoginController(LoginLogoutService loginLogoutService)
+		public LoginController(LoginLogoutService loginLogoutService) : base(loginLogoutService)
 		{
 			_loginLogoutService = loginLogoutService;
 		}

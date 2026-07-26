@@ -4,6 +4,7 @@ using w2.AccountDomain.Domains.Users;
 using w2.ForumDomain.Domains.Forums;
 using w2.WebFrontDomain.Dto;
 using w2.WebFrontDomain.Dto.Forums;
+using w2.WebFrontDomain.Interface;
 using static w2.WebFrontDomain.Validator.CommonMessages;
 
 namespace w2.WebFrontDomain.Validator.Forums
@@ -11,27 +12,23 @@ namespace w2.WebFrontDomain.Validator.Forums
 	/// <summary>
 	/// Forum validator
 	/// </summary>
-	public sealed class ForumValidator
+	public sealed class ForumValidator : IForumValidator
 	{
 		/// <summary>Maximum length for forum tile</summary>
-		protected const int MAX_LENGTH_FORUM_TITLE = 15;
+		internal const int MAX_LENGTH_FORUM_TITLE = 15;
 		/// <summary>Maximum length for forum text</summary>
-		protected const int MAX_LENGTH_FORUM_TEXT = 50;
+		internal const int MAX_LENGTH_FORUM_TEXT = 50;
 		/// <summary>Error key for forum tile</summary>
-		protected const string FORUM_TITLE_ERROR_KEY = "title";
+		internal const string FORUM_TITLE_ERROR_KEY = "title";
 		/// <summary>Error key for forum text</summary>
-		protected const string FORUM_TEXT_ERROR_KEY = "content";
+		internal const string FORUM_TEXT_ERROR_KEY = "content";
 		/// <summary>Forum tile field name</summary>
 		internal const string FORUM_TITLE_FIELD_NAME = "タイトル";
 		/// <summary>Forum text field name</summary>
 		internal const string FORUM_TEXT_FIELD_NAME = "内容";
 
-		/// <summary>
-		/// Validate
-		/// </summary>
-		/// <param name="request">Post forum request</param>
-		/// <returns>Forum response</returns>
-		public static ForumResponse Validate(PostForumRequest request)
+		/// <inheritdoc />
+		public ForumResponse Validate(PostForumRequest request)
 		{
 			ForumResponse response = ResponseFactory.Success<ForumResponse>();
 
@@ -54,13 +51,8 @@ namespace w2.WebFrontDomain.Validator.Forums
 			return response;
 		}
 
-		/// <summary>
-		/// Check access
-		/// </summary>
-		/// <param name="userId">User id</param>
-		/// <param name="forum">Forum</param>
-		/// <returns>Forum response</returns>
-		public static ForumResponse CheckAccess(
+		/// <inheritdoc />
+		public ForumResponse CheckAccess(
 			UserId userId,
 			Forum forum)
 		{
@@ -74,12 +66,8 @@ namespace w2.WebFrontDomain.Validator.Forums
 			return response;
 		}
 
-		/// <summary>
-		/// Check title
-		/// </summary>
-		/// <param name="title">Title</param>
-		/// <returns>Error message</returns>
-		public static string CheckTitle(string? title)
+		/// <inheritdoc />
+		public string CheckTitle(string? title)
 		{
 			if (ValidatorUtility.CheckRequired(title))
 			{
@@ -99,12 +87,8 @@ namespace w2.WebFrontDomain.Validator.Forums
 			return string.Empty;
 		}
 
-		/// <summary>
-		/// Check text
-		/// </summary>
-		/// <param name="text">Text</param>
-		/// <returns>Error message</returns>
-		public static string CheckText(string? text)
+		/// <inheritdoc />
+		public string CheckText(string? text)
 		{
 			if (ValidatorUtility.CheckRequired(text))
 			{

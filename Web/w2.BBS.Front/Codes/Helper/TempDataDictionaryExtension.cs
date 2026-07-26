@@ -22,17 +22,6 @@ namespace w2.BBS.Front.Codes.Helper
 	public static class TempDataDictionaryExtension
 	{
 		/// <summary>
-		/// 存在チェック
-		/// </summary>
-		/// <param name="temp">対象</param>
-		/// <param name="tempDataKey">キー</param>
-		/// <returns>結果</returns>
-		public static bool ExistCheck(this TempDataDictionary temp, TempDataKey tempDataKey)
-		{
-			return temp.ContainsKey(tempDataKey.ToText());
-		}
-
-		/// <summary>
 		/// 取得
 		/// </summary>
 		/// <typeparam name="T">取得する対象の型</typeparam>

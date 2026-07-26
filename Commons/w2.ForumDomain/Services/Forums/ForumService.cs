@@ -4,6 +4,7 @@ using w2.ForumDomain.Common;
 using w2.ForumDomain.Domains.ForumRes;
 using w2.ForumDomain.Domains.Forums;
 using w2.ForumDomain.RepositoryInterfaces.Forums;
+using w2.ForumDomain.RepositoryInterfaces.ForumsRes;
 
 namespace w2.ForumDomain.Services.Forums
 {
@@ -13,13 +14,16 @@ namespace w2.ForumDomain.Services.Forums
 	public sealed class ForumService
 	{
 		private readonly IForumRepository _forumRepository;
+		private readonly IForumResRepository _forumResRepository;
 
 		/// <summary>
 		/// Constructor
 		/// </summary>
-		public ForumService(IForumRepository forumRepository)
+		public ForumService(IForumRepository forumRepository,
+			IForumResRepository forumResRepository)
 		{
 			_forumRepository = forumRepository;
+			_forumResRepository = forumResRepository;
 		}
 
 		/// <summary>
@@ -51,7 +55,7 @@ namespace w2.ForumDomain.Services.Forums
 		/// <returns>Forum response list</returns>
 		public ForumRes[] GetResponses(ForumId[] ids)
 		{
-			var forum = _forumRepository.GetResponse(ids);
+			var forum = _forumResRepository.GetResponse(ids);
 			return forum;
 		}
 
@@ -75,7 +79,7 @@ namespace w2.ForumDomain.Services.Forums
 
 		public ForumRes InsertResponse(ForumRes forum)
 		{
-			_forumRepository.InsertResponse(forum);
+			_forumResRepository.InsertResponse(forum);
 			return forum;
 		}
 

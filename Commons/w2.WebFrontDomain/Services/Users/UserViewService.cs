@@ -1,7 +1,7 @@
 ﻿// (c) 2026 W2 Co.,Ltd.
 
 using SessionDomain.Dto.Users;
-using SessionDomain.Repositories;
+using SessionDomain.Interface;
 using System;
 using w2.AccountDomain.Services.Users;
 using w2.Common.Logger;
@@ -10,7 +10,6 @@ using w2.WebFrontDomain.Dto;
 using w2.WebFrontDomain.Dto.Users;
 using w2.WebFrontDomain.Validator;
 using w2.WebFrontDomain.Validator.Users;
-using w2.WebFrontDomain.ViewModels.Users;
 using static w2.WebFrontDomain.Validator.CommonMessages;
 
 namespace w2.WebFrontDomain.Services.Users
@@ -21,14 +20,14 @@ namespace w2.WebFrontDomain.Services.Users
 	public sealed class UserViewService
 	{
 		private readonly UserService _userService;
-		private readonly UserInputSessionRepository _session;
+		private readonly IUserRegisterSessionRepository _session;
 
 		/// <summary>
 		/// Constructor
 		/// </summary>
 		public UserViewService(
 			UserService userService,
-			UserInputSessionRepository session)
+			IUserRegisterSessionRepository session)
 		{
 			_userService = userService;
 			_session = session;

@@ -1,14 +1,17 @@
 ﻿// (c) 2026 W2 Co.,Ltd.
 
 using SessionDomain.Dto.Users;
+using SessionDomain.Interface;
 using SessionDomain.Repositories;
 using System;
 using System.Linq;
+using System.Web.WebPages;
 using w2.ForumDomain.Domains.ForumRes;
 using w2.ForumDomain.Domains.Forums;
 using w2.ForumDomain.Services.Forums;
 using w2.WebFrontDomain.Dto;
 using w2.WebFrontDomain.Dto.Forums;
+using w2.WebFrontDomain.Interface;
 using w2.WebFrontDomain.Validator.Forums;
 
 namespace w2.WebFrontDomain.Services.Forums
@@ -19,17 +22,20 @@ namespace w2.WebFrontDomain.Services.Forums
 	public sealed class ForumViewService
 	{
 		private readonly ForumService _forumService;
-		private readonly LoginUserSessionRepository _session;
+		private readonly ILoginUserSessionRepository _session;
+		private readonly IForumValidator _validator;
 
 		/// <summary>
 		/// Constructor
 		/// </summary>
 		public ForumViewService(
 			ForumService forumService,
-			LoginUserSessionRepository session)
+			ILoginUserSessionRepository session,
+			IForumValidator validator)
 		{
 			_forumService = forumService;
 			_session = session;
+			_validator = validator;
 		}
 
 		/// <summary>
@@ -92,7 +98,7 @@ namespace w2.WebFrontDomain.Services.Forums
 		{
 			if (!_session.ExistsLoggedIn()) return ResponseFactory.Error<ForumResponse>();
 
-			var response = ForumValidator.Validate(request);
+			var response = _validator.Validate(request);
 			if (response.HasError) return (ForumResponse)response;
 
 			var loginUser = _session.LoginUser;
@@ -119,7 +125,7 @@ namespace w2.WebFrontDomain.Services.Forums
 			var forum = _forumService.GetById(new ForumDomain.Domains.Forums.ForumId(request.ForumId));
 			if (forum is null) return ResponseFactory.Error<ForumResponse>();
 
-			var response = ForumValidator.Validate(request);
+			var response = _validator.Validate(request);
 			if (response.HasError) return (ForumResponse)response;
 			var forumResponse = new ForumRes(
 				new ResForumId(AsInt: 0),
@@ -150,12 +156,12 @@ namespace w2.WebFrontDomain.Services.Forums
 			var forum = _forumService.GetById(new ForumDomain.Domains.Forums.ForumId(request.ForumId));
 			if (forum is null) return ResponseFactory.Error<ForumResponse>();
 
-			var response = ForumValidator.CheckAccess(
+			var response = _validator.CheckAccess(
 				loginUser.UserId,
 				forum);
 			if (!response.Success) return (ForumResponse)response;
 
-			response = ForumValidator.Validate(request);
+			response = _validator.Validate(request);
 			if (response.HasError) return (ForumResponse)response;
 
 			var forumUpdated = new Forum(
@@ -185,7 +191,7 @@ namespace w2.WebFrontDomain.Services.Forums
 			var forum = _forumService.GetById(forumId);
 			if (forum is null) return ResponseFactory.Error<ForumResponse>();
 
-			var response = ForumValidator.CheckAccess(
+			var response = _validator.CheckAccess(
 				loginUser.UserId,
 				forum);
 			if (!response.Success) return response;

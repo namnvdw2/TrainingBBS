@@ -15,14 +15,15 @@ namespace w2.BBS.Front.Controller
 	[RoutePrefix("user")]
 	public sealed class UserController : BaseController
 	{
-		private readonly UserViewService _service;
+		private readonly UserViewService _userService;
 
 		/// <summary>
 		/// Constructor
 		/// </summary>
-		public UserController(UserViewService userService)
+		public UserController(UserViewService userService,
+			LoginLogoutService loginLogoutService) : base(loginLogoutService)
 		{
-			_service = userService;
+			_userService = userService;
 		}
 
 		/// <summary>
@@ -32,7 +33,7 @@ namespace w2.BBS.Front.Controller
 		[Route("register/input")]
 		public ActionResult RegisterInput()
 		{
-			var response = _service.GetInputInformation();
+			var response = _userService.GetInputInformation();
 
 			return View(
 				"Account/Register/input.liquid",
@@ -48,7 +49,7 @@ namespace w2.BBS.Front.Controller
 		[Route("register")]
 		public ActionResult Register(UserRegisterModifyRequest request)
 		{
-			var response = _service.RegisterValidate(request);
+			var response = _userService.RegisterValidate(request);
 			return JsonForJs(response);
 		}
 
@@ -59,7 +60,7 @@ namespace w2.BBS.Front.Controller
 		[Route("register/confirm")]
 		public ActionResult RegisterConfirmView()
 		{
-			var request = _service.GetInputInformation();
+			var request = _userService.GetInputInformation();
 
 			return View(
 				"Account/Register/confirm.liquid",
@@ -75,7 +76,7 @@ namespace w2.BBS.Front.Controller
 		[Route("register/confirm/save")]
 		public ActionResult SaveUser()
 		{
-			var response = _service.ExecRegister();
+			var response = _userService.ExecRegister();
 			return JsonForJs(response);
 		}
 
@@ -113,7 +114,7 @@ namespace w2.BBS.Front.Controller
 		[Route("withdrawal")]
 		public ActionResult ExecCancel()
 		{
-			var response = _service.ExecWithdrawal();
+			var response = _userService.ExecWithdrawal();
 			return JsonForJs(response);
 		}
 
@@ -134,7 +135,7 @@ namespace w2.BBS.Front.Controller
 		[Route("modify/input")]
 		public ActionResult ModifyInput()
 		{
-			var response = _service.GetLoginAccountOrInputInformation();
+			var response = _userService.GetLoginAccountOrInputInformation();
 
 			return View(
 				"Account/Modify/input.liquid",
@@ -148,7 +149,7 @@ namespace w2.BBS.Front.Controller
 		[Route("modify")]
 		public ActionResult ModifyAccount(UserRegisterModifyRequest request)
 		{
-			var response = _service.ModifyValidate(request);
+			var response = _userService.ModifyValidate(request);
 			return JsonForJs(response);
 		}
 
@@ -159,7 +160,7 @@ namespace w2.BBS.Front.Controller
 		[Route("modify/confirm")]
 		public ActionResult ModifyConfirmView()
 		{
-			var response = _service.GetInputInformation();
+			var response = _userService.GetInputInformation();
 
 			return View(
 				"Account/Modify/confirm.liquid",
@@ -175,7 +176,7 @@ namespace w2.BBS.Front.Controller
 		[Route("modify/confirm/save")]
 		public ActionResult SaveModifyUser()
 		{
-			var response = _service.ExecModify();
+			var response = _userService.ExecModify();
 			return JsonForJs(response);
 		}
 	}
