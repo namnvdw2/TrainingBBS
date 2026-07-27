@@ -19,6 +19,7 @@ namespace w2.ForumDomain.DependencyInjection
 		{
 			container.RegisterType<IForumRepository, ForumRepository>();
 			container.RegisterType<IForumResRepository, ForumResRepository>();
+
 			return container;
 		}
 	}

@@ -35,6 +35,7 @@ namespace w2.ForumDomain.Services.Forums
 		public PaginationResult<Forum> GetAll(Page page, PageSize pageSize)
 		{
 			var result = _forumRepository.GetAll(page, pageSize);
+
 			return result;
 		}
 
@@ -46,6 +47,7 @@ namespace w2.ForumDomain.Services.Forums
 		public Forum? GetById(ForumId id)
 		{
 			var forum = _forumRepository.Get(id);
+
 			return forum;
 		}
 
@@ -57,6 +59,7 @@ namespace w2.ForumDomain.Services.Forums
 		public ForumRes[] GetResponses(ForumId[] ids)
 		{
 			var forum = _forumResRepository.GetResponse(ids);
+
 			return forum;
 		}
 
@@ -68,6 +71,7 @@ namespace w2.ForumDomain.Services.Forums
 		public Forum Insert(Forum forum)
 		{
 			_forumRepository.Insert(forum);
+
 			return forum;
 		}
 
@@ -79,6 +83,7 @@ namespace w2.ForumDomain.Services.Forums
 		public ForumRes InsertResponse(ForumRes forum)
 		{
 			_forumResRepository.InsertResponse(forum);
+
 			return forum;
 		}
 
@@ -90,6 +95,7 @@ namespace w2.ForumDomain.Services.Forums
 		public Forum Update(Forum forum)
 		{
 			_forumRepository.Update(forum);
+
 			return forum;
 		}
 
@@ -101,6 +107,7 @@ namespace w2.ForumDomain.Services.Forums
 		public int Delete(ForumId id)
 		{
 			var result = _forumRepository.Delete(id);
+
 			return result;
 		}
 	}

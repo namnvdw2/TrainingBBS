@@ -5,11 +5,7 @@ namespace w2.WebFrontDomain.Dto.Forums
 	/// <summary>
 	/// Post forum request
 	/// </summary>
-	public abstract class PostForumRequest : BaseRequest
-	{
-		/// <summary>Title</summary>
-		public string? Title { get; set; }
-		/// <summary>Content</summary>
-		public string? Content { get; set; }
+	public sealed class PostForumRequest : ForumRequest
+	{ 
 	}
 }

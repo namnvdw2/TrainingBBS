@@ -7,16 +7,16 @@ using w2.WebFrontDomain.Dto.Forums;
 namespace w2.WebFrontDomain.Interface
 {
 	/// <summary>
-	/// IForumValidator
+	/// Forum validator interface
 	/// </summary>
 	public interface IForumValidator
 	{
 		/// <summary>
 		/// Validate
 		/// </summary>
-		/// <param name="request">Post forum request</param>
+		/// <param name="request">Forum request</param>
 		/// <returns>Forum response</returns>
-		ForumResponse Validate(PostForumRequest request);
+		ForumResponse Validate(ForumRequest request);
 
 		/// <summary>
 		/// Check access

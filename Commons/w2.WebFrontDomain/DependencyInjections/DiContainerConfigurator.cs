@@ -24,6 +24,7 @@ namespace w2.WebFrontDomain.DependencyInjections
 			container.RegisterType<IUserRegisterValidator, UserRegisterValidator>();
 			container.RegisterType<IUserRegisterSessionRepository, UserInputSessionRepository>();
 			container.RegisterType<ILoginUserSessionRepository, LoginUserSessionRepository>();
+
 			return container;
 		}
 	}

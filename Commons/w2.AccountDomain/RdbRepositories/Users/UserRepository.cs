@@ -43,6 +43,7 @@ namespace w2.AccountDomain.RdbRepositories.Users
 		{
 			var dto = _repository.GetWithBuilder<UserDto>(
 				f => f.Query("w2_Account").Where("login_id", loginId.AsString)).FirstOrDefault();
+
 			return dto is not null ? User.CreateByDto(dto) : null;
 		}
 
@@ -68,12 +69,8 @@ namespace w2.AccountDomain.RdbRepositories.Users
 			var dto = exUser.CreateDto();
 			dto.LoginId = user.LoginId.AsString;
 			dto.UserName = user.UserName.AsString;
-			if (user.Password.HasRawValue())
-			{
-				dto.Password = user.Password.HashPassword;
-			}
-
 			dto.DateChanged = DateTime.Now;
+			if (user.Password.HasRawValue()) dto.Password = user.Password.HashPassword;
 
 			var input = dto
 				.ToHashtable()
@@ -97,6 +94,7 @@ namespace w2.AccountDomain.RdbRepositories.Users
 					delete_flg = UsersWithdrawalStatus.Canceled.ToDbValue(),
 					date_changed = DateTime.Now
 				}));
+
 			return result;
 		}
 	}

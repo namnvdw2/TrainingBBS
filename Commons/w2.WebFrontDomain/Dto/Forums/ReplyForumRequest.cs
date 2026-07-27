@@ -5,7 +5,7 @@ namespace w2.WebFrontDomain.Dto.Forums
 	/// <summary>
 	/// Reply forum request
 	/// </summary>
-	public sealed class ReplyForumRequest : PostForumRequest
+	public sealed class ReplyForumRequest : ForumRequest
 	{
 		/// <summary>Forum id</summary>
 		public int ForumId { get; set; }

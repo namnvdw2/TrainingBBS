@@ -28,7 +28,7 @@ namespace w2.WebFrontDomain.Validator.Forums
 		internal const string FORUM_TEXT_FIELD_NAME = "内容";
 
 		/// <inheritdoc />
-		public ForumResponse Validate(PostForumRequest request)
+		public ForumResponse Validate(ForumRequest request)
 		{
 			ForumResponse response = ResponseFactory.Success<ForumResponse>();
 

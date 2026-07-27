@@ -7,7 +7,7 @@ namespace w2.ForumDomain.Common
 	/// <summary>
 	/// Pagination result
 	/// </summary>
-	/// <typeparam name="T"></typeparam>
+	/// <typeparam name="T">Pagination list object</typeparam>
 	public sealed class PaginationResult<T>
 	{
 		/// <summary>

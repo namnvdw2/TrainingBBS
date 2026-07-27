@@ -38,7 +38,7 @@ namespace w2.AccountDomain.Domains.Users
 		/// <param name="hashPassword">Hash password</param>
 		/// <returns>Password</returns>
 		public static Password FromHash(string hashPassword)
-			=> new Password(string.Empty, hashPassword);
+			=> new(string.Empty, hashPassword);
 
 		/// <summary>
 		/// Verify

@@ -4,6 +4,9 @@ using w2.AccountDomain.Domains.Users;
 
 namespace w2.AccountDomain.RepositoryInterfaces.Users
 {
+	/// <summary>
+	/// User repository interface
+	/// </summary>
 	public interface IUserRepository
 	{
 		/// <summary>

@@ -22,9 +22,7 @@ namespace SessionDomain.Repositories
 		}
 
 		/// <inheritdoc />
-		public override User GetInput() => IsExistsInput()
-			? this.Session[SESSION_KEY_USER_INPUT] as User
-			: null;
+		public override User GetInput() => this.Session[SESSION_KEY_USER_INPUT] as User;
 
 		/// <inheritdoc />
 		public override bool IsExistsInput() => this.Session[SESSION_KEY_USER_INPUT] is User;

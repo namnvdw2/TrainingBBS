@@ -2,7 +2,10 @@
 
 namespace w2.WebFrontDomain.Dto.Forums
 {
-	public sealed class UpdateForumRequest : PostForumRequest
+	/// <summary>
+	/// Update forum request
+	/// </summary>
+	public sealed class UpdateForumRequest : ForumRequest
 	{
 		/// <summary>Forum id</summary>
 		public int ForumId { get; set; }

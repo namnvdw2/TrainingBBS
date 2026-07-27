@@ -5,9 +5,7 @@ using System.Collections;
 using System.Linq;
 using w2.Common.Helper.Attribute;
 using w2.ForumDomain.Common;
-using w2.ForumDomain.Domains.ForumRes;
 using w2.ForumDomain.Domains.Forums;
-using w2.ForumDomain.Dto.ForumRes;
 using w2.ForumDomain.Dto.Forums;
 using w2.ForumDomain.RepositoryInterfaces.Forums;
 using w2.FoundationDomain.Helpers;
@@ -62,6 +60,7 @@ namespace w2.ForumDomain.RdbRepositories.Forums
 					f.Query("w2_Forum")
 					.Where("forum_id", id.AsInt))
 				.FirstOrDefault();
+
 			return dto is not null ? Forum.CreateByDto(dto) : null;
 		}
 
@@ -107,6 +106,7 @@ namespace w2.ForumDomain.RdbRepositories.Forums
 					delete_flg = ForumDeleteFlagStatus.Deleted.ToDbValue(),
 					date_changed = DateTime.Now
 				}));
+
 			return result;
 		}
 	}
