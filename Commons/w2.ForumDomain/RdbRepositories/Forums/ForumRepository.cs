@@ -37,7 +37,7 @@ namespace w2.ForumDomain.RdbRepositories.Forums
 				.GetWithBuilder<ForumDto>(f =>
 					f.Query("w2_Forum")
 						.Select("w2_Forum.*")
-						.Select("w2_Account.name as user_name")
+						.Select("w2_Account.user_name")
 						.Join("w2_Account", "w2_Forum.user_id", "w2_Account.id")
 						.Where("w2_Forum.delete_flg", ForumDeleteFlagStatus.Active.ToDbValue())
 						.OrderByDesc("w2_Forum.date_created"));

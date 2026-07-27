@@ -39,7 +39,7 @@ namespace w2.ForumDomain.RdbRepositories.ForumsRes
 				.GetWithBuilder<ForumResDto>(f =>
 					f.Query("w2_ForumRes")
 						.Select("w2_ForumRes.*")
-						.Select("w2_Account.name as user_name")
+						.Select("w2_Account.user_name")
 						.Join("w2_Account", "w2_ForumRes.user_id", "w2_Account.id")
 						.Where("w2_ForumRes.delete_flg", ForumDeleteFlagStatus.Active.ToDbValue())
 						.WhereIn("forum_id", forumIds))

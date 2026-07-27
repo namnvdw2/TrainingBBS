@@ -81,7 +81,7 @@ namespace w2.AccountDomain.Dto.Users
 		[HashtableAlias("login_id")]
 		public string LoginId { get; set; }
 		/// <summary>User name</summary>
-		[HashtableAlias("name")]
+		[HashtableAlias("user_name")]
 		public string UserName { get; set; }
 		/// <summary>Password</summary>
 		[HashtableAlias("password")]
