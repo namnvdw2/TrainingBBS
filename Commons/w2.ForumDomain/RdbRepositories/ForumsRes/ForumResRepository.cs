@@ -16,7 +16,7 @@ namespace w2.ForumDomain.RdbRepositories.ForumsRes
 	/// <summary>
 	/// Forum res repository
 	/// </summary>
-	internal class ForumResRepository : IForumResRepository
+	internal sealed class ForumResRepository : IForumResRepository
 	{
 		private readonly ISqlRepository _repository;
 
@@ -47,7 +47,6 @@ namespace w2.ForumDomain.RdbRepositories.ForumsRes
 				.ToArray();
 		}
 
-
 		/// <inheritdoc />
 		public void InsertResponse(ForumRes forum)
 		{
@@ -55,8 +54,7 @@ namespace w2.ForumDomain.RdbRepositories.ForumsRes
 			dto.DateChanged = DateTime.Now;
 			dto.DateCreated = DateTime.Now;
 
-			var input = forum
-				.CreateDto()
+			var input = dto
 				.ToHashtable()
 				.Cast<DictionaryEntry>()
 				.ToDictionary(de => (string)de.Key, de => de.Value);

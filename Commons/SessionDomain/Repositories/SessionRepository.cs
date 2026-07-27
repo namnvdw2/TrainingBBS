@@ -2,6 +2,7 @@
 
 using SessionDomain.Dto.Users;
 using SessionDomain.Interface;
+using System.Web;
 
 namespace SessionDomain.Repositories
 {
@@ -18,6 +19,13 @@ namespace SessionDomain.Repositories
 		/// </summary>
 		public SessionRepository()
 			: base()
+		{
+		}
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		public SessionRepository(HttpSessionStateBase session)
+			: base(session)
 		{
 		}
 
@@ -40,7 +48,7 @@ namespace SessionDomain.Repositories
 		public abstract void Clear();
 
 		/// <summary>Login user</summary>
-		public LoginUser LoginUser
+		public LoginUser? LoginUser
 		{
 			get
 			{

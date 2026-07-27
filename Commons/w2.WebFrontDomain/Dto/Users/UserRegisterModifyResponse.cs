@@ -27,7 +27,7 @@ namespace w2.WebFrontDomain.Dto.Users
 			if (ResponseObject is not null)
 			{
 				viewModel.LoginId = ResponseObject.LoginId.AsString;
-				viewModel.Name = ResponseObject.Name.AsString;
+				viewModel.Name = ResponseObject.UserName.AsString;
 				viewModel.Password = includePassword ? ResponseObject.Password.ToString() : null;
 			}
 

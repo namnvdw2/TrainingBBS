@@ -1,11 +1,11 @@
 ﻿// (c) 2026 W2 Co.,Ltd.
 
-using SessionDomain.Repositories;
+using SessionDomain.Interface;
 using w2.AccountDomain.Services.Users;
 using w2.WebFrontDomain.Configurations;
 using w2.WebFrontDomain.Dto;
 using w2.WebFrontDomain.Dto.Users;
-using w2.WebFrontDomain.Validator;
+using w2.WebFrontDomain.Interface;
 using w2.WebFrontDomain.Validator.Users;
 using w2.WebFrontDomain.ViewModels;
 
@@ -17,17 +17,20 @@ namespace w2.WebFrontDomain.Services.Users
 	public sealed class LoginLogoutService
 	{
 		private readonly UserService _userService;
-		private readonly LoginUserSessionRepository _session;
+		private readonly ILoginUserSessionRepository _session;
+		private readonly ILoginValidator _loginValidator;
 
 		/// <summary>
 		/// Constructor
 		/// </summary>
 		public LoginLogoutService(
 			UserService userService,
-			LoginUserSessionRepository session)
+			ILoginUserSessionRepository session,
+			ILoginValidator loginValidator)
 		{
 			_userService = userService;
 			_session = session;
+			_loginValidator = loginValidator;
 		}
 
 		/// <summary>
@@ -51,7 +54,7 @@ namespace w2.WebFrontDomain.Services.Users
 				return loginResponse;
 			}
 
-			var result = LoginValidator.Validate(request, _userService, out var user);
+			var result = _loginValidator.Validate(request, _userService, out var user);
 			if (result.HasError || (user is null)) return (LoginResponse)result;
 
 			_session.LoginUser = user;
@@ -61,7 +64,7 @@ namespace w2.WebFrontDomain.Services.Users
 		/// <summary>
 		/// Logout
 		/// </summary>
-		/// <returns></returns>
+		/// <returns>Base response</returns>
 		public BaseResponse Logout()
 		{
 			_session.RemoveAllSession();

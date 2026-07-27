@@ -12,7 +12,7 @@ using w2.WebFrontDomain.ViewModels.Users;
 namespace w2.BBS.Front.Controller
 {
 	/// <summary>
-	/// User controller
+	/// Forum controller
 	/// </summary>
 	[CustomAuthorizeAttribute]
 	[RoutePrefix("forum")]
@@ -36,12 +36,7 @@ namespace w2.BBS.Front.Controller
 		[Route("")]
 		public ActionResult ForumTop()
 		{
-			var loginUser = _forumService.GetLoginInformation();
-			var viewModel = new LoginUserViewModel
-			{
-				LoginId = loginUser.LoginId.AsString,
-				Name = loginUser.Name.AsString,
-			};
+			var viewModel = _forumService.GetLoginInformation();
 
 			return View("Forum/forum.liquid", viewModel);
 		}

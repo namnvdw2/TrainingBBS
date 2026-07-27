@@ -24,7 +24,6 @@ namespace w2.BBS.Front
 
 			routes.MapMvcAttributeRoutes();
 
-
 			routes.MapRoute(
 				name: "NotFound",
 				url: "{*url}",

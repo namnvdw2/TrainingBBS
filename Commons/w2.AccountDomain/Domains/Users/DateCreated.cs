@@ -5,9 +5,9 @@ using System;
 namespace w2.AccountDomain.Domains.Users
 {
 	/// <summary>
-	/// Date changed value object
+	/// Date created value object
 	/// </summary>
-	/// <param name="AsDateTime">Date changed as DateTime</param>
+	/// <param name="AsDateTime">Date created as DateTime</param>
 	[Serializable]
 	public sealed record DateCreated(DateTime AsDateTime);
 }

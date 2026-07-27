@@ -11,12 +11,6 @@ namespace w2.AccountDomain.Domains.Users
 	[Serializable]
 	public sealed record Password
 	{
-		/// <summary>Raw password</summary>
-		public string RawPassword { get; }
-
-		/// <summary>Hash password</summary>
-		public string HashPassword { get; }
-
 		/// <summary>
 		/// Constructor
 		/// </summary>
@@ -31,6 +25,8 @@ namespace w2.AccountDomain.Domains.Users
 		/// <summary>
 		/// Create from plain text
 		/// </summary>
+		/// <param name="password">Plain text password</param>
+		/// <returns>Password</returns>
 		public static Password FromPlainText(string password)
 		{
 			return new Password(password, HashUtility.CreateHash(password));
@@ -39,23 +35,33 @@ namespace w2.AccountDomain.Domains.Users
 		/// <summary>
 		/// Create from hash
 		/// </summary>
+		/// <param name="hashPassword">Hash password</param>
+		/// <returns>Password</returns>
 		public static Password FromHash(string hashPassword)
-		{
-			return new Password(string.Empty, hashPassword);
-		}
+			=> new Password(string.Empty, hashPassword);
 
 		/// <summary>
 		/// Verify
 		/// </summary>
+		/// <param name="password">Password</param>
+		/// <returns>True if password is verified, otherwise return false</returns>
 		public bool Verify(string password)
-		{
-			return HashUtility.Verify(password, HashPassword);
-		}
+			=> HashUtility.Verify(password, HashPassword);
 
 		/// <inheritdoc />
 		public override string ToString()
-		{
-			return RawPassword;
-		}
+			=> RawPassword;
+
+		/// <summary>
+		/// Has raw value
+		/// </summary>
+		/// <returns>True if RawPassword has value, otherwise return false</returns>
+		public bool HasRawValue()
+			=> !string.IsNullOrEmpty(RawPassword);
+
+		/// <summary>Raw password</summary>
+		public string RawPassword { get; }
+		/// <summary>Hash password</summary>
+		public string HashPassword { get; }
 	}
 }

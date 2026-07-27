@@ -1,4 +1,6 @@
-﻿using w2.FoundationDomain.Configurations;
+﻿// (c) 2026 W2 Co.,Ltd.
+
+using w2.FoundationDomain.Configurations;
 using w2.WebFrontDomain.Configurations;
 
 namespace w2.WebFrontDomain.ViewModels

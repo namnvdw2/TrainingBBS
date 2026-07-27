@@ -7,14 +7,7 @@ namespace w2.AccountDomain.Domains.Users
 	/// <summary>
 	/// Login id
 	/// </summary>
-	/// <param name="AsString"></param>
+	/// <param name="AsString">As string</param>
 	[Serializable]
-	public sealed record LoginId(string AsString)
-	{
-		/// <inheritdoc />
-		public override string ToString()
-		{
-			return this.AsString.ToString();
-		}
-	}
+	public sealed record LoginId(string AsString);
 }

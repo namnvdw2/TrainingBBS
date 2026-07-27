@@ -27,10 +27,11 @@ namespace w2.ForumDomain.Services.Forums
 		}
 
 		/// <summary>
-		/// GetById
+		/// Get all
 		/// </summary>
-		/// <param name="id">Forum id</param>
-		/// <returns>Forum</returns>
+		/// <param name="page">Page</param>
+		/// <param name="pageSize">Page size</param>
+		/// <returns>Pagination result</returns>
 		public PaginationResult<Forum> GetAll(Page page, PageSize pageSize)
 		{
 			var result = _forumRepository.GetAll(page, pageSize);
@@ -38,7 +39,7 @@ namespace w2.ForumDomain.Services.Forums
 		}
 
 		/// <summary>
-		/// GetById
+		/// Get by id
 		/// </summary>
 		/// <param name="id">Forum id</param>
 		/// <returns>Forum</returns>
@@ -64,7 +65,6 @@ namespace w2.ForumDomain.Services.Forums
 		/// </summary>
 		/// <param name="forum">Forum</param>
 		/// <returns>Forum inserted</returns>
-
 		public Forum Insert(Forum forum)
 		{
 			_forumRepository.Insert(forum);
@@ -75,8 +75,7 @@ namespace w2.ForumDomain.Services.Forums
 		/// Insert
 		/// </summary>
 		/// <param name="forum">ForumRes</param>
-		/// <returns>Forum inserted</returns>
-
+		/// <returns>Forum response inserted</returns>
 		public ForumRes InsertResponse(ForumRes forum)
 		{
 			_forumResRepository.InsertResponse(forum);
@@ -87,8 +86,7 @@ namespace w2.ForumDomain.Services.Forums
 		/// Update
 		/// </summary>
 		/// <param name="forum">Forum</param>
-		/// <returns>Forum inserted</returns>
-
+		/// <returns>Forum updated</returns>
 		public Forum Update(Forum forum)
 		{
 			_forumRepository.Update(forum);
@@ -96,10 +94,10 @@ namespace w2.ForumDomain.Services.Forums
 		}
 
 		/// <summary>
-		/// GetById
+		/// Delete
 		/// </summary>
 		/// <param name="id">Forum id</param>
-		/// <returns>Forum</returns>
+		/// <returns>Delete result</returns>
 		public int Delete(ForumId id)
 		{
 			var result = _forumRepository.Delete(id);

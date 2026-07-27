@@ -7,7 +7,7 @@ namespace w2.WebFrontDomain.Validator.Users
 	/// <summary>
 	/// User validator
 	/// </summary>
-	public class UserValidator
+	public abstract class UserValidator
 	{
 		/// <summary>Maximum length for login ID</summary>
 		protected const int MAX_LENGTH_LOGIN_ID = 15;

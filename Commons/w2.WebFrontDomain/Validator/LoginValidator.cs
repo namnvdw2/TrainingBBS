@@ -6,6 +6,7 @@ using w2.AccountDomain.Domains.Users;
 using w2.AccountDomain.Services.Users;
 using w2.WebFrontDomain.Dto;
 using w2.WebFrontDomain.Dto.Users;
+using w2.WebFrontDomain.Interface;
 using w2.WebFrontDomain.Validator.Users;
 using static w2.WebFrontDomain.Validator.CommonMessages;
 
@@ -14,23 +15,17 @@ namespace w2.WebFrontDomain.Validator
 	/// <summary>
 	/// Login validator
 	/// </summary>
-	public sealed class LoginValidator : UserValidator
+	public sealed class LoginValidator : UserValidator, ILoginValidator
 	{
-		/// <summary>
-		/// Validate
-		/// </summary>
-		/// <param name="request">Login request</param>
-		/// <param name="userService">User service</param>
-		/// <param name="resultUser">Login user</param>
-		/// <returns>Login response</returns>
-		public static LoginResponse Validate(
+		/// <inheritdoc />
+		public LoginResponse Validate(
 			LoginRequest? request,
 			UserService userService,
 			[NotNullWhen(returnValue: true)] out LoginUser? resultUser)
 		{
 			var response = ResponseFactory.Success<LoginResponse>(request?.NextUrl);
 			var user = userService.GetByLoginId(new LoginId(request?.LoginId ?? string.Empty));
-			if (user == null
+			if (user is null
 				|| !user.CanLogin(Password.FromPlainText(request?.Password ?? string.Empty)))
 			{
 				response.Success = false;

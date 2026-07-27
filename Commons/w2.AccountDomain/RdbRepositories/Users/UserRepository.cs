@@ -67,8 +67,8 @@ namespace w2.AccountDomain.RdbRepositories.Users
 		{
 			var dto = exUser.CreateDto();
 			dto.LoginId = user.LoginId.AsString;
-			dto.Name = user.Name.AsString;
-			if (!string.IsNullOrEmpty(user.Password.ToString()))
+			dto.UserName = user.UserName.AsString;
+			if (user.Password.HasRawValue())
 			{
 				dto.Password = user.Password.HashPassword;
 			}

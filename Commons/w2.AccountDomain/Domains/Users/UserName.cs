@@ -5,8 +5,8 @@ using System;
 namespace w2.AccountDomain.Domains.Users
 {
 	/// <summary>
-	/// Name
+	/// User name
 	/// </summary>
 	[Serializable]
-	public record Name(string AsString);
+	public sealed record UserName(string AsString);
 }

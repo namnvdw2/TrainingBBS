@@ -2,6 +2,7 @@
 
 using SessionDomain.Dto.Users;
 using SessionDomain.Interface;
+using System.Web;
 
 namespace SessionDomain.Repositories
 {
@@ -17,11 +18,16 @@ namespace SessionDomain.Repositories
 			: base()
 		{
 		}
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		public LoginUserSessionRepository(HttpSessionStateBase session)
+			: base(session)
+		{
+		}
 
 		/// <inheritdoc />
-		public override LoginUser GetInput() => IsExistsInput()
-			? this.Session[SESSION_KEY_LOGIN_USER] as LoginUser
-			: null;
+		public override LoginUser GetInput() => this.Session[SESSION_KEY_LOGIN_USER] as LoginUser;
 
 		/// <inheritdoc />
 		public override bool IsExistsInput() => this.Session[SESSION_KEY_LOGIN_USER] is LoginUser;

@@ -70,7 +70,7 @@ namespace w2.BBS.Front.Controller
 		}
 
 		/// <summary>
-		/// Confirm view
+		/// Save user
 		/// </summary>
 		[HttpPost]
 		[Route("register/confirm/save")]
@@ -81,7 +81,7 @@ namespace w2.BBS.Front.Controller
 		}
 
 		/// <summary>
-		/// Confirm view
+		/// Register complete
 		/// </summary>
 		[HttpGet]
 		[Route("register/complete")]
@@ -98,11 +98,11 @@ namespace w2.BBS.Front.Controller
 		}
 
 		/// <summary>
-		/// Cancel confirm
+		/// Withdrawal confirm
 		/// </summary>
 		[HttpGet]
 		[Route("withdrawal/confirm")]
-		public ActionResult CancelConfirm()
+		public ActionResult WithdrawalConfirm()
 		{
 			return View("Account/Withdrawal/confirm.liquid");
 		}
@@ -119,11 +119,11 @@ namespace w2.BBS.Front.Controller
 		}
 
 		/// <summary>
-		/// Cancel complete
+		/// Withdrawal complete
 		/// </summary>
 		[HttpGet]
 		[Route("withdrawal/complete")]
-		public ActionResult CancelComplete()
+		public ActionResult WithdrawalComplete()
 		{ 
 			return View("Account/Withdrawal/complete.liquid");
 		}
@@ -170,7 +170,7 @@ namespace w2.BBS.Front.Controller
 		}
 
 		/// <summary>
-		/// Confirm modiftview
+		/// Save modify user
 		/// </summary>
 		[HttpPost]
 		[Route("modify/confirm/save")]

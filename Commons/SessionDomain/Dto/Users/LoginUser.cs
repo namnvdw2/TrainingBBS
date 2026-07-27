@@ -17,7 +17,7 @@ namespace SessionDomain.Dto.Users
 		public LoginUser(
 			UserId userId,
 			LoginId loginId,
-			Name name)
+			UserName name)
 		{
 			this.UserId = userId;
 			this.LoginId = loginId;
@@ -34,7 +34,7 @@ namespace SessionDomain.Dto.Users
 			var result = new LoginUser(
 				user.UserId,
 				user.LoginId,
-				user.Name);
+				user.UserName);
 
 			return result;
 		}
@@ -44,7 +44,7 @@ namespace SessionDomain.Dto.Users
 		/// <summary>User login ID</summary>
 		public LoginId LoginId { get; }
 		/// <summary>User name</summary>
-		public Name Name { get; }
+		public UserName Name { get; }
 	}
 }
 

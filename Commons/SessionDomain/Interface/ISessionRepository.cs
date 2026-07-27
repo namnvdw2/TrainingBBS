@@ -24,24 +24,24 @@ namespace SessionDomain.Interface
 		/// Get input
 		/// </summary>
 		/// <returns>TInput</returns>
-		public TInput GetInput();
+		TInput GetInput();
 
 		/// <summary>
 		/// Is Exists Input
 		/// </summary>
 		/// <returns></returns>
-		public bool IsExistsInput();
+		bool IsExistsInput();
 
 		/// <summary>
 		/// Set input
 		/// </summary>
 		/// <param name="input">TInput</param>
-		public void SetInput(TInput input);
+		void SetInput(TInput input);
 
 		/// <summary>
 		/// Clear input
 		/// </summary>
-		public void Clear();
+		void Clear();
 
 		/// <summary>Login user</summary>
 		LoginUser LoginUser { get; set; }

@@ -1,18 +1,16 @@
 ﻿// (c) 2026 W2 Co.,Ltd.
 
-using SessionDomain.Dto.Users;
 using SessionDomain.Interface;
-using SessionDomain.Repositories;
 using System;
 using System.Linq;
-using System.Web.WebPages;
 using w2.ForumDomain.Domains.ForumRes;
 using w2.ForumDomain.Domains.Forums;
 using w2.ForumDomain.Services.Forums;
 using w2.WebFrontDomain.Dto;
 using w2.WebFrontDomain.Dto.Forums;
 using w2.WebFrontDomain.Interface;
-using w2.WebFrontDomain.Validator.Forums;
+using w2.WebFrontDomain.ViewModels;
+using w2.WebFrontDomain.ViewModels.Users;
 
 namespace w2.WebFrontDomain.Services.Forums
 {
@@ -41,10 +39,18 @@ namespace w2.WebFrontDomain.Services.Forums
 		/// <summary>
 		/// Get login information
 		/// </summary>
-		/// <returns>Login user</returns>
-		public LoginUser? GetLoginInformation()
+		/// <returns>Login user view model</returns>
+		public BaseViewModel GetLoginInformation()
 		{
-			return _session.ExistsLoggedIn() ? _session.LoginUser : null;
+			if (!_session.ExistsLoggedIn()) return new EmptyViewModel();
+
+			var viewModel = new LoginUserViewModel
+			{
+				LoginId = _session.LoginUser.LoginId.AsString,
+				Name = _session.LoginUser.Name.AsString,
+			};
+
+			return viewModel;
 		}
 
 		/// <summary>
@@ -58,7 +64,7 @@ namespace w2.WebFrontDomain.Services.Forums
 			int pageSize)
 		{
 			if (!_session.ExistsLoggedIn()) return ResponseFactory.Error<ForumPaginationResponse>();
-			var loginUser =  _session.LoginUser;
+			var loginUser = _session.LoginUser;
 			var result = _forumService.GetAll(new Page(AsInt: page),
 				new PageSize(AsInt: pageSize));
 			var responseIds = result.Items.Select(x => x.ForumId).ToArray();
@@ -182,6 +188,7 @@ namespace w2.WebFrontDomain.Services.Forums
 		/// <summary>
 		/// Delete forum
 		/// </summary>
+		/// <param name="forumId">Forum id</param>
 		/// <returns>Forum Response</returns>
 		public ForumResponse DeleteForum(ForumId forumId)
 		{

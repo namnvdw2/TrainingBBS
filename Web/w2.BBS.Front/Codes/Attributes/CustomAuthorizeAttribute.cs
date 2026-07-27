@@ -1,7 +1,6 @@
 ﻿// (c) 2026 W2 Co.,Ltd.
 
 using SessionDomain.Repositories;
-using System.Web;
 using System.Web.Mvc;
 using w2.WebFrontDomain.Configurations;
 
@@ -13,40 +12,17 @@ namespace w2.BBS.Front.Codes.Attributes
 	public sealed class CustomAuthorizeAttribute : AuthorizeAttribute
 	{
 		/// <summary>
-		/// Authorize core
+		/// On authorization
 		/// </summary>
-		/// <param name="httpContext">Http context base</param>
-		/// <returns>True if authorized, otherwise return false</returns>
-		protected override bool AuthorizeCore(HttpContextBase httpContext)
+		/// <param name="filterContext">The authorization context</param>
+		public override void OnAuthorization(AuthorizationContext filterContext)
 		{
-			var session = DependencyResolver.Current.GetService<LoginUserSessionRepository>();
-
-			return session is not null && session.ExistsLoggedIn();
-		}
-
-		/// <summary>
-		/// Handle unauthorized request
-		/// </summary>
-		/// <param name="filterContext">Authorization context</param>
-		protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
-		{
-			if (filterContext.HttpContext.Request.IsAjaxRequest())
+			var sessionUserRepository = new LoginUserSessionRepository(filterContext.HttpContext.Session);
+			
+			if (sessionUserRepository is not null && sessionUserRepository.ExistsLoggedIn())
 			{
-				filterContext.Result = new JsonResult
-				{
-					Data = new
-					{
-						Success = false,
-						Message = "ログインしてください。"
-					},
-					JsonRequestBehavior = JsonRequestBehavior.AllowGet
-				};
-
-				filterContext.HttpContext.Response.StatusCode = 401;
-				return;
+				filterContext.Result = new RedirectResult(ConstantsPage.LoginPageUrl);
 			}
-
-			filterContext.Result = new RedirectResult(ConstantsPage.LoginPageUrl);
 		}
 	}
 }

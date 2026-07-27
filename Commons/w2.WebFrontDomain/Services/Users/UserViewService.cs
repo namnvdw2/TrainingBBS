@@ -8,8 +8,8 @@ using w2.Common.Logger;
 using w2.WebFrontDomain.Configurations;
 using w2.WebFrontDomain.Dto;
 using w2.WebFrontDomain.Dto.Users;
+using w2.WebFrontDomain.Interface;
 using w2.WebFrontDomain.Validator;
-using w2.WebFrontDomain.Validator.Users;
 using static w2.WebFrontDomain.Validator.CommonMessages;
 
 namespace w2.WebFrontDomain.Services.Users
@@ -21,16 +21,19 @@ namespace w2.WebFrontDomain.Services.Users
 	{
 		private readonly UserService _userService;
 		private readonly IUserRegisterSessionRepository _session;
+		private readonly IUserRegisterValidator _userRegisterValidator;
 
 		/// <summary>
 		/// Constructor
 		/// </summary>
 		public UserViewService(
 			UserService userService,
-			IUserRegisterSessionRepository session)
+			IUserRegisterSessionRepository session,
+			IUserRegisterValidator userRegisterValidator)
 		{
 			_userService = userService;
 			_session = session;
+			_userRegisterValidator = userRegisterValidator;
 		}
 
 		/// <summary>
@@ -43,7 +46,7 @@ namespace w2.WebFrontDomain.Services.Users
 			if (_session.ExistsLoggedIn())
 				return ResponseFactory.Success<UserRegisterModifyResponse>(ConstantsPage.TopForumPageUrl);
 
-			var userRegisterResponse = UserRegisterValidator.RegisterValidate(request, _userService);
+			var userRegisterResponse = _userRegisterValidator.ValidateRegisterData(request, _userService);
 			if (userRegisterResponse.HasError)
 				return (UserRegisterModifyResponse)userRegisterResponse;
 
@@ -121,7 +124,6 @@ namespace w2.WebFrontDomain.Services.Users
 				var response = ResponseFactory.Error(ConstantsPage.TopForumPageUrl);
 				response.Message = CommonMessages.GetMessage(CommonMessageKey.ErrorCancelFailed);
 
-				
 				return response;
 			}
 			_session.RemoveAllSession();
@@ -159,7 +161,7 @@ namespace w2.WebFrontDomain.Services.Users
 			if (!_session.ExistsLoggedIn())
 				return ResponseFactory.Error<UserRegisterModifyResponse>(ConstantsPage.LoginPageUrl);
 
-			var userRegisterResponse = UserRegisterValidator.DataValidate(request);
+			var userRegisterResponse = _userRegisterValidator.ValidateUserData(request);
 			if (userRegisterResponse.HasError) return userRegisterResponse;
 
 			_session.SetInput(userRegisterResponse.ResponseObject);

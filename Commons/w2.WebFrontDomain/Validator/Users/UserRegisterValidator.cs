@@ -1,11 +1,10 @@
 ﻿// (c) 2026 W2 Co.,Ltd.
 
-using System.Web.UI.WebControls;
-using System.Xml.Linq;
 using w2.AccountDomain.Domains.Users;
 using w2.AccountDomain.Services.Users;
 using w2.WebFrontDomain.Dto;
 using w2.WebFrontDomain.Dto.Users;
+using w2.WebFrontDomain.Interface;
 using static w2.WebFrontDomain.Validator.CommonMessages;
 
 namespace w2.WebFrontDomain.Validator.Users
@@ -13,19 +12,14 @@ namespace w2.WebFrontDomain.Validator.Users
 	/// <summary>
 	/// User register validator
 	/// </summary>
-	public sealed class UserRegisterValidator : UserValidator
+	public sealed class UserRegisterValidator : UserValidator, IUserRegisterValidator
 	{
-		/// <summary>
-		/// Register validate
-		/// </summary>
-		/// <param name="request">Use register request</param>
-		/// <param name="userService">Use service</param>
-		/// <returns>Use Register response</returns>
-		public static UserRegisterModifyResponse RegisterValidate(
+		/// <inheritdoc />
+		public UserRegisterModifyResponse ValidateRegisterData(
 			UserRegisterModifyRequest request,
 			UserService userService)
 		{
-			var response = DataValidate(request);
+			var response = ValidateUserData(request);
 
 			if (response.HasError) return response;
 
@@ -41,12 +35,8 @@ namespace w2.WebFrontDomain.Validator.Users
 			return response;
 		}
 
-		/// <summary>
-		/// Date validate
-		/// </summary>
-		/// <param name="request">User register modify request</param>
-		/// <returns>User register modify response</returns>
-		public static UserRegisterModifyResponse DataValidate(UserRegisterModifyRequest request)
+		/// <inheritdoc />
+		public UserRegisterModifyResponse ValidateUserData(UserRegisterModifyRequest request)
 		{
 			var response = ResponseFactory.Success<UserRegisterModifyResponse>(request?.NextUrl);
 			var loginIdErrorMessage = UserValidator.CheckLoginId(request?.LoginId);
@@ -75,7 +65,7 @@ namespace w2.WebFrontDomain.Validator.Users
 
 			response.ResponseObject = User.CreateUserForModify(
 				new LoginId(request?.LoginId ?? string.Empty),
-				new Name(request?.Name ?? string.Empty),
+				new UserName(request?.Name ?? string.Empty),
 				Password.FromPlainText(request?.Password ?? string.Empty));
 
 			return response;

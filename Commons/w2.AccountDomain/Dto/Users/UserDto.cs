@@ -18,24 +18,24 @@ namespace w2.AccountDomain.Dto.Users
 		/// </summary>
 		/// <param name="id">Id</param>
 		/// <param name="loginId">Login id</param>
-		/// <param name="name">Name</param>
+		/// <param name="userName">Name</param>
 		/// <param name="password">Password</param>
-		/// <param name="deleteFlg">Delete flg</param>
+		/// <param name="withdrawalStatus">Users withdrawal statu</param>
 		/// <param name="dateCreated">DateCreated</param>
 		/// <param name="dateChanged">DateChanged</param>
 		public UserDto(int id,
 			string loginId,
-			string name,
+			string userName,
 			string password,
-			string deleteFlg,
+			string withdrawalStatus,
 			DateTime dateCreated,
 			DateTime dateChanged)
 		{
 			this.Id = id;
 			this.LoginId = loginId;
-			this.Name = name;
+			this.UserName = userName;
 			this.Password = password;
-			this.DeleteFlg = deleteFlg;
+			this.WithdrawalStatus = withdrawalStatus;
 			this.DateCreated = dateCreated;
 			this.DateChanged = dateChanged;
 		}
@@ -44,18 +44,18 @@ namespace w2.AccountDomain.Dto.Users
 		/// </summary>
 		/// <param name="id">id</param>
 		/// <param name="loginId">Login id</param>
-		/// <param name="name">Name</param>
+		/// <param name="userName">Name</param>
 		/// <param name="password">Password</param>
 		public UserDto(int id,
 			string loginId,
-			string name,
+			string userName,
 			string password)
 		{
 			this.Id = id;
 			this.LoginId = loginId;
-			this.Name = name;
+			this.UserName = userName;
 			this.Password = password;
-			this.DeleteFlg = UsersWithdrawalStatus.Active.ToDbValue();
+			this.WithdrawalStatus = UsersWithdrawalStatus.Active.ToDbValue();
 			this.DateCreated = DateTime.MinValue;
 			this.DateChanged = DateTime.MinValue;
 		}
@@ -66,9 +66,9 @@ namespace w2.AccountDomain.Dto.Users
 		{
 			this.Id = int.MinValue;
 			this.LoginId = string.Empty;
-			this.Name = string.Empty;
+			this.UserName = string.Empty;
 			this.Password = string.Empty;
-			this.DeleteFlg = UsersWithdrawalStatus.Active.ToDbValue();
+			this.WithdrawalStatus = UsersWithdrawalStatus.Active.ToDbValue();
 			this.DateCreated = DateTime.MinValue;
 			this.DateChanged = DateTime.MinValue;
 		}
@@ -80,15 +80,15 @@ namespace w2.AccountDomain.Dto.Users
 		/// <summary>LoginId</summary>
 		[HashtableAlias("login_id")]
 		public string LoginId { get; set; }
-		/// <summary>Name</summary>
+		/// <summary>User name</summary>
 		[HashtableAlias("name")]
-		public string Name { get; set; }
+		public string UserName { get; set; }
 		/// <summary>Password</summary>
 		[HashtableAlias("password")]
 		public string Password { get; set; }
-		/// <summary>Delete flag</summary>
+		/// <summary>Users withdrawal status</summary>
 		[HashtableAlias("delete_flg")]
-		public string DeleteFlg { get; set; }
+		public string WithdrawalStatus { get; set; }
 		/// <summary>Date created</summary>
 		[HashtableAlias("date_created")]
 		public DateTime DateCreated { get; set; }
