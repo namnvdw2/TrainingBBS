@@ -47,8 +47,8 @@ namespace SessionDomain.Repositories
 		/// <inheritdoc />
 		public abstract void Clear();
 
-		/// <summary>Login user</summary>
-		public LoginUser? LoginUser
+		/// <inheritdoc />
+		public LoginUser LoginUser
 		{
 			get
 			{
