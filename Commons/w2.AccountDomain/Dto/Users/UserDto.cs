@@ -26,7 +26,8 @@ namespace w2.AccountDomain.Dto.Users
 		public UserDto(int id,
 			string loginId,
 			string userName,
-			string password,
+			string hashPassword,
+			string saltPassword,
 			string withdrawalStatus,
 			DateTime dateCreated,
 			DateTime dateChanged)
@@ -34,7 +35,8 @@ namespace w2.AccountDomain.Dto.Users
 			this.Id = id;
 			this.LoginId = loginId;
 			this.UserName = userName;
-			this.Password = password;
+			this.HashPassword = hashPassword;
+			this.SaltPassword = saltPassword;
 			this.WithdrawalStatus = withdrawalStatus;
 			this.DateCreated = dateCreated;
 			this.DateChanged = dateChanged;
@@ -49,12 +51,14 @@ namespace w2.AccountDomain.Dto.Users
 		public UserDto(int id,
 			string loginId,
 			string userName,
-			string password)
+			string hashPassword,
+			string saltPassword)
 		{
 			this.Id = id;
 			this.LoginId = loginId;
 			this.UserName = userName;
-			this.Password = password;
+			this.HashPassword = hashPassword;
+			this.SaltPassword = saltPassword;
 			this.WithdrawalStatus = UsersWithdrawalStatus.Active.ToDbValue();
 			this.DateCreated = DateTime.MinValue;
 			this.DateChanged = DateTime.MinValue;
@@ -67,7 +71,8 @@ namespace w2.AccountDomain.Dto.Users
 			this.Id = int.MinValue;
 			this.LoginId = string.Empty;
 			this.UserName = string.Empty;
-			this.Password = string.Empty;
+			this.HashPassword = string.Empty;
+			this.SaltPassword = string.Empty;
 			this.WithdrawalStatus = UsersWithdrawalStatus.Active.ToDbValue();
 			this.DateCreated = DateTime.MinValue;
 			this.DateChanged = DateTime.MinValue;
@@ -83,9 +88,12 @@ namespace w2.AccountDomain.Dto.Users
 		/// <summary>User name</summary>
 		[HashtableAlias("user_name")]
 		public string UserName { get; set; }
-		/// <summary>Password</summary>
-		[HashtableAlias("password")]
-		public string Password { get; set; }
+		/// <summary>Hash password</summary>
+		[HashtableAlias("hash_password")]
+		public string HashPassword { get; set; }
+		/// <summary>Hash password</summary>
+		[HashtableAlias("salt_password")]
+		public string SaltPassword { get; set; }
 		/// <summary>Users withdrawal status</summary>
 		[HashtableAlias("delete_flg")]
 		public string WithdrawalStatus { get; set; }

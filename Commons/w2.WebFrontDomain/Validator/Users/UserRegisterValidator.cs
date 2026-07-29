@@ -66,7 +66,7 @@ namespace w2.WebFrontDomain.Validator.Users
 			response.ResponseObject = User.CreateUserForModify(
 				new LoginId(request?.LoginId ?? string.Empty),
 				new UserName(request?.Name ?? string.Empty),
-				Password.FromPlainText(request?.Password ?? string.Empty));
+				new Password(request?.Password ?? string.Empty));
 
 			return response;
 		}

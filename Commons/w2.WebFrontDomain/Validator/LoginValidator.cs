@@ -6,6 +6,7 @@ using w2.AccountDomain.Domains.Users;
 using w2.AccountDomain.Services.Users;
 using w2.WebFrontDomain.Dto;
 using w2.WebFrontDomain.Dto.Users;
+using w2.WebFrontDomain.Helper;
 using w2.WebFrontDomain.Interface;
 using w2.WebFrontDomain.Validator.Users;
 using static w2.WebFrontDomain.Validator.CommonMessages;
@@ -36,7 +37,8 @@ namespace w2.WebFrontDomain.Validator
 
 			var user = userService.GetByLoginId(new LoginId(request?.LoginId ?? string.Empty));
 			if (user is null
-				|| !user.CanLogin(Password.FromPlainText(request?.Password ?? string.Empty)))
+				|| !user.CanLogin()
+				|| !HashUtility.Verify(request?.Password ?? string.Empty, user.HashPassword.AsString, user.SaltPassword.AsString))
 			{
 				response.Success = false;
 				response.Message = GetMessage(CommonMessageKey.ErrorLoginIdOrPasswordInvalid);

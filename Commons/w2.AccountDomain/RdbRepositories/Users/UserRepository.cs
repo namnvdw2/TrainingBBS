@@ -74,7 +74,11 @@ namespace w2.AccountDomain.RdbRepositories.Users
 			dto.LoginId = user.LoginId.AsString;
 			dto.UserName = user.UserName.AsString;
 			dto.DateChanged = DateTime.Now;
-			if (user.Password.HasRawValue()) dto.Password = user.Password.HashPassword;
+			if (!string.IsNullOrEmpty(user.Password.AsString))
+			{
+				dto.HashPassword = user.HashPassword.AsString;
+				dto.SaltPassword = user.SaltPassword.AsString;
+			}
 
 			var input = dto
 				.ToHashtable()

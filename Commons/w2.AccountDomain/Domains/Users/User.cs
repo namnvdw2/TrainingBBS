@@ -19,6 +19,8 @@ namespace w2.AccountDomain.Domains.Users
 		/// <param name="loginId">Login id</param>
 		/// <param name="userName">User name</param>
 		/// <param name="password">Password</param>
+		/// <param name="hashPassword">Hash password</param>
+		/// <param name="saltPassword">Salt password</param>
 		/// <param name="withdrawalStatus">Users withdrawal status</param>
 		/// <param name="dateCreated">Date created</param>
 		/// <param name="dateChanged">Date changed</param>
@@ -26,6 +28,8 @@ namespace w2.AccountDomain.Domains.Users
 			LoginId loginId,
 			UserName userName,
 			Password password,
+			HashPassword hashPassword,
+			SaltPassword saltPassword,
 			UsersWithdrawalStatus withdrawalStatus,
 			DateCreated dateCreated,
 			DateChanged dateChanged)
@@ -34,6 +38,8 @@ namespace w2.AccountDomain.Domains.Users
 			this.LoginId = loginId;
 			this.UserName = userName;
 			this.Password = password;
+			this.HashPassword = hashPassword;
+			this.SaltPassword = saltPassword;
 			this.WithdrawalStatus = withdrawalStatus;
 			this.DateCreated = dateCreated;
 			this.DateChanged = dateChanged;
@@ -53,10 +59,36 @@ namespace w2.AccountDomain.Domains.Users
 				loginId,
 				userName,
 				password,
+				new HashPassword(AsString: string.Empty),
+				new SaltPassword(AsString: string.Empty),
 				new UsersWithdrawalStatus(),
 				new DateCreated(AsDateTime: DateTime.MinValue),
 				new DateChanged(AsDateTime: DateTime.MinValue));
 		}
+
+		/// <summary>
+		/// Apply Hash Password
+		/// </summary>
+		/// <param name="user">User</param>
+		/// <param name="hashPassword">Hash password</param>
+		/// <param name="saltPassword">Salt password</param>
+		/// <returns>User</returns>
+		public static User ApplyHashPassword(User user,
+			HashPassword hashPassword,
+			SaltPassword saltPassword)
+		{
+			return new User(user.UserId,
+				user.LoginId,
+				user.UserName,
+				user.Password,
+				hashPassword,
+				saltPassword,
+				user.WithdrawalStatus,
+				user.DateCreated,
+				user.DateChanged);
+		}
+
+
 
 		/// <summary>
 		/// Create by Dto
@@ -68,7 +100,9 @@ namespace w2.AccountDomain.Domains.Users
 			return new User(new UserId(AsInt: dto.Id),
 				new LoginId(AsString: dto.LoginId),
 				new UserName(AsString: dto.UserName),
-				Password.FromHash(dto.Password),
+				new Password(AsString: string.Empty),
+				new HashPassword(AsString: dto.HashPassword),
+				new SaltPassword(AsString: dto.SaltPassword),
 				DbValueAttribute.ParseToEnum<UsersWithdrawalStatus>(dto.WithdrawalStatus),
 				new DateCreated(AsDateTime: dto.DateCreated),
 				new DateChanged(AsDateTime: dto.DateChanged));
@@ -84,7 +118,8 @@ namespace w2.AccountDomain.Domains.Users
 				this.UserId.AsInt,
 				this.LoginId.AsString,
 				this.UserName.AsString,
-				this.Password.HashPassword,
+				this.HashPassword.AsString,
+				this.SaltPassword.AsString,
 				this.WithdrawalStatus.ToDbValue(),
 				this.DateCreated.AsDateTime,
 				this.DateChanged.AsDateTime);
@@ -93,17 +128,10 @@ namespace w2.AccountDomain.Domains.Users
 		/// <summary>
 		/// Can login user
 		/// </summary>
-		/// <param name="password">The password</param>
 		/// <returns>True: user can login.</returns>
-		public bool CanLogin(Password password)
+		public bool CanLogin()
 		{
-			if (string.IsNullOrEmpty(password.RawPassword)) return false;
-
-			if (this.LoginId is null) return false;
-
-			if (!this.Password.Verify(password.RawPassword)) return false;
-
-			if (this.WithdrawalStatus.IsCanceled()) return false;
+			if (this.LoginId is null || this.WithdrawalStatus.IsCanceled()) return false;
 
 			return true;
 		}
@@ -116,6 +144,10 @@ namespace w2.AccountDomain.Domains.Users
 		public UserName UserName { get; }
 		/// <summary>Password</summary>
 		public Password Password { get; }
+		/// <summary>Password</summary>
+		public HashPassword HashPassword { get; }
+		/// <summary>Password</summary>
+		public SaltPassword SaltPassword { get; }
 		/// <summary>Cancel flag</summary>
 		public UsersWithdrawalStatus WithdrawalStatus { get; }
 		/// <summary>DateCreated</summary>

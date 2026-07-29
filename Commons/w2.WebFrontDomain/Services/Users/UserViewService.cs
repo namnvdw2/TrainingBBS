@@ -3,11 +3,13 @@
 using SessionDomain.Dto.Users;
 using SessionDomain.Interface;
 using System;
+using w2.AccountDomain.Domains.Users;
 using w2.AccountDomain.Services.Users;
 using w2.Common.Logger;
 using w2.WebFrontDomain.Configurations;
 using w2.WebFrontDomain.Dto;
 using w2.WebFrontDomain.Dto.Users;
+using w2.WebFrontDomain.Helper;
 using w2.WebFrontDomain.Interface;
 using w2.WebFrontDomain.Validator;
 using static w2.WebFrontDomain.Validator.CommonMessages;
@@ -82,6 +84,11 @@ namespace w2.WebFrontDomain.Services.Users
 				return ResponseFactory.Error<UserRegisterModifyResponse>(ConstantsPage.UserRegisterInputPageUrl);
 			try
 			{
+				var saltPassword = HashUtility.CreateSalt();
+				input = User.ApplyHashPassword(
+					input,
+					new HashPassword(HashUtility.CreateHash(input.Password.AsString, saltPassword)),
+					new SaltPassword(saltPassword));
 				_userService.Insert(input);
 			}
 			catch (Exception ex)
@@ -183,6 +190,15 @@ namespace w2.WebFrontDomain.Services.Users
 			var loginUser = _session.LoginUser;
 			try
 			{
+				if (!string.IsNullOrEmpty(input.Password.AsString))
+				{
+					var saltPassword = HashUtility.CreateSalt();
+					input = User.ApplyHashPassword(
+						input,
+						new HashPassword(HashUtility.CreateHash(input.Password.AsString, saltPassword)),
+						new SaltPassword(saltPassword));
+				}
+
 				_userService.Update(loginUser.UserId, input);
 			}
 			catch (Exception ex)
