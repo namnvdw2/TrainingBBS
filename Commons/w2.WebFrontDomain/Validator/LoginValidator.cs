@@ -23,18 +23,29 @@ namespace w2.WebFrontDomain.Validator
 			UserService userService,
 			[NotNullWhen(returnValue: true)] out LoginUser? resultUser)
 		{
+			resultUser = null;
 			var response = ResponseFactory.Success<LoginResponse>(request?.NextUrl);
+			var error = CheckLoginId(request?.LoginId);
+
+			if (error != string.Empty)
+			{
+				response.AddError(nameof(request.LoginId), error);
+
+				return response;
+			}
+
 			var user = userService.GetByLoginId(new LoginId(request?.LoginId ?? string.Empty));
 			if (user is null
 				|| !user.CanLogin(Password.FromPlainText(request?.Password ?? string.Empty)))
 			{
 				response.Success = false;
 				response.Message = GetMessage(CommonMessageKey.ErrorLoginIdOrPasswordInvalid);
-				resultUser = null;
+
 				return response;
 			}
 
 			resultUser = LoginUser.CreateByUser(user);
+
 			return response;
 		}
 	}

@@ -33,7 +33,8 @@ namespace w2.AccountDomain.RdbRepositories.Users
 			var dto = _repository
 				.GetWithBuilder<UserDto>(f =>
 					f.Query("w2_Account")
-					.Where("id", id.AsInt))
+					.Where("id", id.AsInt)
+					.Where("delete_flg", UsersWithdrawalStatus.Active.ToDbValue()))
 				.FirstOrDefault();
 			return dto is not null ? User.CreateByDto(dto) : null;
 		}
@@ -42,7 +43,10 @@ namespace w2.AccountDomain.RdbRepositories.Users
 		public User? Get(LoginId loginId)
 		{
 			var dto = _repository.GetWithBuilder<UserDto>(
-				f => f.Query("w2_Account").Where("login_id", loginId.AsString)).FirstOrDefault();
+				f => f.Query("w2_Account")
+					.Where("login_id", loginId.AsString)
+					.Where("delete_flg", UsersWithdrawalStatus.Active.ToDbValue()))
+				.FirstOrDefault();
 
 			return dto is not null ? User.CreateByDto(dto) : null;
 		}

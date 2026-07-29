@@ -1,6 +1,7 @@
 ﻿// (c) 2026 W2 Co.,Ltd.
 
 using System.Web.Mvc;
+using w2.BBS.Front.Codes.Attributes;
 using w2.BBS.Front.Controller.Shared;
 using w2.WebFrontDomain.Configurations;
 using w2.WebFrontDomain.Dto.Users;
@@ -101,6 +102,7 @@ namespace w2.BBS.Front.Controller
 		/// Withdrawal confirm
 		/// </summary>
 		[HttpGet]
+		[CustomAuthorizeAttribute]
 		[Route("withdrawal/confirm")]
 		public ActionResult WithdrawalConfirm()
 		{
@@ -111,6 +113,7 @@ namespace w2.BBS.Front.Controller
 		/// Cancel confirm
 		/// </summary>
 		[HttpPost]
+		[CustomAuthorizeAttribute]
 		[Route("withdrawal")]
 		public ActionResult ExecCancel()
 		{
@@ -122,6 +125,7 @@ namespace w2.BBS.Front.Controller
 		/// Withdrawal complete
 		/// </summary>
 		[HttpGet]
+		[CustomAuthorizeAttribute]
 		[Route("withdrawal/complete")]
 		public ActionResult WithdrawalComplete()
 		{ 
@@ -132,6 +136,7 @@ namespace w2.BBS.Front.Controller
 		/// Modify input
 		/// </summary>
 		[HttpGet]
+		[CustomAuthorizeAttribute]
 		[Route("modify/input")]
 		public ActionResult ModifyInput()
 		{
@@ -146,6 +151,7 @@ namespace w2.BBS.Front.Controller
 		/// Modify account
 		/// </summary>
 		[HttpPost]
+		[CustomAuthorizeAttribute]
 		[Route("modify")]
 		public ActionResult ModifyAccount(UserRegisterModifyRequest request)
 		{
@@ -157,6 +163,7 @@ namespace w2.BBS.Front.Controller
 		/// Modify confirm view
 		/// </summary>
 		[HttpGet]
+		[CustomAuthorizeAttribute]
 		[Route("modify/confirm")]
 		public ActionResult ModifyConfirmView()
 		{
@@ -173,6 +180,7 @@ namespace w2.BBS.Front.Controller
 		/// Save modify user
 		/// </summary>
 		[HttpPost]
+		[CustomAuthorizeAttribute]
 		[Route("modify/confirm/save")]
 		public ActionResult SaveModifyUser()
 		{

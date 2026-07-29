@@ -77,7 +77,7 @@ namespace w2.WebFrontDomain.Services.Forums
 				{
 					var responseDto = new ForumResponseDto(forum);
 					responseDto.IsOwner = loginUser.UserId.AsInt == responseDto.UserId;
-					if (forumResponses is not null)
+					if (forumResponses.Length > 0)
 					{
 						var responseList = forumResponses
 							.Where(res => responseDto.ForumId == res.ForumId.AsInt)
@@ -85,6 +85,7 @@ namespace w2.WebFrontDomain.Services.Forums
 							.ToList();
 						responseDto.SetResponses(responseList);
 					}
+
 					return responseDto;
 				}).ToList(),
 				CurrentPage = page,
@@ -92,6 +93,7 @@ namespace w2.WebFrontDomain.Services.Forums
 				TotalCount = result.TotalCount,
 				TotalPage = (int)Math.Ceiling((double)result.TotalCount / pageSize)
 			};
+
 			return response;
 		}
 
@@ -134,15 +136,10 @@ namespace w2.WebFrontDomain.Services.Forums
 			var response = _validator.Validate(request);
 			if (response.HasError) return (ForumResponse)response;
 			var forumResponse = new ForumRes(
-				new ResForumId(AsInt: 0),
 				new ForumId(forum.ForumId.AsInt),
 				new ForumUserId(loginUser.UserId.AsInt),
-				new ForumUserName(loginUser.Name.AsString),
 				new ForumTitle(request.Title ?? string.Empty),
-				new ForumText(request.Content ?? string.Empty),
-				ForumDeleteFlagStatus.Active,
-				new DateCreated(forum.DateCreated.AsDateTime),
-				new DateChanged(forum.DateChanged.AsDateTime));
+				new ForumText(request.Content ?? string.Empty));
 
 			_forumService.InsertResponse(forumResponse);
 
@@ -190,12 +187,12 @@ namespace w2.WebFrontDomain.Services.Forums
 		/// </summary>
 		/// <param name="forumId">Forum id</param>
 		/// <returns>Forum Response</returns>
-		public ForumResponse DeleteForum(ForumId forumId)
+		public ForumResponse DeleteForum(int forumId)
 		{
 			if (!_session.ExistsLoggedIn()) return ResponseFactory.Error<ForumResponse>();
 
 			var loginUser = _session.LoginUser;
-			var forum = _forumService.GetById(forumId);
+			var forum = _forumService.GetById(new ForumId(forumId));
 			if (forum is null) return ResponseFactory.Error<ForumResponse>();
 
 			var response = _validator.CheckAccess(
@@ -203,7 +200,7 @@ namespace w2.WebFrontDomain.Services.Forums
 				forum);
 			if (!response.Success) return response;
 
-			var result = _forumService.Delete(forumId);
+			var result = _forumService.Delete(new ForumId(forumId));
 			if(result == 0) return ResponseFactory.Error<ForumResponse>();
 
 			return response;

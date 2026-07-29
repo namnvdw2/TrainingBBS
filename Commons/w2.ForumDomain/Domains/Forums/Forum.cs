@@ -36,7 +36,7 @@ namespace w2.ForumDomain.Domains.Forums
 			this.Title = title;
 			this.Text = text;
 			this.DeleteFlag = deleteFlag;
-			this.UserName = new ForumUserName(string.Empty);
+			this.UserName = userName;
 			this.DateCreated = dateCreated;
 			this.DateChanged = dateChanged;
 		}

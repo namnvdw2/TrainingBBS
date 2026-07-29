@@ -16,11 +16,4 @@ namespace w2.ForumDomain.Domains.Forums
 		[DbValue("1")]
 		Deleted,
 	}
-
-	/// <summary>
-	/// Forum Delete Flag Type extension
-	/// </summary>
-	public static class ForumDeleteFlag
-	{
-	}
 }

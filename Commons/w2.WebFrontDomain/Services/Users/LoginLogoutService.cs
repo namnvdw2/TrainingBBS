@@ -44,21 +44,15 @@ namespace w2.WebFrontDomain.Services.Users
 				? request?.NextUrl
 				: ConstantsPage.TopForumPageUrl;
 
-			if (_session.ExistsLoggedIn()) return
-					ResponseFactory.Success<LoginResponse>(nextUrl);
-			LoginResponse loginResponse = new LoginResponse();
-			var error = UserValidator.CheckLoginId(request?.LoginId);
-			if (error != string.Empty)
-			{
-				loginResponse.AddError(nameof(request.LoginId),error);
-				return loginResponse;
-			}
+			if (_session.ExistsLoggedIn()) return ResponseFactory.Success<LoginResponse>(nextUrl);
 
 			var result = _loginValidator.Validate(request, _userService, out var user);
-			if (result.HasError || (user is null)) return (LoginResponse)result;
+
+			if (result.HasError || (user is null)) return result;
 
 			_session.LoginUser = user;
-			return ResponseFactory.Success<LoginResponse>(nextUrl);
+
+			return ResponseFactory.Success<LoginResponse>(nextUrl); ;
 		}
 
 		/// <summary>
@@ -68,6 +62,7 @@ namespace w2.WebFrontDomain.Services.Users
 		public BaseResponse Logout()
 		{
 			_session.RemoveAllSession();
+
 			return new BaseResponse()
 			{
 				RedirectUrl = ConstantsPage.LoginPageUrl

@@ -7,7 +7,6 @@ using w2.WebFrontDomain.Configurations;
 using w2.WebFrontDomain.Dto.Forums;
 using w2.WebFrontDomain.Services.Forums;
 using w2.WebFrontDomain.Services.Users;
-using w2.WebFrontDomain.ViewModels.Users;
 
 namespace w2.BBS.Front.Controller
 {
@@ -99,7 +98,7 @@ namespace w2.BBS.Front.Controller
 		[Route("delete-forum")]
 		public ActionResult Delete(int forumId)
 		{
-			var response = _forumService.DeleteForum(new ForumDomain.Domains.Forums.ForumId(forumId));
+			var response = _forumService.DeleteForum(forumId);
 			return JsonForJs(response);
 		}
 	}

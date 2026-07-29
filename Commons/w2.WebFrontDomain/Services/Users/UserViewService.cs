@@ -48,7 +48,7 @@ namespace w2.WebFrontDomain.Services.Users
 
 			var userRegisterResponse = _userRegisterValidator.ValidateRegisterData(request, _userService);
 			if (userRegisterResponse.HasError)
-				return (UserRegisterModifyResponse)userRegisterResponse;
+				return userRegisterResponse;
 
 			_session.SetInput(userRegisterResponse.ResponseObject);
 			userRegisterResponse = ResponseFactory.Success<UserRegisterModifyResponse>(ConstantsPage.UserRegisterConfirmPageUrl);
