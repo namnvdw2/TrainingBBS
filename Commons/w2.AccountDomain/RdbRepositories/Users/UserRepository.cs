@@ -20,7 +20,7 @@ namespace w2.AccountDomain.RdbRepositories.Users
 		private readonly ISqlRepository _repository;
 
 		/// <summary>
-		/// コンストラクタ
+		/// Constructor
 		/// </summary>
 		public UserRepository(ISqlRepository repository)
 		{
@@ -74,11 +74,7 @@ namespace w2.AccountDomain.RdbRepositories.Users
 			dto.LoginId = user.LoginId.AsString;
 			dto.UserName = user.UserName.AsString;
 			dto.DateChanged = DateTime.Now;
-			if (!string.IsNullOrEmpty(user.Password.AsString))
-			{
-				dto.HashPassword = user.HashPassword.AsString;
-				dto.SaltPassword = user.SaltPassword.AsString;
-			}
+			dto.HashPassword = user.Password.Encode();
 
 			var input = dto
 				.ToHashtable()

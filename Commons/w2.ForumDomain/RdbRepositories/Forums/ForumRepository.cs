@@ -16,7 +16,7 @@ namespace w2.ForumDomain.RdbRepositories.Forums
 	/// <summary>
 	/// Forum repository
 	/// </summary>
-	public sealed class ForumRepository : IForumRepository
+	internal sealed class ForumRepository : IForumRepository
 	{
 		private readonly ISqlRepository _repository;
 
@@ -40,9 +40,7 @@ namespace w2.ForumDomain.RdbRepositories.Forums
 						.Where("w2_Forum.delete_flg", ForumDeleteFlagStatus.Active.ToDbValue())
 						.OrderByDesc("w2_Forum.date_created"));
 			var totalCount = query.Count();
-
-			var skip = Math.Max(0, (page.AsInt - 1) * pageSize.AsInt);
-
+			var skip = page.GetSkip(pageSize.AsInt);
 			var forums = query
 				.Skip(skip)
 				.Take(pageSize.AsInt)
@@ -58,7 +56,8 @@ namespace w2.ForumDomain.RdbRepositories.Forums
 			var dto = _repository
 				.GetWithBuilder<ForumDto>(f =>
 					f.Query("w2_Forum")
-					.Where("forum_id", id.AsInt))
+					.Where("forum_id", id.AsInt)
+					.Where("w2_Forum.delete_flg", ForumDeleteFlagStatus.Active.ToDbValue()))
 				.FirstOrDefault();
 
 			return dto is not null ? Forum.CreateByDto(dto) : null;
@@ -89,6 +88,7 @@ namespace w2.ForumDomain.RdbRepositories.Forums
 			var result = _repository.ExecWithBuilder(f =>
 				f.Query("w2_Forum")
 					.Where("forum_id", forum.ForumId.AsInt)
+					.Where("w2_Forum.delete_flg", ForumDeleteFlagStatus.Active.ToDbValue())
 					.AsUpdate(input));
 
 			return result;

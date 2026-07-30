@@ -19,49 +19,25 @@ namespace w2.AccountDomain.Dto.Users
 		/// <param name="id">Id</param>
 		/// <param name="loginId">Login id</param>
 		/// <param name="userName">Name</param>
-		/// <param name="password">Password</param>
 		/// <param name="withdrawalStatus">Users withdrawal statu</param>
 		/// <param name="dateCreated">DateCreated</param>
 		/// <param name="dateChanged">DateChanged</param>
+		/// <param name="hashPassword">Hash password</param>
 		public UserDto(int id,
 			string loginId,
 			string userName,
-			string hashPassword,
-			string saltPassword,
 			string withdrawalStatus,
 			DateTime dateCreated,
-			DateTime dateChanged)
+			DateTime dateChanged,
+			string hashPassword)
 		{
 			this.Id = id;
 			this.LoginId = loginId;
 			this.UserName = userName;
 			this.HashPassword = hashPassword;
-			this.SaltPassword = saltPassword;
 			this.WithdrawalStatus = withdrawalStatus;
 			this.DateCreated = dateCreated;
 			this.DateChanged = dateChanged;
-		}
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="id">id</param>
-		/// <param name="loginId">Login id</param>
-		/// <param name="userName">Name</param>
-		/// <param name="password">Password</param>
-		public UserDto(int id,
-			string loginId,
-			string userName,
-			string hashPassword,
-			string saltPassword)
-		{
-			this.Id = id;
-			this.LoginId = loginId;
-			this.UserName = userName;
-			this.HashPassword = hashPassword;
-			this.SaltPassword = saltPassword;
-			this.WithdrawalStatus = UsersWithdrawalStatus.Active.ToDbValue();
-			this.DateCreated = DateTime.MinValue;
-			this.DateChanged = DateTime.MinValue;
 		}
 		/// <summary>
 		/// Constructor
@@ -72,7 +48,6 @@ namespace w2.AccountDomain.Dto.Users
 			this.LoginId = string.Empty;
 			this.UserName = string.Empty;
 			this.HashPassword = string.Empty;
-			this.SaltPassword = string.Empty;
 			this.WithdrawalStatus = UsersWithdrawalStatus.Active.ToDbValue();
 			this.DateCreated = DateTime.MinValue;
 			this.DateChanged = DateTime.MinValue;
@@ -80,7 +55,6 @@ namespace w2.AccountDomain.Dto.Users
 
 		/// <summary>Id</summary>
 		[HashtableIgnore]
-		[HashtableAlias("id")]
 		public int Id { get; set; }
 		/// <summary>LoginId</summary>
 		[HashtableAlias("login_id")]
@@ -91,9 +65,6 @@ namespace w2.AccountDomain.Dto.Users
 		/// <summary>Hash password</summary>
 		[HashtableAlias("hash_password")]
 		public string HashPassword { get; set; }
-		/// <summary>Hash password</summary>
-		[HashtableAlias("salt_password")]
-		public string SaltPassword { get; set; }
 		/// <summary>Users withdrawal status</summary>
 		[HashtableAlias("delete_flg")]
 		public string WithdrawalStatus { get; set; }

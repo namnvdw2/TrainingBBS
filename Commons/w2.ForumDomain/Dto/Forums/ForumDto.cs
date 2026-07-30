@@ -29,14 +29,12 @@ namespace w2.ForumDomain.Dto.Forums
 
 		/// <summary>Forum id</summary>
 		[HashtableIgnore]
-		[HashtableAlias("forum_id")]
 		public int ForumId { get; set; }
 		/// <summary>User id</summary>
 		[HashtableAlias("user_id")]
 		public int UserId { get; set; }
 		/// <summary>User name</summary>
 		[HashtableIgnore]
-		[HashtableAlias("user_name")]
 		public string UserName { get; set; }
 		/// <summary>Forum title</summary>
 		[HashtableAlias("forum_title")]

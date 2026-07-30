@@ -3,6 +3,7 @@
 using SessionDomain.Interface;
 using System;
 using System.Linq;
+using w2.AccountDomain.Domains.Users;
 using w2.ForumDomain.Domains.ForumRes;
 using w2.ForumDomain.Domains.Forums;
 using w2.ForumDomain.Services.Forums;
@@ -91,7 +92,7 @@ namespace w2.WebFrontDomain.Services.Forums
 				CurrentPage = page,
 				PageSize = pageSize,
 				TotalCount = result.TotalCount,
-				TotalPage = (int)Math.Ceiling((double)result.TotalCount / pageSize)
+				TotalPage = result.GetTotalPage(pageSize)
 			};
 
 			return response;
@@ -107,11 +108,11 @@ namespace w2.WebFrontDomain.Services.Forums
 			if (!_session.ExistsLoggedIn()) return ResponseFactory.Error<ForumResponse>();
 
 			var response = _validator.Validate(request);
-			if (response.HasError) return (ForumResponse)response;
+			if (response.HasError) return response;
 
 			var loginUser = _session.LoginUser;
 			var result = _forumService.Insert(new Forum(
-				new ForumUserId(loginUser.UserId.AsInt),
+				new UserId(loginUser.UserId.AsInt),
 				new ForumTitle(request.Title ?? string.Empty),
 				new ForumText(request.Content ?? string.Empty)));
 
@@ -134,10 +135,10 @@ namespace w2.WebFrontDomain.Services.Forums
 			if (forum is null) return ResponseFactory.Error<ForumResponse>();
 
 			var response = _validator.Validate(request);
-			if (response.HasError) return (ForumResponse)response;
+			if (response.HasError) return response;
 			var forumResponse = new ForumRes(
 				new ForumId(forum.ForumId.AsInt),
-				new ForumUserId(loginUser.UserId.AsInt),
+				new UserId(loginUser.UserId.AsInt),
 				new ForumTitle(request.Title ?? string.Empty),
 				new ForumText(request.Content ?? string.Empty));
 
@@ -162,10 +163,10 @@ namespace w2.WebFrontDomain.Services.Forums
 			var response = _validator.CheckAccess(
 				loginUser.UserId,
 				forum);
-			if (!response.Success) return (ForumResponse)response;
+			if (!response.Success) return response;
 
 			response = _validator.Validate(request);
-			if (response.HasError) return (ForumResponse)response;
+			if (response.HasError) return response;
 
 			var forumUpdated = new Forum(
 				forum.ForumId,

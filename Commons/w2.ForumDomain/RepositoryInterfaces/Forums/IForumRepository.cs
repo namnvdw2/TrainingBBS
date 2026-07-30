@@ -13,6 +13,8 @@ namespace w2.ForumDomain.RepositoryInterfaces.Forums
 		/// <summary>
 		/// Get all
 		/// </summary>
+		/// <param name="page">Page</param>
+		/// <param name="pageSize">Page size</param>
 		/// <returns>Pagination forum</returns>
 		PaginationResult<Forum> GetAll(Page page, PageSize pageSize);
 
@@ -33,6 +35,7 @@ namespace w2.ForumDomain.RepositoryInterfaces.Forums
 		/// Update
 		/// </summary>
 		/// <param name="forum">Forum</param>
+		/// <returns>Updated</returns>
 		int Update(Forum forum);
 
 		/// <summary>

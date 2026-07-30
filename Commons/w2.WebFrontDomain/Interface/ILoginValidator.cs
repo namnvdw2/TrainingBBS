@@ -20,7 +20,7 @@ namespace w2.WebFrontDomain.Interface
 		/// <param name="resultUser">Login user</param>
 		/// <returns>Login response</returns>
 		LoginResponse Validate(
-			LoginRequest? request,
+			LoginRequest request,
 			UserService userService,
 			[NotNullWhen(returnValue: true)] out LoginUser? resultUser);
 	}

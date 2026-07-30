@@ -6,7 +6,6 @@ using w2.AccountDomain.Domains.Users;
 using w2.AccountDomain.Services.Users;
 using w2.WebFrontDomain.Dto;
 using w2.WebFrontDomain.Dto.Users;
-using w2.WebFrontDomain.Helper;
 using w2.WebFrontDomain.Interface;
 using w2.WebFrontDomain.Validator.Users;
 using static w2.WebFrontDomain.Validator.CommonMessages;
@@ -20,13 +19,13 @@ namespace w2.WebFrontDomain.Validator
 	{
 		/// <inheritdoc />
 		public LoginResponse Validate(
-			LoginRequest? request,
+			LoginRequest request,
 			UserService userService,
 			[NotNullWhen(returnValue: true)] out LoginUser? resultUser)
 		{
 			resultUser = null;
-			var response = ResponseFactory.Success<LoginResponse>(request?.NextUrl);
-			var error = CheckLoginId(request?.LoginId);
+			var response = ResponseFactory.Success<LoginResponse>(request.NextUrl);
+			var error = CheckLoginId(request.LoginId);
 
 			if (error != string.Empty)
 			{
@@ -35,10 +34,9 @@ namespace w2.WebFrontDomain.Validator
 				return response;
 			}
 
-			var user = userService.GetByLoginId(new LoginId(request?.LoginId ?? string.Empty));
+			var user = userService.GetByLoginId(new LoginId(request.LoginId ?? string.Empty));
 			if (user is null
-				|| !user.CanLogin()
-				|| !HashUtility.Verify(request?.Password ?? string.Empty, user.HashPassword.AsString, user.SaltPassword.AsString))
+				|| !user.CanLogin(request.Password ?? string.Empty))
 			{
 				response.Success = false;
 				response.Message = GetMessage(CommonMessageKey.ErrorLoginIdOrPasswordInvalid);

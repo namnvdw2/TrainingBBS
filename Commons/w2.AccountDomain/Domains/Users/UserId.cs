@@ -7,13 +7,9 @@ namespace w2.AccountDomain.Domains.Users
 	/// <summary>
 	/// Id
 	/// </summary>
+	/// <param name="AsInt">The user id as a int</param>
 	[Serializable]
 	public sealed record UserId(int AsInt)
 	{
-		/// <inheritdoc />
-		public override string ToString()
-		{
-			return this.AsInt.ToString();
-		}
 	}
 }

@@ -22,6 +22,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\w2.AccountDomain\w2.AccountDomain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="w2.Common">
       <HintPath>..\..\lib\w2.Common.dll</HintPath>
     </Reference>

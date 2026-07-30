@@ -41,6 +41,7 @@ namespace w2.AccountDomain.RepositoryInterfaces.Users
 		/// Withdrawal
 		/// </summary>
 		/// <param name="userId">User id</param>
+		/// <returns>Withdrawaled</returns>
 		int Withdrawal(UserId userId);
 	}
 }

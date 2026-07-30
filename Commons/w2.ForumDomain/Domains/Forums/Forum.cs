@@ -1,6 +1,7 @@
 ﻿// (c) 2026 W2 Co.,Ltd.
 
 using System;
+using w2.AccountDomain.Domains.Users;
 using w2.Common.Helper.Attribute;
 using w2.ForumDomain.Dto.Forums;
 
@@ -20,10 +21,12 @@ namespace w2.ForumDomain.Domains.Forums
 		/// <param name="title">The title</param>
 		/// <param name="text">The text</param>
 		/// <param name="deleteFlag">The delete flag</param>
+		/// <param name="dateCreated">Date created</param>
+		/// <param name="dateChanged">Date changed</param>
 		public Forum(
 			ForumId forumId,
-			ForumUserId userId,
-			ForumUserName userName,
+			UserId userId,
+			UserName userName,
 			ForumTitle title,
 			ForumText text,
 			ForumDeleteFlagStatus deleteFlag,
@@ -47,13 +50,13 @@ namespace w2.ForumDomain.Domains.Forums
 		/// <param name="title">The title</param>
 		/// <param name="text">The text</param>
 		public Forum(
-			ForumUserId userId,
+			UserId userId,
 			ForumTitle title,
 			ForumText text)
 			: this(
 				new ForumId(AsInt: 0),
 				userId,
-				new ForumUserName(AsString: string.Empty),
+				new UserName(AsString: string.Empty),
 				title,
 				text,
 				ForumDeleteFlagStatus.Active,
@@ -71,8 +74,8 @@ namespace w2.ForumDomain.Domains.Forums
 		{
 			var forum = new Forum(
 				new ForumId(dto.ForumId),
-				new ForumUserId(dto.UserId),
-				new ForumUserName(dto.UserName),
+				new UserId(dto.UserId),
+				new UserName(dto.UserName),
 				new ForumTitle(dto.ForumTitle),
 				new ForumText(dto.ForumText),
 				DbValueAttribute.ParseToEnum<ForumDeleteFlagStatus>(dto.DeleteFlg),
@@ -106,9 +109,9 @@ namespace w2.ForumDomain.Domains.Forums
 		/// <summary>
 		/// Can access
 		/// </summary>
-		/// <param name="userId">userId</param>
+		/// <param name="userId">User id</param>
 		/// <returns>True if user id can update or delete, otherwise return false</returns>
-		public bool CanAccess(ForumUserId userId)
+		public bool CanAccess(UserId userId)
 		{
 			return userId == this.UserId;
 		}
@@ -116,7 +119,7 @@ namespace w2.ForumDomain.Domains.Forums
 		/// <summary>Forum ID</summary>
 		public ForumId ForumId { get; }
 		/// <summary>Forum user ID</summary>
-		public ForumUserId UserId { get; }
+		public UserId UserId { get; }
 		/// <summary>Forum title</summary>
 		public ForumTitle Title { get; }
 		/// <summary>Forum text</summary>
@@ -128,6 +131,6 @@ namespace w2.ForumDomain.Domains.Forums
 		/// <summary>Date created</summary>
 		public DateCreated DateCreated { get; }
 		/// <summary>User name</summary>
-		public ForumUserName UserName { get; }
+		public UserName UserName { get; }
 	}
 }

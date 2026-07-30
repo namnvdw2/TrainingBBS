@@ -14,7 +14,7 @@ namespace w2.ForumDomain.RepositoryInterfaces.ForumsRes
 		/// Get response
 		/// </summary>
 		/// <param name="ids">Forum id list</param>
-		/// <returns>Forum response dto list</returns>
+		/// <returns>Forum response list</returns>
 		ForumRes[] GetResponse(ForumId[] ids);
 
 		/// <summary>

@@ -25,7 +25,11 @@ namespace w2.AccountDomain.Domains.Users
 	[Serializable]
 	public static class UsersWithdrawalFlag
 	{
-		/// <summary>Check if it's been drawaled</summary>
+		/// <summary>
+		/// Check if it's been drawaled
+		/// </summary>
+		/// <param name="value">Users withdrawal status</param>
+		/// <returns>True if canceled. Otherwise return false</returns>
 		public static bool IsCanceled(this UsersWithdrawalStatus value) => value == UsersWithdrawalStatus.Canceled;
 	}
 }

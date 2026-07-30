@@ -38,8 +38,8 @@ namespace w2.WebFrontDomain.Validator.Users
 		/// <inheritdoc />
 		public UserRegisterModifyResponse ValidateUserData(UserRegisterModifyRequest request)
 		{
-			var response = ResponseFactory.Success<UserRegisterModifyResponse>(request?.NextUrl);
-			var loginIdErrorMessage = UserValidator.CheckLoginId(request?.LoginId);
+			var response = ResponseFactory.Success<UserRegisterModifyResponse>(request.NextUrl);
+			var loginIdErrorMessage = UserValidator.CheckLoginId(request.LoginId);
 			if (!string.IsNullOrEmpty(loginIdErrorMessage))
 			{
 				response.AddError(
@@ -47,7 +47,7 @@ namespace w2.WebFrontDomain.Validator.Users
 					loginIdErrorMessage);
 			}
 
-			var passwordErrorMessage = UserValidator.CheckPassword(request?.Password);
+			var passwordErrorMessage = UserValidator.CheckPassword(request.Password);
 			if (!string.IsNullOrEmpty(passwordErrorMessage))
 			{
 				response.AddError(
@@ -55,7 +55,7 @@ namespace w2.WebFrontDomain.Validator.Users
 					passwordErrorMessage);
 			}
 
-			var userNameErrorMessage = CheckName(request?.Name);
+			var userNameErrorMessage = CheckName(request.Name);
 			if (!string.IsNullOrEmpty(userNameErrorMessage))
 			{
 				response.AddError(
@@ -64,9 +64,9 @@ namespace w2.WebFrontDomain.Validator.Users
 			}
 
 			response.ResponseObject = User.CreateUserForModify(
-				new LoginId(request?.LoginId ?? string.Empty),
-				new UserName(request?.Name ?? string.Empty),
-				new Password(request?.Password ?? string.Empty));
+				new LoginId(request.LoginId ?? string.Empty),
+				new UserName(request.Name ?? string.Empty),
+				Password.CreateNew(request.Password ?? string.Empty));
 
 			return response;
 		}

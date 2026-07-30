@@ -40,8 +40,8 @@ namespace w2.WebFrontDomain.Services.Users
 		/// <returns>Login response</returns>
 		public LoginResponse Login(LoginRequest request)
 		{
-			var nextUrl = !string.IsNullOrEmpty(request?.NextUrl)
-				? request?.NextUrl
+			var nextUrl = !string.IsNullOrEmpty(request.NextUrl)
+				? request.NextUrl
 				: ConstantsPage.TopForumPageUrl;
 
 			if (_session.ExistsLoggedIn()) return ResponseFactory.Success<LoginResponse>(nextUrl);
@@ -52,7 +52,7 @@ namespace w2.WebFrontDomain.Services.Users
 
 			_session.LoginUser = user;
 
-			return ResponseFactory.Success<LoginResponse>(nextUrl); ;
+			return ResponseFactory.Success<LoginResponse>(nextUrl);
 		}
 
 		/// <summary>

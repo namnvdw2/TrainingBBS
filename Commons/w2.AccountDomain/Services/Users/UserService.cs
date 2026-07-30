@@ -34,7 +34,7 @@ namespace w2.AccountDomain.Services.Users
 		/// <summary>
 		/// Get by login id
 		/// </summary>
-		/// <param name="loginId"></param>
+		/// <param name="loginId">Login id</param>
 		/// <returns>Account</returns>
 		public User? GetByLoginId(LoginId loginId)
 		{
@@ -48,15 +48,17 @@ namespace w2.AccountDomain.Services.Users
 		/// <param name="user">User</param>
 		/// <returns>User inserted</returns>
 
-		public User Insert(User user)
+		public User? Insert(User user)
 		{
 			var existed = _userRepository.Get(user.LoginId);
 			if (existed is null)
 			{
 				_userRepository.Insert(user);
+
+				return user;
 			}
 
-			return user;
+			return null;
 		}
 
 		/// <summary>
@@ -66,15 +68,17 @@ namespace w2.AccountDomain.Services.Users
 		/// <param name="user">User</param>
 		/// <returns>User updated</returns>
 
-		public User Update(UserId id, User user)
+		public User? Update(UserId id, User user)
 		{
 			var existed = _userRepository.Get(id);
 			if (existed is not null)
 			{
 				_userRepository.Update(existed, user);
+
+				return user;
 			}
 
-			return user;
+			return null;
 		}
 
 		/// <summary>

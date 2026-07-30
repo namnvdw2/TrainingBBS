@@ -1,6 +1,7 @@
 ﻿// (c) 2026 W2 Co.,Ltd.
 
 using System;
+using w2.AccountDomain.Domains.Users;
 using w2.Common.Helper.Attribute;
 using w2.ForumDomain.Domains.Forums;
 using w2.ForumDomain.Dto.ForumRes;
@@ -22,18 +23,20 @@ namespace w2.ForumDomain.Domains.ForumRes
 		/// <param name="title">The title</param>
 		/// <param name="text">The text</param>
 		/// <param name="deleteFlag">The delete flag</param>
+		/// <param name="dateCreated">Date created</param>
+		/// <param name="dateChanged">Date changed</param>
 		public ForumRes(
-			ResForumId resForumId,
+			ForumResponseId resForumId,
 			ForumId forumId,
-			ForumUserId userId,
-			ForumUserName userName,
+			UserId userId,
+			UserName userName,
 			ForumTitle title,
 			ForumText text,
 			ForumDeleteFlagStatus deleteFlag,
 			DateCreated dateCreated,
 			DateChanged dateChanged)
 		{
-			this.ResForumId = resForumId;
+			this.ForumResponseId = resForumId;
 			this.ForumId = forumId;
 			this.UserId = userId;
 			this.UserName = userName;
@@ -52,14 +55,14 @@ namespace w2.ForumDomain.Domains.ForumRes
 		/// <param name="text">The text</param>
 		public ForumRes(
 			ForumId forumId,
-			ForumUserId userId,
+			UserId userId,
 			ForumTitle title,
 			ForumText text)
 			: this(
-				new ResForumId(AsInt: 0),
+				new ForumResponseId(AsInt: 0),
 				forumId,
 				userId,
-				new ForumUserName(AsString: string.Empty),
+				new UserName(AsString: string.Empty),
 				title,
 				text,
 				ForumDeleteFlagStatus.Active,
@@ -76,10 +79,10 @@ namespace w2.ForumDomain.Domains.ForumRes
 		internal static ForumRes CreateByDto(ForumResDto dto)
 		{
 			var forumRes = new ForumRes(
-				new ResForumId(AsInt: dto.ResponseId),
+				new ForumResponseId(AsInt: dto.ResponseId),
 				new ForumId(AsInt: dto.ForumId),
-				new ForumUserId(AsInt: dto.UserId),
-				new ForumUserName(AsString: dto.UserName),
+				new UserId(AsInt: dto.UserId),
+				new UserName(AsString: dto.UserName),
 				new ForumTitle(AsString: dto.ResponseTitle),
 				new ForumText(AsString: dto.ResponseText),
 				DbValueAttribute.ParseToEnum<ForumDeleteFlagStatus>(dto.DeleteFlg),
@@ -97,7 +100,7 @@ namespace w2.ForumDomain.Domains.ForumRes
 		{
 			var dto = new ForumResDto
 			{
-				ResponseId = this.ResForumId.AsInt,
+				ResponseId = this.ForumResponseId.AsInt,
 				ForumId = this.ForumId.AsInt,
 				UserId = this.UserId.AsInt,
 				ResponseTitle = this.Title.AsString,
@@ -111,11 +114,11 @@ namespace w2.ForumDomain.Domains.ForumRes
 		}
 
 		/// <summary>Response forum id</summary>
-		public ResForumId ResForumId { get; }
+		public ForumResponseId ForumResponseId { get; }
 		/// <summary>Forum id</summary>
 		public ForumId ForumId { get; }
 		/// <summary>Forum user id</summary>
-		public ForumUserId UserId { get; }
+		public UserId UserId { get; }
 		/// <summary>Forum title</summary>
 		public ForumTitle Title { get; }
 		/// <summary>Forum text</summary>
@@ -127,6 +130,6 @@ namespace w2.ForumDomain.Domains.ForumRes
 		/// <summary>Date created</summary>
 		public DateCreated DateCreated { get; }
 		/// <summary>User name</summary>
-		public ForumUserName UserName { get; }
+		public UserName UserName { get; }
 	}
 }

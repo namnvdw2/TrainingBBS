@@ -3,13 +3,11 @@
 using SessionDomain.Dto.Users;
 using SessionDomain.Interface;
 using System;
-using w2.AccountDomain.Domains.Users;
 using w2.AccountDomain.Services.Users;
 using w2.Common.Logger;
 using w2.WebFrontDomain.Configurations;
 using w2.WebFrontDomain.Dto;
 using w2.WebFrontDomain.Dto.Users;
-using w2.WebFrontDomain.Helper;
 using w2.WebFrontDomain.Interface;
 using w2.WebFrontDomain.Validator;
 using static w2.WebFrontDomain.Validator.CommonMessages;
@@ -82,25 +80,17 @@ namespace w2.WebFrontDomain.Services.Users
 			var input = _session.GetInput();
 			if (input is null)
 				return ResponseFactory.Error<UserRegisterModifyResponse>(ConstantsPage.UserRegisterInputPageUrl);
-			try
+
+			var inserted = _userService.Insert(input);
+			if (inserted is null)
 			{
-				var saltPassword = HashUtility.CreateSalt();
-				input = User.ApplyHashPassword(
-					input,
-					new HashPassword(HashUtility.CreateHash(input.Password.AsString, saltPassword)),
-					new SaltPassword(saltPassword));
-				_userService.Insert(input);
-			}
-			catch (Exception ex)
-			{
-				FileLogger.WriteError(ex);
 				var response = ResponseFactory.Error<UserRegisterModifyResponse>(ConstantsPage.UserRegisterInputPageUrl);
 				response.Message = CommonMessages.GetMessage(CommonMessageKey.ErrorRegisterFailed);
 
 				return response;
 			}
 
-			var user = _userService.GetByLoginId(input.LoginId);
+			var user = _userService.GetByLoginId(inserted.LoginId);
 			_session.Clear();
 
 			if (user is null)
@@ -188,29 +178,17 @@ namespace w2.WebFrontDomain.Services.Users
 				return ResponseFactory.Error<UserRegisterModifyResponse>(ConstantsPage.UserModifyInputPageUrl);
 
 			var loginUser = _session.LoginUser;
-			try
-			{
-				if (!string.IsNullOrEmpty(input.Password.AsString))
-				{
-					var saltPassword = HashUtility.CreateSalt();
-					input = User.ApplyHashPassword(
-						input,
-						new HashPassword(HashUtility.CreateHash(input.Password.AsString, saltPassword)),
-						new SaltPassword(saltPassword));
-				}
 
-				_userService.Update(loginUser.UserId, input);
-			}
-			catch (Exception ex)
+			var updated = _userService.Update(loginUser.UserId, input);
+			if (updated is null)
 			{
-				FileLogger.WriteError(ex);
 				var response = ResponseFactory.Error<UserRegisterModifyResponse>(ConstantsPage.UserModifyInputPageUrl);
 				response.Message = CommonMessages.GetMessage(CommonMessageKey.ErrorModifyFailed);
 
 				return response;
 			}
 
-			var account = _userService.GetByLoginId(input.LoginId);
+			var account = _userService.GetByLoginId(updated.LoginId);
 			_session.Clear();
 
 			if (account is null)

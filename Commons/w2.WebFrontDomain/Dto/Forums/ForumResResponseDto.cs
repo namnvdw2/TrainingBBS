@@ -16,7 +16,7 @@ namespace w2.WebFrontDomain.Dto.Forums
 		/// <param name="forum">Forum</param>
 		public ForumResResponseDto(ForumRes forum)
 		{
-			ForumResponseId = forum.ResForumId.AsInt;
+			ForumResponseId = forum.ForumResponseId.AsInt;
 			ForumId = forum.ForumId.AsInt;
 			Title = forum.Title.AsString;
 			Text = forum.Text.AsString;

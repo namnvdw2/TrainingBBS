@@ -6,13 +6,8 @@ namespace w2.ForumDomain.Domains.ForumRes
 	/// Response forum id
 	/// </summary>
 	/// <param name="AsInt">The id as int</param>
-	public sealed record ResForumId(int AsInt)
+	public sealed record ForumResponseId(int AsInt)
 	{
-		/// <inheritdoc />
-		public override string ToString()
-		{
-			return this.AsInt.ToString();
-		}
 	}
 }
 

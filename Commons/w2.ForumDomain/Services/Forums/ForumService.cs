@@ -78,13 +78,13 @@ namespace w2.ForumDomain.Services.Forums
 		/// <summary>
 		/// Insert
 		/// </summary>
-		/// <param name="forum">ForumRes</param>
+		/// <param name="forumResponse">Forum response</param>
 		/// <returns>Forum response inserted</returns>
-		public ForumRes InsertResponse(ForumRes forum)
+		public ForumRes InsertResponse(ForumRes forumResponse)
 		{
-			_forumResRepository.InsertResponse(forum);
+			_forumResRepository.InsertResponse(forumResponse);
 
-			return forum;
+			return forumResponse;
 		}
 
 		/// <summary>

@@ -1,5 +1,6 @@
 ﻿// (c) 2026 W2 Co.,Ltd.
 
+using System;
 using System.Collections.Generic;
 
 namespace w2.ForumDomain.Common
@@ -19,8 +20,20 @@ namespace w2.ForumDomain.Common
 			IReadOnlyList<T> items,
 			int totalCount)
 		{
-			Items = items;
-			TotalCount = totalCount;
+			this.Items = items;
+			this.TotalCount = totalCount;
+		}
+
+		/// <summary>
+		/// Get Total Page
+		/// </summary>
+		/// <param name="pageSize">Page size</param>
+		/// <returns>Total page number</returns>
+		public int GetTotalPage(int pageSize)
+		{
+			return pageSize != 0 ?
+				(int)Math.Ceiling((double)this.TotalCount / pageSize)
+				: 0;
 		}
 
 		/// <summary>Items</summary>
