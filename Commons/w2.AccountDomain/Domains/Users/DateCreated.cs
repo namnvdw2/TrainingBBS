@@ -9,5 +9,12 @@ namespace w2.AccountDomain.Domains.Users
 	/// </summary>
 	/// <param name="AsDateTime">Date created as DateTime</param>
 	[Serializable]
-	public sealed record DateCreated(DateTime AsDateTime);
+	public sealed record DateCreated(DateTime AsDateTime)
+	{
+		/// <inheritdoc />
+		public override string ToString()
+		{
+			return AsDateTime.ToString("yyyy/MM/dd hh:mm:ss");
+		}
+	}
 }

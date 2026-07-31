@@ -47,7 +47,6 @@ namespace w2.AccountDomain.Services.Users
 		/// </summary>
 		/// <param name="user">User</param>
 		/// <returns>User inserted</returns>
-
 		public User? Insert(User user)
 		{
 			var existed = _userRepository.Get(user.LoginId);
@@ -67,7 +66,6 @@ namespace w2.AccountDomain.Services.Users
 		/// <param name="id">User id</param>
 		/// <param name="user">User</param>
 		/// <returns>User updated</returns>
-
 		public User? Update(UserId id, User user)
 		{
 			var existed = _userRepository.Get(id);

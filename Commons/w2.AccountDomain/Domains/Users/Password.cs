@@ -101,7 +101,7 @@ namespace w2.AccountDomain.Domains.Users
 		/// <returns>True if validated, otherwise return false</returns>
 		public bool Validate(string password)
 		{
-			if (_isValidatable == false) return false;
+			if (!_isValidatable) return false;
 
 			using var sha = SHA256.Create();
 
@@ -117,9 +117,10 @@ namespace w2.AccountDomain.Domains.Users
 		/// <returns>Encode password</returns>
 		public string Encode()
 		{
-			if (_isValidatable == false) return "";
+			if (!_isValidatable) return string.Empty;
 
 			var result = Convert.ToBase64String(_hash.Concat(_salt).ToArray());
+
 			return result;
 		}
 
