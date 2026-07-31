@@ -3,6 +3,7 @@
 using System;
 using System.Collections;
 using System.Linq;
+using w2.AccountDomain.Domains.Users;
 using w2.Common.Helper.Attribute;
 using w2.ForumDomain.Common;
 using w2.ForumDomain.Domains.Forums;
@@ -40,7 +41,7 @@ namespace w2.ForumDomain.RdbRepositories.Forums
 						.Where("w2_Forum.delete_flg", ForumDeleteFlagStatus.Active.ToDbValue())
 						.OrderByDesc("w2_Forum.date_created"));
 			var totalCount = query.Count();
-			var skip = page.GetSkip(pageSize.AsInt);
+			var skip = page.GetSkip(pageSize);
 			var forums = query
 				.Skip(skip)
 				.Take(pageSize.AsInt)
@@ -100,6 +101,22 @@ namespace w2.ForumDomain.RdbRepositories.Forums
 			var result = _repository.ExecWithBuilder(f =>
 				f.Query("w2_Forum")
 				.Where("forum_id", id.AsInt)
+				.Where("delete_flg", ForumDeleteFlagStatus.Active.ToDbValue())
+				.AsUpdate(new
+				{
+					delete_flg = ForumDeleteFlagStatus.Deleted.ToDbValue(),
+					date_changed = DateTime.Now
+				}));
+
+			return result;
+		}
+
+		/// <inheritdoc />
+		public int DeleteByUserId(UserId id)
+		{
+			var result = _repository.ExecWithBuilder(f =>
+				f.Query("w2_Forum")
+				.Where("user_id", id.AsInt)
 				.Where("delete_flg", ForumDeleteFlagStatus.Active.ToDbValue())
 				.AsUpdate(new
 				{

@@ -19,7 +19,7 @@ namespace w2.BBS.Front.Codes.Attributes
 		{
 			var sessionUserRepository = new LoginUserSessionRepository(filterContext.HttpContext.Session);
 			
-			if (sessionUserRepository is null || !sessionUserRepository.ExistsLoggedIn())
+			if (!sessionUserRepository.ExistsLoggedIn())
 			{
 				filterContext.Result = new RedirectResult(ConstantsPage.LoginPageUrl);
 			}

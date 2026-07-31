@@ -17,7 +17,7 @@ namespace w2.WebFrontDomain.Dto.Users
 		/// <param name="backUrl">Back url</param>
 		/// <param name="includePassword">Include password</param>
 		/// <returns>User register modify view model</returns>
-		public UserRegisterModifyViewModel ToViewModel(string backUrl, bool includePassword = false)
+		public UserRegisterModifyViewModel ToViewModel(string backUrl)
 		{
 			var viewModel = new UserRegisterModifyViewModel
 			{
@@ -28,7 +28,7 @@ namespace w2.WebFrontDomain.Dto.Users
 			{
 				viewModel.LoginId = ResponseObject.LoginId.AsString;
 				viewModel.Name = ResponseObject.UserName.AsString;
-				viewModel.Password = includePassword ? ResponseObject.Password.ToString() : null;
+				viewModel.Password = ResponseObject.Password.ToString();
 			}
 
 			return viewModel;

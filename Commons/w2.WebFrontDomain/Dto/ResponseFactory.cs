@@ -12,9 +12,9 @@ namespace w2.WebFrontDomain.Dto
 		/// </summary>
 		/// <param name="nextUrl">Next url</param>
 		/// <returns>Success response as BaseResponse</returns>
-		public static BaseResponse Success(string? nextUrl = "")
+		public static EmptyResponse Success(string? nextUrl = "")
 		{
-			return new BaseResponse
+			return new EmptyResponse
 			{
 				Success = true,
 				RedirectUrl = nextUrl ?? string.Empty
@@ -26,9 +26,9 @@ namespace w2.WebFrontDomain.Dto
 		/// </summary>
 		/// <param name="nextUrl">Next url</param>
 		/// <returns>Error response as BaseResponse</returns>
-		public static BaseResponse Error(string? nextUrl = "")
+		public static EmptyResponse Error(string? nextUrl = "")
 		{
-			return new BaseResponse
+			return new EmptyResponse
 			{
 				Success = false,
 				RedirectUrl = nextUrl ?? string.Empty

@@ -57,7 +57,7 @@ namespace w2.WebFrontDomain.Validator.Forums
 			Forum forum)
 		{
 			ForumResponse response = ResponseFactory.Success<ForumResponse>();
-			if (!forum.CanAccess(new UserId(userId.AsInt)))
+			if (!forum.CanAccess(userId))
 			{
 				response.Message = GetMessage(CommonMessageKey.ErrorCannotAccess);
 				response.Success = false;

@@ -58,7 +58,7 @@
       読み込み中...
     </div>
 
-    <div v-else-if="forums.length == 0">
+    <div v-else-if="forums.length === 0">
       投稿がありません。
     </div>
 
@@ -114,7 +114,7 @@
             <div class="mt-1">本文： ${ response.Text }</div>
           </div>
         </div>
-        <div v-if="editingForumId == forum.ForumId" class="border rounded p-3 mt-3 bg-light">
+        <div v-if="editingForumId === forum.ForumId" class="border rounded p-3 mt-3 bg-light">
           <div class="row mb-3">
             <label class="col-sm-2 text-end">
               編集タイトル：
@@ -140,7 +140,7 @@
             <a href="#" @click.prevent="cancelEdit">キャンセル</a>
           </div>
         </div>
-        <div v-if="replyForumId == forum.ForumId" class="border rounded p-3 mt-3 bg-light">
+        <div v-if="replyForumId === forum.ForumId" class="border rounded p-3 mt-3 bg-light">
           <div class="row mb-3 align-items-start">
             <label class="col-sm-2 text-end">
               レス作成者：
@@ -183,13 +183,13 @@
     </div>
     <nav v-if="totalPage>1">
       <ul class="pagination justify-content-center mt-5">
-        <li :class="['page-item', { disabled: currentPage == 1 }]">
+        <li :class="['page-item', { disabled: currentPage === 1 }]">
           <a href="#" class="page-link" @click.prevent="changePage(currentPage-1)"> Previous </a>
         </li>
         <li :class="['page-item', { active:page==currentPage }]" v-for="page in pages" :key="page" >
           <a href="#" class="page-link" @click.prevent="changePage(page)"> ${ page } </a>
         </li>
-        <li :class="['page-item', { disabled: currentPage == totalPage }]">
+        <li :class="['page-item', { disabled: currentPage === totalPage }]">
           <a href="#" class="page-link" @click.prevent="changePage(currentPage+1)"> Next </a>
         </li>
       </ul>
@@ -227,7 +227,7 @@
         fetch(window.apiRoot + 'forum/post-forum', options)
           .then(response => {
             if (!response.ok) {
-              throw new Error(`HTTP ${response.Status}`);
+              throw new Error(`HTTP ${response.status}`);
             }
 
             return response.json();
@@ -384,7 +384,7 @@
             this.errorMessage = result.Message || "";
           })
           .catch(() => {
-            this.editErrorMessage = "エラーが発生しました。";
+            this.errorMessage = "エラーが発生しました。";
           });
       },
       deleteForum(forumId) {
@@ -465,7 +465,7 @@
             this.errorMessage = result.Message || "";
           })
           .catch(() => {
-            this.replyErrorMessage = "エラーが発生しました。";
+            this.errorMessage = "エラーが発生しました。";
           });
       },
     }

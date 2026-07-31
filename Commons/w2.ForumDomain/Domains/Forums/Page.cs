@@ -15,9 +15,9 @@ namespace w2.ForumDomain.Domains.Forums
 		/// </summary>
 		/// <param name="pageSize">Page size</param>
 		/// <returns>Number of record is skiped</returns>
-		public int GetSkip(int pageSize)
+		public int GetSkip(PageSize pageSize)
 		{
-			return Math.Max(0, (AsInt - 1) * pageSize);
+			return Math.Max(0, (AsInt - 1) * pageSize.AsInt);
 		}
 	}
 }

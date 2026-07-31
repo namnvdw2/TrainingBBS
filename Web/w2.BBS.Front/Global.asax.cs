@@ -1,4 +1,6 @@
-﻿using System;
+﻿// (c) 2026 W2 Co.,Ltd.
+
+using System;
 using System.Web;
 using System.Web.Routing;
 using w2.Common;

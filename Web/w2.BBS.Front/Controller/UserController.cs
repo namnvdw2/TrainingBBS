@@ -38,9 +38,7 @@ namespace w2.BBS.Front.Controller
 
 			return View(
 				"Account/Register/input.liquid",
-				response.ToViewModel(
-					ConstantsPage.LoginPageUrl,
-					includePassword: true));
+				response.ToViewModel(ConstantsPage.LoginPageUrl));
 		}
 
 		/// <summary>
@@ -66,9 +64,7 @@ namespace w2.BBS.Front.Controller
 
 			return View(
 				"Account/Register/confirm.liquid",
-				request.ToViewModel(
-					ConstantsPage.UserRegisterInputPageUrl,
-					includePassword: true));
+				request.ToViewModel(ConstantsPage.UserRegisterInputPageUrl));
 		}
 
 		/// <summary>
@@ -119,6 +115,7 @@ namespace w2.BBS.Front.Controller
 		public ActionResult ExecCancel()
 		{
 			var response = _userService.ExecWithdrawal();
+
 			return JsonForJs(response);
 		}
 
@@ -173,9 +170,7 @@ namespace w2.BBS.Front.Controller
 
 			return View(
 				"Account/Modify/confirm.liquid",
-				response.ToViewModel(
-					ConstantsPage.UserModifyInputPageUrl,
-					includePassword: true));
+				response.ToViewModel(ConstantsPage.UserModifyInputPageUrl));
 		}
 
 		/// <summary>

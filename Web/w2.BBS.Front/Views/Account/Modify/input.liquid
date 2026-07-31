@@ -1,6 +1,6 @@
 {% _layout 'layout.liquid' %}
 
-{% _area title %}ログイン画面{% end_area %}
+{% _area title %}会員情報変更{% end_area %}
 
 {% _area head_resource %}
 {% end_area %}
@@ -81,7 +81,7 @@
           }),
         }
 
-        const promise = fetch(window.apiRoot + 'user/modify', options)
+        fetch(window.apiRoot + 'user/modify', options)
           .then(response => {
             if (!response.ok) {
               throw new Error(`HTTP ${response.status}`);

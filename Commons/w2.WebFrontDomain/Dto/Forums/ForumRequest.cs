@@ -8,8 +8,8 @@ namespace w2.WebFrontDomain.Dto.Forums
 	public abstract class ForumRequest : BaseRequest
 	{
 		/// <summary>Title</summary>
-		public string? Title { get; set; }
+		public string Title { get; set; } = string.Empty;
 		/// <summary>Content</summary>
-		public string? Content { get; set; }
+		public string Content { get; set; } = string.Empty;
 	}
 }

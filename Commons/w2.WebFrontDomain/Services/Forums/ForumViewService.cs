@@ -132,7 +132,7 @@ namespace w2.WebFrontDomain.Services.Forums
 			if (!_session.ExistsLoggedIn()) return ResponseFactory.Error<ForumResponse>();
 
 			var loginUser = _session.LoginUser;
-			var forum = _forumService.GetById(new ForumDomain.Domains.Forums.ForumId(request.ForumId));
+			var forum = _forumService.GetById(new ForumId(request.ForumId));
 			if (forum is null) return ResponseFactory.Error<ForumResponse>();
 
 			var response = _validator.Validate(request);
@@ -141,8 +141,8 @@ namespace w2.WebFrontDomain.Services.Forums
 			var forumResponse = new ForumRes(
 				new ForumId(forum.ForumId.AsInt),
 				new UserId(loginUser.UserId.AsInt),
-				new ForumTitle(request.Title ?? string.Empty),
-				new ForumText(request.Content ?? string.Empty));
+				new ForumTitle(request.Title),
+				new ForumText(request.Content));
 
 			_forumService.InsertResponse(forumResponse);
 
@@ -159,7 +159,7 @@ namespace w2.WebFrontDomain.Services.Forums
 			if (!_session.ExistsLoggedIn()) return ResponseFactory.Error<ForumResponse>();
 
 			var loginUser = _session.LoginUser;
-			var forum = _forumService.GetById(new ForumDomain.Domains.Forums.ForumId(request.ForumId));
+			var forum = _forumService.GetById(new ForumId(request.ForumId));
 			if (forum is null) return ResponseFactory.Error<ForumResponse>();
 
 			var response = _validator.CheckAccess(
@@ -174,8 +174,8 @@ namespace w2.WebFrontDomain.Services.Forums
 				forum.ForumId,
 				forum.UserId,
 				forum.UserName,
-				new ForumTitle(request.Title ?? string.Empty),
-				new ForumText(request.Content ?? string.Empty),
+				new ForumTitle(request.Title),
+				new ForumText(request.Content),
 				forum.DeleteFlag,
 				forum.DateCreated,
 				forum.DateChanged);

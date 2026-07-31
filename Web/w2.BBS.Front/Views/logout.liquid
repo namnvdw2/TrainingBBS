@@ -34,6 +34,8 @@ g_vueManager.setComponent("logout-page", {
         window.location.href = result.RedirectUrl;
         return;
       }
+    }).catch(error => {
+      this.errorMessage = 'エラーが発生しました。時間をおいて再度お試しください。';
     });
   }
 });

@@ -3,6 +3,7 @@
 using System;
 using System.Collections;
 using System.Linq;
+using w2.AccountDomain.Domains.Users;
 using w2.Common.Helper.Attribute;
 using w2.ForumDomain.Domains.ForumRes;
 using w2.ForumDomain.Domains.Forums;
@@ -38,11 +39,16 @@ namespace w2.ForumDomain.RdbRepositories.ForumsRes
 			return _repository
 				.GetWithBuilder<ForumResDto>(f =>
 					f.Query("w2_ForumRes")
-						.Select("w2_ForumRes.*")
-						.Select("w2_Account.user_name")
-						.Join("w2_Account", "w2_ForumRes.user_id", "w2_Account.id")
-						.Where("w2_ForumRes.delete_flg", ForumDeleteFlagStatus.Active.ToDbValue())
-						.WhereIn("forum_id", forumIds))
+						.With("RankedForumRes", query => query
+							.From("w2_ForumRes")
+							.Select("w2_ForumRes.*")
+							.Select("w2_Account.user_name")
+							.SelectRaw("ROW_NUMBER() OVER (PARTITION BY w2_ForumRes.forum_id ORDER BY w2_ForumRes.date_created DESC) AS row_num")
+							.Join("w2_Account", "w2_ForumRes.user_id", "w2_Account.id")
+							.Where("w2_ForumRes.delete_flg", ForumDeleteFlagStatus.Active.ToDbValue())
+							.WhereIn("w2_ForumRes.forum_id", forumIds))
+						.From("RankedForumRes")
+						.Where("row_num", "<=", 3))
 				.Select(dto => ForumRes.CreateByDto(dto))
 				.ToArray();
 		}
@@ -59,6 +65,22 @@ namespace w2.ForumDomain.RdbRepositories.ForumsRes
 				.Cast<DictionaryEntry>()
 				.ToDictionary(de => (string)de.Key, de => de.Value);
 			_repository.ExecWithBuilder(f => f.Query("w2_ForumRes").AsInsert(input));
+		}
+
+		/// <inheritdoc />
+		public int DeleteByUserId(UserId id)
+		{
+			var result = _repository.ExecWithBuilder(f =>
+				f.Query("w2_ForumRes")
+				.Where("user_id", id.AsInt)
+				.Where("delete_flg", ForumDeleteFlagStatus.Active.ToDbValue())
+				.AsUpdate(new
+				{
+					delete_flg = ForumDeleteFlagStatus.Deleted.ToDbValue(),
+					date_changed = DateTime.Now
+				}));
+
+			return result;
 		}
 	}
 }

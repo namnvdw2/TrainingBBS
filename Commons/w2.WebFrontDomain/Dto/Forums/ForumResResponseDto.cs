@@ -21,8 +21,8 @@ namespace w2.WebFrontDomain.Dto.Forums
 			Title = forum.Title.AsString;
 			Text = forum.Text.AsString;
 			UserName = forum.UserName.AsString;
-			DateCreated = forum.DateCreated.AsDateTime;
-			DateChanged = forum.DateChanged.AsDateTime;
+			DateCreated = forum.DateCreated.ToString();
+			DateChanged = forum.DateChanged.ToString();
 		}
 
 		/// <summary>Forum response id</summary>
@@ -36,8 +36,8 @@ namespace w2.WebFrontDomain.Dto.Forums
 		/// <summary>User name</summary>
 		public string? UserName { get; set; }
 		/// <summary>Created date</summary>
-		public DateTime DateCreated { get; set; }
+		public string DateCreated { get; set; }
 		/// <summary>Updated date</summary>
-		public DateTime DateChanged { get; set; }
+		public string DateChanged { get; set; }
 	}
 }

@@ -14,7 +14,7 @@ namespace w2.AccountDomain.Domains.Users
 		/// <inheritdoc />
 		public override string ToString()
 		{
-			return AsDateTime.ToString("yyyy/MM/dd hh:mm:ss");
+			return AsDateTime.ToString("yyyy/MM/dd HH:mm:ss");
 		}
 	}
 }

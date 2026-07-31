@@ -19,7 +19,7 @@ namespace w2.AccountDomain.Dto.Users
 		/// <param name="id">Id</param>
 		/// <param name="loginId">Login id</param>
 		/// <param name="userName">Name</param>
-		/// <param name="withdrawalStatus">Users withdrawal statu</param>
+		/// <param name="withdrawalStatus">Users withdrawal status</param>
 		/// <param name="dateCreated">DateCreated</param>
 		/// <param name="dateChanged">DateChanged</param>
 		/// <param name="hashPassword">Hash password</param>

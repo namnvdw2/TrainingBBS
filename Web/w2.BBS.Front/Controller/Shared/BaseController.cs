@@ -42,7 +42,7 @@ namespace w2.BBS.Front.Controller.Shared
 				TempData.Get<string>(TempDataKey.AntiCsrfFormToken));
 
 			model = model ?? new EmptyViewModel();
-			_service.SetLoginUserToViewModel(model);
+			if (model is BaseViewModel vm) _service.SetLoginUserToViewModel(vm);
 
 			return new ContentResult
 			{

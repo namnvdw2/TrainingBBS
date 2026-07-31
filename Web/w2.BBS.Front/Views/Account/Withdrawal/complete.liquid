@@ -1,16 +1,16 @@
 {% _layout 'layout.liquid' %}
 
-{% _area title %}ログイン画面{% end_area %}
+{% _area title %}アカウント削除完了{% end_area %}
 
 {% _area head_resource %}
 {% end_area %}
 
 {% _area page_body %}
-<vue-withdrawal-compele></vue-withdrawal-compele>
+<vue-withdrawal-complete></vue-withdrawal-complete>
 {% end_area %}
 
 {% _area component %}
-<script type="text/x-template" id="vue-withdrawal-compele">
+<script type="text/x-template" id="vue-withdrawal-complete">
   <div class="container">
     <div class="d-flex justify-content-center align-items-center vh-100">
       <div class="justify-content-center">
@@ -26,9 +26,10 @@
 
 <script>
   {% _javascript key: "onload" %}
-  g_vueManager.setComponent('vue-withdrawal-compele', {
-    template: '#vue-withdrawal-compele',
+  g_vueManager.setComponent('vue-withdrawal-complete', {
+    template: '#vue-withdrawal-complete',
     data() {
+      return {};
     },
     mounted() {
       this.autoRedirect();

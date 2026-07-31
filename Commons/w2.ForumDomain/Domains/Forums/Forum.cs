@@ -39,7 +39,6 @@ namespace w2.ForumDomain.Domains.Forums
 			this.Title = title;
 			this.Text = text;
 			this.DeleteFlag = deleteFlag;
-			this.UserName = userName;
 			this.DateCreated = dateCreated;
 			this.DateChanged = dateChanged;
 		}
@@ -60,8 +59,8 @@ namespace w2.ForumDomain.Domains.Forums
 				title,
 				text,
 				ForumDeleteFlagStatus.Active,
-				new DateCreated(DateTime.MinValue),
-				new DateChanged(DateTime.MinValue))
+				new DateCreated(AsDateTime: DateTime.MinValue),
+				new DateChanged(AsDateTime: DateTime.MinValue))
 		{
 		}
 

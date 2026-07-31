@@ -58,30 +58,24 @@ namespace w2.WebFrontDomain.Services.Users
 		/// Logout
 		/// </summary>
 		/// <returns>Base response</returns>
-		public BaseResponse Logout()
+		public EmptyResponse Logout()
 		{
 			_session.RemoveAllSession();
 
-			return new BaseResponse()
-			{
-				RedirectUrl = ConstantsPage.LoginPageUrl
-			};
+			return ResponseFactory.Success(ConstantsPage.LoginPageUrl);
 		}
 
 		/// <summary>
 		/// Set login user to view model
 		/// </summary>
-		public void SetLoginUserToViewModel(object oldViewModel)
+		public void SetLoginUserToViewModel(BaseViewModel oldViewModel)
 		{
 			if (_session is not null && _session.ExistsLoggedIn())
 			{
-				if (oldViewModel is BaseViewModel vm)
-				{
-					var loginUser = _session.LoginUser;
+				var loginUser = _session.LoginUser;
 
-					vm.IsLogin = loginUser != null;
-					vm.LoginUserName = loginUser?.Name.AsString;
-				}
+				oldViewModel.IsLogin = loginUser != null;
+				oldViewModel.LoginUserName = loginUser?.Name.AsString;
 			}
 		}
 	}

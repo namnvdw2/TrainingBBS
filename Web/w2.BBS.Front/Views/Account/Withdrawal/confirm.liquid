@@ -1,6 +1,6 @@
 {% _layout 'layout.liquid' %}
 
-{% _area title %}ログイン画面{% end_area %}
+{% _area title %}アカウント削除{% end_area %}
 
 {% _area head_resource %}
 {% end_area %}
@@ -47,9 +47,6 @@
       };
     },
     methods: {
-      cancel() {
-        history.back();
-      },
       deleteAccount() {
         fetch(window.apiRoot + "user/withdrawal", {
           method: "POST",
@@ -57,21 +54,26 @@
             "Content-Type": "application/json"
           }
         })
-        .then(response => {
-          if (!response.ok) {
-            throw new Error(`HTTP ${response.status}`);
-          }
+          .then(response => {
+            if (!response.ok) {
+              throw new Error(`HTTP ${response.status}`);
+            }
 
-          return response.json();
-        })
-        .then(result => {
-          if (result.Success) {
-            window.location.href = result.RedirectUrl;
-            return;
-          }
+            return response.json();
+          })
+          .then(result => {
+            if (result.Success) {
+              window.location.href = result.RedirectUrl;
+              return;
+            }
 
-          this.errorMessage = result.Message || "エラーが発生しました。";
-        });
+            this.errorMessage = result.Message || "エラーが発生しました。";
+          })
+          .catch(error => {
+            if (window.showToast) {
+              window.showToast('エラーが発生しました。時間をおいて再度お試しください。', 'danger');
+            }
+          });
       }
     }
   });

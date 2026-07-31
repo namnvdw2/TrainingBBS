@@ -28,7 +28,7 @@ namespace w2.ForumDomain.Dto.ForumRes
 			this.DateChanged = DateTime.MinValue;
 		}
 
-		/// <summary>Forum id</summary>
+		/// <summary>Response id</summary>
 		[HashtableIgnore]
 		public int ResponseId { get; set; }
 		/// <summary>Forum id</summary>

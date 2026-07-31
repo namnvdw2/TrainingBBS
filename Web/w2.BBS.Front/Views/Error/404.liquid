@@ -126,7 +126,7 @@
       getMessage: function () {
         return fetch(window.apiRoot + '/get-message').then(response => {
           if (!response.ok) {
-            throw new Error(`HTTP ${res.status}`);
+            throw new Error(`HTTP ${response.status}`);
           }
 
           return response.json();
@@ -144,7 +144,7 @@
         const promise = fetch(window.apiRoot + '/update-message', options)
           .then(response => {
             if (!response.ok) {
-              throw new Error(`HTTP ${res.status}`);
+              throw new Error(`HTTP ${response.status}`);
             }
 
             return response.json();

@@ -1,5 +1,6 @@
 ﻿// (c) 2026 W2 Co.,Ltd.
 
+using w2.AccountDomain.Domains.Users;
 using w2.ForumDomain.Common;
 using w2.ForumDomain.Domains.ForumRes;
 using w2.ForumDomain.Domains.Forums;
@@ -109,6 +110,16 @@ namespace w2.ForumDomain.Services.Forums
 			var result = _forumRepository.Delete(id);
 
 			return result;
+		}
+
+		/// <summary>
+		/// Withdrawal
+		/// </summary>
+		/// <param name="userId">User id</param>
+		public void Withdrawal(UserId userId)
+		{
+			_forumRepository.DeleteByUserId(userId);
+			_forumResRepository.DeleteByUserId(userId);
 		}
 	}
 }

@@ -29,14 +29,16 @@ namespace w2.WebFrontDomain.Validator
 
 			if (error != string.Empty)
 			{
-				response.AddError(nameof(request.LoginId), error);
+				response.AddError(
+					LOGIN_ID_ERROR_KEY,
+					error);
 
 				return response;
 			}
 
-			var user = userService.GetByLoginId(new LoginId(request.LoginId ?? string.Empty));
+			var user = userService.GetByLoginId(new LoginId(request.LoginId));
 			if (user is null
-				|| !user.CanLogin(request.Password ?? string.Empty))
+				|| !user.CanLogin(request.Password))
 			{
 				response.Success = false;
 				response.Message = GetMessage(CommonMessageKey.ErrorLoginIdOrPasswordInvalid);

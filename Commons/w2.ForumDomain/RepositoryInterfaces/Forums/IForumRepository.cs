@@ -1,5 +1,6 @@
 ﻿// (c) 2026 W2 Co.,Ltd.
 
+using w2.AccountDomain.Domains.Users;
 using w2.ForumDomain.Common;
 using w2.ForumDomain.Domains.Forums;
 
@@ -45,5 +46,11 @@ namespace w2.ForumDomain.RepositoryInterfaces.Forums
 		/// <returns>Deleted</returns>
 		int Delete(ForumId id);
 
+		/// <summary>
+		/// Delete by user id
+		/// </summary>
+		/// <param name="id">User id</param>
+		/// <returns>Withdrawaled</returns>
+		int DeleteByUserId(UserId id);
 	}
 }

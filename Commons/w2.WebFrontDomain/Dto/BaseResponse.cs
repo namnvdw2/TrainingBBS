@@ -1,6 +1,7 @@
 ﻿// (c) 2026 W2 Co.,Ltd.
 
 using Newtonsoft.Json;
+using SqlKata;
 using System;
 using System.Collections.Generic;
 
@@ -10,7 +11,7 @@ namespace w2.WebFrontDomain.Dto
 	/// Base response
 	/// </summary>
 	[Serializable]
-	public class BaseResponse<T> : BaseResponse
+	public abstract class BaseResponse<T> : BaseResponse
 	{
 		/// <summary>Response object</summary>
 		public T? ResponseObject { get; set; }
@@ -20,7 +21,7 @@ namespace w2.WebFrontDomain.Dto
 	/// Base response
 	/// </summary>
 	[Serializable]
-	public class BaseResponse
+	public abstract class BaseResponse
 	{
 		/// <summary>
 		/// Adds an error message for the specified key

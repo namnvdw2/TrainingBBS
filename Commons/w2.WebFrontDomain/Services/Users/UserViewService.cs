@@ -3,8 +3,12 @@
 using SessionDomain.Dto.Users;
 using SessionDomain.Interface;
 using System;
+using System.Data;
 using w2.AccountDomain.Services.Users;
 using w2.Common.Logger;
+using w2.Common.Sql.Transactions;
+using w2.ForumDomain.Services.Forums;
+using w2.FoundationDomain.Transactions;
 using w2.WebFrontDomain.Configurations;
 using w2.WebFrontDomain.Dto;
 using w2.WebFrontDomain.Dto.Users;
@@ -20,6 +24,7 @@ namespace w2.WebFrontDomain.Services.Users
 	public sealed class UserViewService
 	{
 		private readonly UserService _userService;
+		private readonly ForumService _forumService;
 		private readonly IUserRegisterSessionRepository _session;
 		private readonly IUserRegisterValidator _userRegisterValidator;
 
@@ -28,10 +33,12 @@ namespace w2.WebFrontDomain.Services.Users
 		/// </summary>
 		public UserViewService(
 			UserService userService,
+			ForumService forumService,
 			IUserRegisterSessionRepository session,
 			IUserRegisterValidator userRegisterValidator)
 		{
 			_userService = userService;
+			_forumService = forumService;
 			_session = session;
 			_userRegisterValidator = userRegisterValidator;
 		}
@@ -110,9 +117,15 @@ namespace w2.WebFrontDomain.Services.Users
 			if (!_session.ExistsLoggedIn()) return ResponseFactory.Error();
 
 			var loginUser = _session.LoginUser;
+
 			try
 			{
+				using var transaction = TransactionScopeFactory.Create();
+
 				_userService.Withdrawal(loginUser.UserId);
+				_forumService.Withdrawal(loginUser.UserId);
+
+				transaction.Complete();
 			}
 			catch (Exception ex)
 			{
@@ -122,6 +135,7 @@ namespace w2.WebFrontDomain.Services.Users
 
 				return response;
 			}
+
 			_session.RemoveAllSession();
 
 			return ResponseFactory.Success(ConstantsPage.UserCancelCompletePageUrl);
