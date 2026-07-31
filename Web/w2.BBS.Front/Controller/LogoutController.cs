@@ -40,6 +40,7 @@ namespace w2.BBS.Front.Controller
 		public ActionResult Logout()
 		{
 			var logoutResult = _loginLogoutService.Logout();
+
 			return JsonForJs(logoutResult);
 		}
 	}

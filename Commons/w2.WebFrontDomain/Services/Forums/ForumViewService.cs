@@ -65,6 +65,7 @@ namespace w2.WebFrontDomain.Services.Forums
 			int pageSize)
 		{
 			if (!_session.ExistsLoggedIn()) return ResponseFactory.Error<ForumPaginationResponse>();
+
 			var loginUser = _session.LoginUser;
 			var result = _forumService.GetAll(new Page(AsInt: page),
 				new PageSize(AsInt: pageSize));
@@ -136,6 +137,7 @@ namespace w2.WebFrontDomain.Services.Forums
 
 			var response = _validator.Validate(request);
 			if (response.HasError) return response;
+
 			var forumResponse = new ForumRes(
 				new ForumId(forum.ForumId.AsInt),
 				new UserId(loginUser.UserId.AsInt),

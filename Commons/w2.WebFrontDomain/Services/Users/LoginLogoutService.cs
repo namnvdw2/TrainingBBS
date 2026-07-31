@@ -6,7 +6,6 @@ using w2.WebFrontDomain.Configurations;
 using w2.WebFrontDomain.Dto;
 using w2.WebFrontDomain.Dto.Users;
 using w2.WebFrontDomain.Interface;
-using w2.WebFrontDomain.Validator.Users;
 using w2.WebFrontDomain.ViewModels;
 
 namespace w2.WebFrontDomain.Services.Users

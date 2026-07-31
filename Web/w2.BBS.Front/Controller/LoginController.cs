@@ -41,6 +41,7 @@ namespace w2.BBS.Front.Controller
 		public ActionResult Login(LoginRequest request)
 		{
 			var loginResult = _loginLogoutService.Login(request);
+
 			return JsonForJs(loginResult);
 		}
 	}

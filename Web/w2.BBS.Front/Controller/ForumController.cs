@@ -51,6 +51,7 @@ namespace w2.BBS.Front.Controller
 			var response = _forumService.GetForumPagination(
 				page,
 				ConstantsPage.DefaultPageSize);
+
 			return JsonForJs(response);
 		}
 
@@ -63,6 +64,7 @@ namespace w2.BBS.Front.Controller
 		public ActionResult PostForum(PostForumRequest request)
 		{
 			var response = _forumService.PostForum(request);
+
 			return JsonForJs(response);
 		}
 
@@ -75,6 +77,7 @@ namespace w2.BBS.Front.Controller
 		public ActionResult PostReply(ReplyForumRequest request)
 		{
 			var response = _forumService.PostForumResponse(request);
+
 			return JsonForJs(response);
 		}
 
@@ -87,6 +90,7 @@ namespace w2.BBS.Front.Controller
 		public ActionResult UpdateForum(UpdateForumRequest request)
 		{
 			var response = _forumService.UpdateForum(request);
+
 			return JsonForJs(response);
 		}
 
@@ -99,6 +103,7 @@ namespace w2.BBS.Front.Controller
 		public ActionResult Delete(int forumId)
 		{
 			var response = _forumService.DeleteForum(forumId);
+
 			return JsonForJs(response);
 		}
 	}

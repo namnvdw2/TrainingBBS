@@ -51,6 +51,7 @@ namespace w2.BBS.Front.Controller
 		public ActionResult Register(UserRegisterModifyRequest request)
 		{
 			var response = _userService.RegisterValidate(request);
+
 			return JsonForJs(response);
 		}
 
@@ -156,6 +157,7 @@ namespace w2.BBS.Front.Controller
 		public ActionResult ModifyAccount(UserRegisterModifyRequest request)
 		{
 			var response = _userService.ModifyValidate(request);
+
 			return JsonForJs(response);
 		}
 
@@ -185,6 +187,7 @@ namespace w2.BBS.Front.Controller
 		public ActionResult SaveModifyUser()
 		{
 			var response = _userService.ExecModify();
+
 			return JsonForJs(response);
 		}
 	}

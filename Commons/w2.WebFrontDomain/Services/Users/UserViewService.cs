@@ -107,8 +107,7 @@ namespace w2.WebFrontDomain.Services.Users
 		/// <returns>Register response</returns>
 		public BaseResponse ExecWithdrawal()
 		{
-			if (!_session.ExistsLoggedIn())
-				return ResponseFactory.Error();
+			if (!_session.ExistsLoggedIn()) return ResponseFactory.Error();
 
 			var loginUser = _session.LoginUser;
 			try

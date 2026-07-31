@@ -36,6 +36,7 @@ namespace w2.AccountDomain.RdbRepositories.Users
 					.Where("id", id.AsInt)
 					.Where("delete_flg", UsersWithdrawalStatus.Active.ToDbValue()))
 				.FirstOrDefault();
+
 			return dto is not null ? User.CreateByDto(dto) : null;
 		}
 

@@ -113,8 +113,8 @@
     template: '#vue-index',
     data() {
       return {
-        message: "404 roi",
-        stateMessage: "404 ba la oi ba",
+        message: "404",
+        stateMessage: "",
       }
     },
     mounted() {
@@ -146,8 +146,6 @@
             if (!response.ok) {
               throw new Error(`HTTP ${res.status}`);
             }
-
-            this.stateMessage = 'DBXVŠ®—¹!';
 
             return response.json();
           });

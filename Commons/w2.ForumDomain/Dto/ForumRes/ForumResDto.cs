@@ -30,7 +30,6 @@ namespace w2.ForumDomain.Dto.ForumRes
 
 		/// <summary>Forum id</summary>
 		[HashtableIgnore]
-		[HashtableAlias("forum_response_id")]
 		public int ResponseId { get; set; }
 		/// <summary>Forum id</summary>
 		[HashtableAlias("forum_id")]
@@ -40,7 +39,6 @@ namespace w2.ForumDomain.Dto.ForumRes
 		public int UserId { get; set; }
 		/// <summary>User name</summary>
 		[HashtableIgnore]
-		[HashtableAlias("user_name")]
 		public string UserName { get; set; }
 		/// <summary>Forum title</summary>
 		[HashtableAlias("response_title")]

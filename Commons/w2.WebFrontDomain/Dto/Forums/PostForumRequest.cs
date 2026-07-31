@@ -6,6 +6,6 @@ namespace w2.WebFrontDomain.Dto.Forums
 	/// Post forum request
 	/// </summary>
 	public sealed class PostForumRequest : ForumRequest
-	{ 
+	{
 	}
 }
